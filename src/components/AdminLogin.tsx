@@ -40,7 +40,7 @@ function AdminLogin() {
         // Pass the credentials as state
         sessionStorage.setItem("admin_id", credentials.admin_id);
         sessionStorage.setItem("admin_pass", credentials.admin_pass);
-        navigate("/AdminDashboard", {
+        navigate("personal-expense-tracker/AdminDashboard", {
           state: {
             admin_id: isAdminValid.admin_id,
             admin_pass: credentials.admin_pass,

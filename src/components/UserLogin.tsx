@@ -7,10 +7,10 @@ function UserLogin() {
     <>
       <div>This is user Login</div>
       <button onClick={()=>{
-        navigate('/')
+        navigate('/personal-expense-tracker')
       }}>Go to homepage</button>
       <button onClick={()=>{
-        navigate('/BasicAPI')
+        navigate('personal-expense-tracker/BasicAPI')
       }}>Go to BasicAPI</button>
     </>
   );
