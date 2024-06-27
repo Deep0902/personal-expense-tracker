@@ -1,5 +1,6 @@
 {
   "name": "personal-expense-tracker",
+  "homepage": "https://deep0902.github.io/personal-expense-tracker",
   "private": true,
   "version": "0.0.0",
   "type": "module",
