@@ -23,12 +23,12 @@ function App() {
         </nav>
       </div> */}
       <Routes>
-        <Route index path="/" element={<HomePage />} />
-        <Route path="/BasicAPI" element={<BasicAPI />} />
-        <Route path="/AddExpense" element={<AddBasicAPI />} />
-        <Route path="/UserLogin" element={<UserLogin />} />
-        <Route path="/AdminLogin" element={<AdminLogin />} />
-        <Route path="/AdminDashboard" element={<AdminDashboard />} />
+        <Route index path="/personal-expense-tracker" element={<HomePage />} />
+        <Route path="personal-expense-tracker/BasicAPI" element={<BasicAPI />} />
+        <Route path="personal-expense-tracker/AddExpense" element={<AddBasicAPI />} />
+        <Route path="personal-expense-tracker/UserLogin" element={<UserLogin />} />
+        <Route path="personal-expense-tracker/AdminLogin" element={<AdminLogin />} />
+        <Route path="personal-expense-tracker/AdminDashboard" element={<AdminDashboard />} />
       </Routes>
     </Router>
   );
