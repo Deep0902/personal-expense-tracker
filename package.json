@@ -2,6 +2,7 @@
   "name": "personal-expense-tracker",
   "homepage": "https://deep0902.github.io/personal-expense-tracker",
   "private": true,
+  "proxy": "https://127.0.0.1:5000",
   "version": "0.0.0",
   "type": "module",
   "scripts": {

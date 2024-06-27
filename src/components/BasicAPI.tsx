@@ -30,7 +30,7 @@ function BasicAPI() {
   const token = "my_secure_token";
   useEffect(() => {
     axios
-      .get("https://127.0.0.1:5000/api/expenses", {
+      .get("expenses", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
