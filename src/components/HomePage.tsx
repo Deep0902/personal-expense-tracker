@@ -5,14 +5,14 @@ function HomePage() {
   const navigate = useNavigate()
   const [goToUserLogin, setGoToUserLogin] = React.useState(false);
     if(goToUserLogin){
-        return <Navigate to="personal-expense-tracker/UserLogin"/>
+        return <Navigate to="/UserLogin"/>
     }
   return (  
     <>
       <h1>Homepage</h1>
       <button onClick={() =>{setGoToUserLogin(true)}}>Go to User Login</button>
       <button onClick={()=>{
-          navigate('personal-expense-tracker/AdminLogin')
+          navigate('/AdminLogin')
         }}>Admin Login</button>
         <br /><br />
     </>

@@ -157,7 +157,7 @@ function BasicAPI() {
 
       <button
         onClick={() => {
-          navigate("personal-expense-tracker/AddExpense");
+          navigate("/AddExpense");
         }}
       >
         Go to add api
