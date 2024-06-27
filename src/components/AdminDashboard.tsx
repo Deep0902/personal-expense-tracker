@@ -18,7 +18,7 @@ function AdminDashboard() {
   const { admin_id, admin_pass } = location.state || {};
   useEffect(() => {
     if (!sessionStorage.admin_id || !sessionStorage.admin_pass) {
-      navigate("/");
+      navigate("/personal-expense-tracker");
       return;
     }
 
@@ -39,13 +39,13 @@ function AdminDashboard() {
         const isValidAdmin = res.data.valid;
         console.log(isValidAdmin);
         if (!isValidAdmin) {
-          navigate("/");
+          navigate("/personal-expense-tracker");
         } else {
           fetchUsers();
         }
       } catch (err) {
         console.log(err);
-        navigate("/");
+        navigate("/personal-expense-tracker");
       }
     };
 
@@ -70,7 +70,7 @@ function AdminDashboard() {
   const handleLogout = () => {
     sessionStorage.removeItem("admin_id");
     sessionStorage.removeItem("admin_pass");
-    navigate("/");
+    navigate("/personal-expense-tracker");
     window.history.pushState(null, "", "/");
   };
 

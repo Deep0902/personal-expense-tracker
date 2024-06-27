@@ -35,7 +35,7 @@ function AddBasicAPI() {
         console.error("Error adding user:", err);
       });
       alert('User added successfully')
-      navigate('/')
+      navigate('/personal-expense-tracker')
   };
 
   return (
@@ -87,7 +87,7 @@ function AddBasicAPI() {
           </button>
           <br />
           <button onClick={()=>{
-            navigate("/")
+            navigate("/personal-expense-tracker")
           }}>Go to homepage</button>
         </form>
       </div>
