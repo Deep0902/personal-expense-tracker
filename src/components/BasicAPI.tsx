@@ -30,7 +30,7 @@ function BasicAPI() {
   const token = "my_secure_token";
   useEffect(() => {
     axios
-      .get("http://127.0.0.1:5000/api/expenses", {
+      .get("https://127.0.0.1:5000/api/expenses", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -47,7 +47,7 @@ function BasicAPI() {
   const [admin_data, setData_admin] = useState<Admin[]>([]);
   useEffect(() => {
     axios
-      .get("http://127.0.0.1:5000/api/admin", {
+      .get("https://127.0.0.1:5000/api/admin", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -63,7 +63,7 @@ function BasicAPI() {
   const [users_data, setData_users] = useState<Users[]>([]);
   useEffect(() => {
     axios
-      .get("http://127.0.0.1:5000/api/users", {
+      .get("https://127.0.0.1:5000/api/users", {
         headers: {
           Authorization: `Bearer ${token}`,
         },

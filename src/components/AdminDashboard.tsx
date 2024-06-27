@@ -25,7 +25,7 @@ function AdminDashboard() {
     const verifyAdmin = async () => {
       try {
         const res = await axios.post(
-          "http://127.0.0.1:5000/api/admin",
+          "https://127.0.0.1:5000/api/admin",
           {
             admin_id: sessionStorage.admin_id,
             admin_pass: sessionStorage.admin_pass,
@@ -56,7 +56,7 @@ function AdminDashboard() {
 
   const fetchUsers = async () => {
     try {
-      const res = await axios.get("http://127.0.0.1:5000/api/users", {
+      const res = await axios.get("https://127.0.0.1:5000/api/users", {
         headers: {
           Authorization: `Bearer ${token}`,
         },

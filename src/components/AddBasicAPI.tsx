@@ -22,7 +22,7 @@ function AddBasicAPI() {
     e.preventDefault();
 
     axios
-      .post("http://127.0.0.1:5000/api/users", userDetails, {
+      .post("https://127.0.0.1:5000/api/users", userDetails, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
