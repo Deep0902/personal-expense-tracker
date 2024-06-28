@@ -14,6 +14,10 @@ function HomePage() {
       <button onClick={()=>{
           navigate('/AdminLogin')
         }}>Admin Login</button>
+        <br />
+      <button onClick={()=>{
+          navigate('/NewAPI')
+        }}>New API Display</button>
         <br /><br />
     </>
   );
