@@ -46,7 +46,8 @@ function AdminLogin() {
             admin_pass: credentials.admin_pass,
           },
         });
-      } if(!isAdminValid) {
+      }
+      if (!isAdminValid) {
         setError("Invalid credentials");
       }
     } catch (err) {
@@ -55,37 +56,39 @@ function AdminLogin() {
   };
 
   return (
-    <div className="login-container">
-      <h2>Admin Login</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>Admin ID:</label>
-          <input
-            type="text"
-            className="form-control"
-            name="admin_id"
-            value={credentials.admin_id}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label>Password:</label>
-          <input
-            type="password"
-            className="form-control"
-            name="admin_pass"
-            value={credentials.admin_pass}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <button type="submit" className="btn btn-primary">
-          Login
-        </button>
-        {error && <p className="error">{error}</p>}
-      </form>
-    </div>
+    <>
+      <div className="login-container">
+        <h2>Admin Login</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label>Admin ID:</label>
+            <input
+              type="text"
+              className="form-control"
+              name="admin_id"
+              value={credentials.admin_id}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label>Password:</label>
+            <input
+              type="password"
+              className="form-control"
+              name="admin_pass"
+              value={credentials.admin_pass}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <button type="submit" className="btn btn-primary">
+            Login
+          </button>
+          {error && <p className="error">{error}</p>}
+        </form>
+      </div>
+    </>
   );
 }
 

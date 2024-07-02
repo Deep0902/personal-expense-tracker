@@ -75,31 +75,34 @@ function AdminDashboard() {
   };
 
   return (
-    <div className="dashboard-container">
-      <h2>Admin Dashboard</h2>
-      {admin_id && <p>Hi, {admin_id}</p>}
-      <table>
-        <thead>
-          <tr>
-            <th>User ID</th>
-            <th>User Name</th>
-            <th>User Email</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((user) => (
-            <tr key={user.user_id}>
-              <td>{user.user_id}</td>
-              <td>{user.user_name}</td>
-              <td>{user.user_email}</td>
+    <>
+    <h3>Hello {sessionStorage.admin_id}</h3>
+      <div className="dashboard-container">
+        <h2>Admin Dashboard</h2>
+        {admin_id && <p>Hi, {admin_id}</p>}
+        <table>
+          <thead>
+            <tr>
+              <th>User ID</th>
+              <th>User Name</th>
+              <th>User Email</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-      <button onClick={handleLogout} className="btn btn-primary">
-        Logout
-      </button>
-    </div>
+          </thead>
+          <tbody>
+            {users.map((user) => (
+              <tr key={user.user_id}>
+                <td>{user.user_id}</td>
+                <td>{user.user_name}</td>
+                <td>{user.user_email}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <button onClick={handleLogout} className="btn btn-primary">
+          Logout
+        </button>
+      </div>
+    </>
   );
 }
 
