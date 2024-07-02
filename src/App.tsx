@@ -6,7 +6,6 @@ import UserLogin from "./components/UserLogin";
 import HomePage from "./components/HomePage";
 import AdminLogin from "./components/AdminLogin";
 import AdminDashboard from "./components/AdminDashboard";
-import NewAPI from "./components/NewAPI";
 
 function App() {
   return (
@@ -24,13 +23,12 @@ function App() {
         </nav>
       </div> */}
       <Routes>
-        <Route index path="/personal-expense-tracker" element={<HomePage />} />
+        <Route index path="/" element={<HomePage />} />
         <Route path="/BasicAPI" element={<BasicAPI />} />
         <Route path="/AddExpense" element={<AddBasicAPI />} />
         <Route path="/UserLogin" element={<UserLogin />} />
         <Route path="/AdminLogin" element={<AdminLogin />} />
         <Route path="/AdminDashboard" element={<AdminDashboard />} />
-        <Route path="/NewAPI" element={<NewAPI />} />
       </Routes>
     </Router>
   );

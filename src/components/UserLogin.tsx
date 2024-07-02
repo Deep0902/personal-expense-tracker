@@ -7,7 +7,7 @@ function UserLogin() {
     <>
       <div>This is user Login</div>
       <button onClick={()=>{
-        navigate('/personal-expense-tracker')
+        navigate('/')
       }}>Go to homepage</button>
       <button onClick={()=>{
         navigate('/BasicAPI')
