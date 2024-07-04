@@ -87,7 +87,7 @@ function AddBasicAPI() {
           </button>
           <br />
           <button onClick={()=>{
-            navigate("/")
+            navigate("/personal-expense-tracker")
           }}>Go to homepage</button>
         </form>
       </div>
