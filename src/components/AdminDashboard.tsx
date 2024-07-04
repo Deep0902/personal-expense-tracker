@@ -2,12 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import "../styles/table.css";
 import { useLocation, useNavigate } from "react-router-dom";
-
-interface Users {
-  user_id: number;
-  user_name: string;
-  user_email: string;
-}
+import { Users } from "../interfaces/Users";
 
 function AdminDashboard() {
   const navigate = useNavigate();

@@ -2,27 +2,9 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import "../styles/table.css";
 import { useNavigate } from "react-router-dom";
-interface Expense {
-  user_id: number;
-  title: string;
-  date: string;
-  amount: number;
-  transaction_no: number;
-  transaction_type: string;
-  category: string;
-}
-
-interface Admin {
-  admin_id: string;
-  admin_pass: string;
-}
-
-interface Users {
-  user_id: number;
-  user_email: string;
-  user_name: string;
-  user_pass: string;
-}
+import { Expense } from "../interfaces/Expense";
+import { Admin } from "../interfaces/Admin";
+import { Users } from "../interfaces/Users";
 
 function BasicAPI() {
   const navigate = useNavigate()

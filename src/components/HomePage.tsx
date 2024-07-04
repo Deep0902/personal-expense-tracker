@@ -15,6 +15,10 @@ function HomePage() {
           navigate('/AdminLogin')
         }}>Admin Login</button>
         <br /><br />
+      <button onClick={()=>{
+          navigate('/DummyData')
+        }}>Dummy Data Dsiplay</button>
+        <br />
     </>
   );
 }
