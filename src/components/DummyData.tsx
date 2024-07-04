@@ -93,7 +93,7 @@ export default function DummyData() {
 
       <button
         onClick={() => {
-          navigate("/");
+          navigate("/personal-expense-tracker");
         }}
       >
         Home
