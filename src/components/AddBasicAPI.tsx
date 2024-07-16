@@ -35,12 +35,12 @@ function AddBasicAPI() {
         console.error("Error adding user:", err);
       });
       alert('User added successfully')
-      navigate('/personal-expense-tracker')
+      navigate('/UserLogin')
   };
 
   return (
     <>
-      <div className="container">
+      <div className="container background-image">
         <h2>Add User</h2>
         <form onSubmit={handleSubmit}>
           <div className="form-group">

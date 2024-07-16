@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { dummyAdmins, dummyUsers, dummyExpenses } from "../dummyData"; // Import the dummy data
-import "../styles/table.css";
 import { Expense } from "../interfaces/Expense";
 import { Admin } from "../interfaces/Admin";
 import { Users } from "../interfaces/Users";

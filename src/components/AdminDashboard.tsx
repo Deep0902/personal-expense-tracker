@@ -65,8 +65,8 @@ function AdminDashboard() {
   const handleLogout = () => {
     sessionStorage.removeItem("admin_id");
     sessionStorage.removeItem("admin_pass");
-    navigate("/");
-    window.history.pushState(null, "", "/");
+    navigate("/personal-expense-tracker");
+    window.history.pushState(null, "", "/personal-expense-tracker");
   };
 
   return (

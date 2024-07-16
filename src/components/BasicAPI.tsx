@@ -7,7 +7,7 @@ import { Admin } from "../interfaces/Admin";
 import { Users } from "../interfaces/Users";
 
 function BasicAPI() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [expense_data, setData] = useState<Expense[]>([]);
   const token = "my_secure_token";
   useEffect(() => {
@@ -58,92 +58,93 @@ function BasicAPI() {
       });
   }, []);
 
-
   return (
     <>
-      <div className="container">
-        <h4>Expenses Collection</h4>
-        <table>
-          <thead>
-            <tr>
-              <th>User ID</th>
-              <th>Title</th>
-              <th>Category</th>
-              <th>Date</th>
-              <th>Amount</th>
-              <th>Transaction Type</th>
-              <th>Transaction No</th>
-            </tr>
-          </thead>
-          <tbody>
-            {expense_data.map((user, index) => {
-              return (
-                <tr key={index}>
-                  <td>{user.user_id}</td>
-                  <td>{user.title}</td>
-                  <td>{user.category}</td>
-                  <td>{user.date}</td>
-                  <td>{user.amount}</td>
-                  <td>{user.transaction_no}</td>
-                  <td>{user.transaction_type}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-        <br />
-        <h4>Admin Collection</h4>
-        <table>
-          <thead>
-            <tr>
-              <th>Admin ID</th>
-              <th>Admin Password</th>
-            </tr>
-          </thead>
-          <tbody>
-            {admin_data.map((user, index) => {
-              return (
-                <tr key={index}>
-                  <td>{user.admin_id}</td>
-                  <td>{user.admin_pass}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-        <br />
-        <h4>Users Collection</h4>
-        <table>
-          <thead>
-            <tr>
-              <th>User ID</th>
-              <th>User Name</th>
-              <th>User Email</th>
-              <th>User Password</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users_data.map((user, index) => {
-              return (
-                <tr key={index}>
-                  <td>{user.user_id}</td>
-                  <td>{user.user_name}</td>
-                  <td>{user.user_email}</td>
-                  <td>{user.user_pass}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
+      <div className="background-image">
+        <div className="container">
+          <h4>Expenses Collection</h4>
+          <table>
+            <thead>
+              <tr>
+                <th>User ID</th>
+                <th>Title</th>
+                <th>Category</th>
+                <th>Date</th>
+                <th>Amount</th>
+                <th>Transaction Type</th>
+                <th>Transaction No</th>
+              </tr>
+            </thead>
+            <tbody>
+              {expense_data.map((user, index) => {
+                return (
+                  <tr key={index}>
+                    <td>{user.user_id}</td>
+                    <td>{user.title}</td>
+                    <td>{user.category}</td>
+                    <td>{user.date}</td>
+                    <td>{user.amount}</td>
+                    <td>{user.transaction_no}</td>
+                    <td>{user.transaction_type}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+          <br />
+          <h4>Admin Collection</h4>
+          <table>
+            <thead>
+              <tr>
+                <th>Admin ID</th>
+                <th>Admin Password</th>
+              </tr>
+            </thead>
+            <tbody>
+              {admin_data.map((user, index) => {
+                return (
+                  <tr key={index}>
+                    <td>{user.admin_id}</td>
+                    <td>{user.admin_pass}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+          <br />
+          <h4>Users Collection</h4>
+          <table>
+            <thead>
+              <tr>
+                <th>User ID</th>
+                <th>User Name</th>
+                <th>User Email</th>
+                <th>User Password</th>
+              </tr>
+            </thead>
+            <tbody>
+              {users_data.map((user, index) => {
+                return (
+                  <tr key={index}>
+                    <td>{user.user_id}</td>
+                    <td>{user.user_name}</td>
+                    <td>{user.user_email}</td>
+                    <td>{user.user_pass}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
 
-      <button
-        onClick={() => {
-          navigate("/AddExpense");
-        }}
-      >
-        Go to add api
-      </button>
+        <button
+          onClick={() => {
+            navigate("/AddExpense");
+          }}
+        >
+          Go to add api
+        </button>
+      </div>
     </>
   );
 }

@@ -57,7 +57,7 @@ function AdminLogin() {
 
   return (
     <>
-      <div className="login-container">
+      <div className="login-container background-image">
         <h2>Admin Login</h2>
         <form onSubmit={handleSubmit}>
           <div className="form-group">

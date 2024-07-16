@@ -9,6 +9,7 @@ function HomePage() {
     }
   return (  
     <>
+    <div className="background-image">
       <h1>Homepage</h1>
       <button onClick={() =>{setGoToUserLogin(true)}}>Go to User Login</button>
       <button onClick={()=>{
@@ -18,7 +19,12 @@ function HomePage() {
       <button onClick={()=>{
           navigate('/DummyData')
         }}>Dummy Data Dsiplay</button>
+      <button onClick={()=>{
+          navigate('/LandingPage')
+        }}>Landing Page</button>
         <br />
+    </div>
+      
     </>
   );
 }

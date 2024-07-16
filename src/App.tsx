@@ -7,6 +7,7 @@ import HomePage from "./components/HomePage";
 import AdminLogin from "./components/AdminLogin";
 import AdminDashboard from "./components/AdminDashboard";
 import DummyData from "./components/DummyData";
+import LandingPage from "./components/LandingPage/LandingPage";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
         <Route path="/AdminLogin" element={<AdminLogin />} />
         <Route path="/AdminDashboard" element={<AdminDashboard />} />
         <Route path="/DummyData" element={<DummyData />} />
+        <Route path="/LandingPage" element={<LandingPage />} />
       </Routes>
     </Router>
   );
