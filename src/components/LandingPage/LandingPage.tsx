@@ -1,4 +1,4 @@
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "../LandingPage/LandingPage.css";
 import logo from "/images/logo.svg";
 import money from "/images/landing-page-money.png";
