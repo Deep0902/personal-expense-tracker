@@ -1,3 +1,17 @@
 body {
   font-family: Poppins;
 }
+
+.button-highlight{
+
+  border: none;
+  padding: 15px 30px;
+  border-radius: 5px;
+  color: white;
+  background-color: #4834d4;
+}
+
+.button-center{
+  display: flex;
+  justify-content: center;
+}
