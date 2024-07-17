@@ -8,6 +8,7 @@ import AdminLogin from "./components/AdminLogin";
 import AdminDashboard from "./components/AdminDashboard";
 import DummyData from "./components/DummyData";
 import LandingPage from "./components/LandingPage/LandingPage";
+import DeviceDimensions from "./components/DeviceDimensions";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
         <Route path="/AdminDashboard" element={<AdminDashboard />} />
         <Route path="/DummyData" element={<DummyData />} />
         <Route path="/LandingPage" element={<LandingPage />} />
+        <Route path="/DeviceDimentions" element={<DeviceDimensions />} />
       </Routes>
     </Router>
   );

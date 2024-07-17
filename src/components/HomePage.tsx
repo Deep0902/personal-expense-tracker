@@ -47,6 +47,13 @@ function HomePage() {
         >
           Dummy Data Dsiplay
         </button>
+        <button
+          onClick={() => {
+            navigate("/DeviceDimentions");
+          }}
+        >
+          Device Dimentions
+        </button>
 
         <br />
       </div>
