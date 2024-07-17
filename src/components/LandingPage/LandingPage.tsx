@@ -24,6 +24,7 @@ function LandingPage() {
           <img src={logo} alt="" />
           <span className="poppins-bold ">Personal Expense Tracker</span>
         </div>
+        
         <div className="navbar-right">
           <button className="poppins-medium desktop-button">Sign In</button>
           <button className="mobile-menu-button" onClick={toggleDropdown}>
@@ -45,13 +46,7 @@ function LandingPage() {
       <br />
       <br />
       <br />
-      <button
-        onClick={() => {
-          navigate("/personal-expense-tracker");
-        }}
-      >
-        Homepage
-      </button>
+      
         <div className="container">
           <div className="item item-1 poppins-semibold">
             <span>
@@ -69,6 +64,7 @@ function LandingPage() {
             <button className="poppins-medium">Sign Up</button>
           </div>
         </div>
+        
         <br />
         <br />
         <h5 className="poppins-medium h5-title">
@@ -192,6 +188,13 @@ function LandingPage() {
         <hr />
         <p>© 2024 Personal Expense Tracker. All rights reserved.</p>
       </div>
+      <button
+        onClick={() => {
+          navigate("/personal-expense-tracker");
+        }}
+      >
+        Homepage
+      </button>
     </>
   );
 }

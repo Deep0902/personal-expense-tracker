@@ -45,7 +45,7 @@ function HomePage() {
             navigate("/DummyData");
           }}
         >
-          Dummy Data Dsiplay
+          Dummy Data Display
         </button>
         <button
           onClick={() => {
