@@ -5,41 +5,56 @@ import money from "/images/landing-page-money.png";
 import devices from "/images/devices.png";
 import exportExcel from "/images/export-icon.png";
 import sofaChill from "/images/sofa-chill.png";
+import { useState } from "react";
 
 function LandingPage() {
   const navigate = useNavigate();
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
   return (
     <>
       <nav className="topNavbar">
         <div className="title">
           <img src={logo} alt="" />
-          <span className="poppins-bold">Personal Expense Tracker</span>
+          <span className="poppins-bold ">Personal Expense Tracker</span>
         </div>
-
-        <button className="poppins-medium">Sign In</button>
+        <div className="navbar-right">
+          <button className="poppins-medium desktop-button">Sign In</button>
+          <button className="mobile-menu-button" onClick={toggleDropdown}>
+            ☰
+          </button>
+        </div>
+        {isDropdownOpen && (
+          <div className="dropdown-menu">
+            <a href="#link1" className="dropdown-link">
+              Sign In
+            </a>
+            <a href="#link2" className="dropdown-link">
+              Admin Login
+            </a>
+          </div>
+        )}
       </nav>
       <br />
       <br />
       <br />
       <br />
       <button
-          onClick={() => {
-            navigate("/personal-expense-tracker");
-          }}
-        >
-          Homepage
-        </button>
+        onClick={() => {
+          navigate("/personal-expense-tracker");
+        }}
+      >
+        Homepage
+      </button>
       <div className="mainContainer">
         <div className="container">
           <div className="item item-1 poppins-semibold">
-            <span>Smart</span>
             <span>
-              {" "}
-              Spending <br className="breakpintDisplay" />
-              Starts
+              Smart <span className="fontColor">Spending<br/> Starts</span> Here
             </span>
-            <span> Here</span>
           </div>
           <div className="item item-2">
             <img src={money} alt="" />
@@ -143,7 +158,7 @@ function LandingPage() {
         <div className="textBlock">
           <div className="textSection">
             <label className="poppins-semibold">About</label>
-            <br /> <br />
+            <br />
             <span className="poppins-regular">
               Personal expense tracking tool designed to help you manage your
               finances effortlessly
@@ -151,7 +166,7 @@ function LandingPage() {
           </div>
           <div className="textSection">
             <label className="poppins-semibold">Quick Links</label>
-            <br /> <br />
+            <br />
             <span className="poppins-regular">
               <ul>
                 <li>Email: deeptank09@gmail.com</li>
@@ -162,7 +177,7 @@ function LandingPage() {
           </div>
           <div className="textSection">
             <label className="poppins-semibold">Project Info</label>
-            <br /> <br />
+            <br />
             <span className="poppins-regular">
               This project is made using React.js, Flask, MongoDB and deployed
               on Github <br />

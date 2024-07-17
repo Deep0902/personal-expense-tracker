@@ -41,6 +41,29 @@
   padding-right: 8%;
   display: grid;
 }
+.container {
+  grid-template-columns: 1fr 1fr;
+}
+
+.item-1 {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.item-2 {
+  grid-column: 1;
+  grid-row: 1 / span 3;
+}
+
+.item-3 {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.item-4 {
+  grid-column: 2;
+  grid-row: 3;
+}
 
 .item {
   height: fit-content;
@@ -68,7 +91,7 @@
 .item-1 > :nth-child(3) {
   color: #019863;
 }
-.item-1 > :nth-child(2) {
+.fontColor {
   color: #003321;
 }
 .item-4 button {
@@ -164,7 +187,6 @@
   border: none;
   border-radius: 5px;
   padding: 8px 35px;
-  margin-right: 40px;
   font-size: 18px;
 }
 .footer {
@@ -175,46 +197,128 @@
   display: flex;
 }
 .textSection {
-  padding: 0px;
   width: 33%;
+  display: flex;
+  flex-direction: column;
 }
 .textSection label {
-    font-size: 25px;
+  font-size: 25px;
   color: #dddddd;
 }
 .textSection span {
-    font-size: 15px;
+  padding-top: 0em;
+  font-size: 15px;
   color: #dddddd;
 }
-.footer p{
-    text-align: center;
-    color: #dddddd;
+.footer p {
+  text-align: center;
+  color: #dddddd;
 }
-@media (min-width: 768px) {
+.footer ul {
+  margin-top: 0;
+  padding-left: 1em;
+}
+.mobile-menu-button {
+  display: none;
+}
+/* Dropdown menu */
+.dropdown-menu {
+  position: absolute;
+  top: 50px;
+  right: 20px;
+  background-color: #444;
+  border: 1px solid #555;
+  border-radius: 4px;
+  overflow: hidden;
+  z-index: 1000;
+}
+
+.dropdown-link {
+  display: block;
+  padding: 10px 20px;
+  color: #fff;
+  text-decoration: none;
+}
+
+.dropdown-link:hover {
+  background-color: #555;
+}
+
+/* Phone Screen CSS */
+@media (max-width: 760px) {
+  .span {
+    word-break: break-all;
+  }
+  .mainContainer {
+    padding-left: 2em;
+    padding-right: 2em;
+  }
   .container {
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
   }
-
-  .item-1 {
-    grid-column: 2;
-    grid-row: 1;
+  .item {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    width: 100%;
   }
-
-  .item-2 {
-    grid-column: 1;
-    grid-row: 1 / span 3;
+  .footer .textBlock {
+    flex-direction: column;
   }
-
-  .item-3 {
-    grid-column: 2;
-    grid-row: 2;
+  .textSection {
+    width: 100%;
+    margin-bottom: 3em;
   }
-
-  .item-4 {
-    grid-column: 2;
-    grid-row: 3;
+  .textSection span {
+    top: -1em;
+    position: relative;
   }
-  .breakpintDisplay{
+  .desktop-button {
     display: none;
+  }
+
+  .mobile-menu-button {
+    display: block;
+  }
+
+  .dropdown-menu {
+    width: 100%;
+  }
+  .navbar-right {
+    display: flex;
+    align-items: flex-end;
+  }
+  .item-4 button {
+    margin: 0;
+    width: 10em;
+  }
+  .card {
+    margin: 40px;
+  }
+  .feature,
+  .featuresSection .feature:nth-child(2) {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    margin-top: 7em;
+  }
+  .featureText label {
+    font-size: 40px;
+  }
+  .featureText span {
+    font-size: 25px;
+    padding-left: 1em;
+    padding-right: 1em;
+  }
+  .endSection {
+    text-align: center;
+  }
+
+  .endSection label,
+  .endSection span,
+  .endSection button {
+    margin: 1em;
+    
   }
 }
