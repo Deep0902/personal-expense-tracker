@@ -11,7 +11,12 @@
   background: white;
   z-index: 1;
   top: 0;
-  padding: 10px 10px 10px 10px;
+  padding: 10px 0px 10px 0px;
+  top: 0;
+  left: 0;
+}
+.navbar-right {
+  margin-right: 4%;
 }
 .title {
   margin-left: 20px;
@@ -23,7 +28,7 @@
 }
 .title span {
   margin-left: 16px;
-  font-size: 23px;
+  font-size: 1.2em;
   color: #003321;
 }
 .topNavbar button {
@@ -32,7 +37,6 @@
   border: none;
   border-radius: 5px;
   padding: 5px 20px;
-  margin-right: 40px;
   font-size: 15px;
 }
 
@@ -224,13 +228,13 @@
 /* Dropdown menu */
 .dropdown-menu {
   position: absolute;
-  top: 50px;
-  right: 20px;
+  top: 90%;
+  right: 4%;
   background-color: #444;
   border: 1px solid #555;
   border-radius: 4px;
   overflow: hidden;
-  z-index: 1000;
+  z-index: 1;
 }
 
 .dropdown-link {
@@ -250,8 +254,12 @@
     word-break: break-all;
   }
   .mainContainer {
+    overflow: hidden;
     padding-left: 2em;
     padding-right: 2em;
+  }
+  .topNavbar img {
+    margin-left: 0.5em;
   }
   .container {
     display: flex;
@@ -262,6 +270,13 @@
     margin-top: 1em;
     margin-bottom: 1em;
     width: 100%;
+    font-size: 30px;
+  }
+  .item-3 {
+    font-size: 16px;
+  }
+  .h5-title {
+    font-size: 13px;
   }
   .footer .textBlock {
     flex-direction: column;
@@ -283,18 +298,19 @@
   }
 
   .dropdown-menu {
-    width: 100%;
+    width: 50%;
   }
-  .navbar-right {
-    display: flex;
-    align-items: flex-end;
+  .dropdown-menu a {
+    padding-left: 10%;
   }
+
   .item-4 button {
     margin: 0;
     width: 10em;
   }
   .card {
     margin: 40px;
+    height: min-content;
   }
   .feature,
   .featuresSection .feature:nth-child(2) {
@@ -304,10 +320,10 @@
     margin-top: 7em;
   }
   .featureText label {
-    font-size: 40px;
+    font-size: 35px;
   }
   .featureText span {
-    font-size: 25px;
+    font-size: 21px;
     padding-left: 1em;
     padding-right: 1em;
   }
@@ -318,9 +334,17 @@
   .endSection label,
   .endSection span,
   .endSection button {
-    margin: 1em;
+    margin: 8% 0% 8% 0%;
   }
-  .title{
+
+  .endSection .poppins-semibold {
+    font-size: 20px;
+  }
+
+  .endSection span {
+    font-size: 20px;
+  }
+  .title {
     margin: 0;
   }
 }

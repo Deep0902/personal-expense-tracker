@@ -16,6 +16,9 @@ function LandingPage() {
   };
   return (
     <>
+      
+      
+      <div className="mainContainer">
       <nav className="topNavbar">
         <div className="title">
           <img src={logo} alt="" />
@@ -49,7 +52,6 @@ function LandingPage() {
       >
         Homepage
       </button>
-      <div className="mainContainer">
         <div className="container">
           <div className="item item-1 poppins-semibold">
             <span>
