@@ -319,6 +319,8 @@
   .endSection span,
   .endSection button {
     margin: 1em;
-    
+  }
+  .title{
+    margin: 0;
   }
 }
