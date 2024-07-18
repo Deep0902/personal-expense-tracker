@@ -2,44 +2,6 @@
   padding-left: 14em;
   padding-right: 14em;
 }
-.topNavbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: fixed;
-  width: 100%;
-  background: white;
-  z-index: 1;
-  top: 0;
-  padding: 10px 0px 10px 0px;
-  top: 0;
-  left: 0;
-}
-.navbar-right {
-  margin-right: 4%;
-}
-.title {
-  margin-left: 20px;
-  display: flex;
-  align-items: center;
-}
-.title img {
-  scale: 0.9;
-}
-.title span {
-  margin-left: 16px;
-  font-size: 1.2em;
-  color: #003321;
-}
-.topNavbar button {
-  color: #f3f7f6;
-  background-color: #019863;
-  border: none;
-  border-radius: 5px;
-  padding: 5px 20px;
-  font-size: 15px;
-}
-
 .container {
   padding-left: 8%;
   padding-right: 8%;
@@ -193,59 +155,9 @@
   padding: 8px 35px;
   font-size: 18px;
 }
-.footer {
-  background-color: #095339;
-  padding: 50px 80px 30px 80px;
-}
-.textBlock {
-  display: flex;
-}
-.textSection {
-  width: 33%;
-  display: flex;
-  flex-direction: column;
-}
-.textSection label {
-  font-size: 25px;
-  color: #dddddd;
-}
-.textSection span {
-  padding-top: 0em;
-  font-size: 15px;
-  color: #dddddd;
-}
-.footer p {
-  text-align: center;
-  color: #dddddd;
-}
-.footer ul {
-  margin-top: 0;
-  padding-left: 1em;
-}
+
 .mobile-menu-button {
   display: none;
-}
-/* Dropdown menu */
-.dropdown-menu {
-  position: absolute;
-  top: 90%;
-  right: 4%;
-  background-color: #444;
-  border: 1px solid #555;
-  border-radius: 4px;
-  overflow: hidden;
-  z-index: 1;
-}
-
-.dropdown-link {
-  display: block;
-  padding: 10px 20px;
-  color: #fff;
-  text-decoration: none;
-}
-
-.dropdown-link:hover {
-  background-color: #555;
 }
 
 /* Phone Screen CSS */
@@ -257,9 +169,6 @@
     overflow: hidden;
     padding-left: 2em;
     padding-right: 2em;
-  }
-  .topNavbar img {
-    margin-left: 0.5em;
   }
   .container {
     display: flex;
@@ -277,31 +186,6 @@
   }
   .h5-title {
     font-size: 13px;
-  }
-  .footer .textBlock {
-    flex-direction: column;
-  }
-  .textSection {
-    width: 100%;
-    margin-bottom: 3em;
-  }
-  .textSection span {
-    top: -1em;
-    position: relative;
-  }
-  .desktop-button {
-    display: none;
-  }
-
-  .mobile-menu-button {
-    display: block;
-  }
-
-  .dropdown-menu {
-    width: 50%;
-  }
-  .dropdown-menu a {
-    padding-left: 10%;
   }
 
   .item-4 button {

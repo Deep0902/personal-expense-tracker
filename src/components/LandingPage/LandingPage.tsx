@@ -6,6 +6,8 @@ import devices from "/images/devices.png";
 import exportExcel from "/images/export-icon.png";
 import sofaChill from "/images/sofa-chill.png";
 import { useState } from "react";
+import TopNavbarSignedOut from "../TopNavbarSignedOut/TopNavbarSignedOut";
+import Footer from "../Footer/Footer";
 
 function LandingPage() {
   const navigate = useNavigate();
@@ -16,41 +18,22 @@ function LandingPage() {
   };
   return (
     <>
-      
-      
       <div className="mainContainer">
-      <nav className="topNavbar">
-        <div className="title">
-          <img src={logo} alt="" />
-          <span className="poppins-bold ">Personal Expense Tracker</span>
-        </div>
-        
-        <div className="navbar-right">
-          <button className="poppins-medium desktop-button">Sign In</button>
-          <button className="mobile-menu-button" onClick={toggleDropdown}>
-            ☰
-          </button>
-        </div>
-        {isDropdownOpen && (
-          <div className="dropdown-menu">
-            <a href="#link1" className="dropdown-link">
-              Sign In
-            </a>
-            <a href="#link2" className="dropdown-link">
-              Admin Login
-            </a>
-          </div>
-        )}
-      </nav>
-      <br />
-      <br />
-      <br />
-      <br />
-      
+        <TopNavbarSignedOut/>
+        <br />
+        <br />
+        <br />
+        <br />
+
         <div className="container">
           <div className="item item-1 poppins-semibold">
             <span>
-              Smart <span className="fontColor">Spending<br/> Starts</span> Here
+              Smart{" "}
+              <span className="fontColor">
+                Spending
+                <br /> Starts
+              </span>{" "}
+              Here
             </span>
           </div>
           <div className="item item-2">
@@ -64,7 +47,7 @@ function LandingPage() {
             <button className="poppins-medium">Sign Up</button>
           </div>
         </div>
-        
+
         <br />
         <br />
         <h5 className="poppins-medium h5-title">
@@ -152,42 +135,7 @@ function LandingPage() {
       <br />
       <br />
       <br />
-      <div className="footer">
-        <div className="textBlock">
-          <div className="textSection">
-            <label className="poppins-semibold">About</label>
-            <br />
-            <span className="poppins-regular">
-              Personal expense tracking tool designed to help you manage your
-              finances effortlessly
-            </span>
-          </div>
-          <div className="textSection">
-            <label className="poppins-semibold">Quick Links</label>
-            <br />
-            <span className="poppins-regular">
-              <ul>
-                <li>Email: deeptank09@gmail.com</li>
-                <li>LinkedIn</li>
-                <li>GitHub</li>
-              </ul>
-            </span>
-          </div>
-          <div className="textSection">
-            <label className="poppins-semibold">Project Info</label>
-            <br />
-            <span className="poppins-regular">
-              This project is made using React.js, Flask, MongoDB and deployed
-              on Github <br />
-              <br />
-              It is a personal project and not for commercial use
-            </span>
-          </div>
-        </div>
-        <br />
-        <hr />
-        <p>© 2024 Personal Expense Tracker. All rights reserved.</p>
-      </div>
+      <Footer/>
       <button
         onClick={() => {
           navigate("/personal-expense-tracker");

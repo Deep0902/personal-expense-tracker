@@ -40,7 +40,7 @@ function AddBasicAPI() {
 
   return (
     <>
-      <div className="container background-image">
+      <div className="background-image">
         <h2>Add User</h2>
         <form onSubmit={handleSubmit}>
           <div className="form-group">

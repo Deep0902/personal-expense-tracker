@@ -1,0 +1,83 @@
+.topNavbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  width: 100%;
+  background: white;
+  z-index: 1;
+  top: 0;
+  padding: 10px 0px 10px 0px;
+  top: 0;
+  left: 0;
+}
+.navbar-right {
+  margin-right: 3%;
+}
+.title {
+  margin-left: 1em;
+  display: flex;
+  align-items: center;
+}
+.title img {
+  scale: 0.9;
+}
+.title span {
+  margin-left: 16px;
+  font-size: 2.4vh;
+  color: #003321;
+  white-space: nowrap;
+}
+.topNavbar button {
+  color: #f3f7f6;
+  background-color: #019863;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 20px;
+  font-size: 15px;
+}
+/* Dropdown menu */
+.dropdown-menu {
+  position: absolute;
+  top: 90%;
+  right: 3%;
+  background-color: #444;
+  border: 1px solid #555;
+  border-radius: 4px;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.dropdown-link {
+  display: block;
+  padding: 10px 20px;
+  color: #fff;
+  text-decoration: none;
+}
+
+.dropdown-link:hover {
+  background-color: #555;
+}
+/* Phone Screen CSS */
+@media (max-width: 760px) {
+  .topNavbar img {
+    margin-left: 0.5em;
+    scale: 0.8;
+  }
+  .title {
+    margin-left: 0;
+  }
+  .dropdown-menu {
+    width: 50%;
+  }
+  .dropdown-menu a {
+    padding-left: 10%;
+  }
+  .desktop-button {
+    display: none;
+  }
+
+  .mobile-menu-button {
+    display: block;
+  }
+}

@@ -20,7 +20,7 @@ export default function DummyData() {
 
   return (
     <>
-      <div className="container">
+      <div className="">
         <h4>Expenses Collection</h4>
         <table>
           <thead>
