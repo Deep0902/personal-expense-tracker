@@ -1,21 +1,15 @@
 import { useNavigate } from "react-router-dom";
 import "../LandingPage/LandingPage.css";
-import logo from "/images/logo.svg";
 import money from "/images/landing-page-money.png";
 import devices from "/images/devices.png";
 import exportExcel from "/images/export-icon.png";
 import sofaChill from "/images/sofa-chill.png";
-import { useState } from "react";
 import TopNavbarSignedOut from "../TopNavbarSignedOut/TopNavbarSignedOut";
 import Footer from "../Footer/Footer";
 
 function LandingPage() {
   const navigate = useNavigate();
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
-  };
   return (
     <>
       <div className="mainContainer">
