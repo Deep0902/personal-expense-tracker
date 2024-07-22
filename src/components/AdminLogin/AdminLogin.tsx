@@ -19,7 +19,7 @@ function AdminLogin() {
   //   Admin Login Logic with API
   const [credentials, setCredentials] = useState({
     admin_id: "",
-    admin_pass: " ", // Default value to avoid warnings
+    admin_pass: "", // Default value to avoid warnings
   });
   const [error, setError] = useState("");
   const navigate = useNavigate();
