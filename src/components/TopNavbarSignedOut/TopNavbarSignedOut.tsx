@@ -12,7 +12,9 @@ function TopNavbarSignedOut() {
   return (
     <>
       <nav className="topNavbar">
-        <div className="title">
+        <div className="title" onClick={()=>{
+          navigate("/LandingPage")
+        }}>
           <img src={logo} alt="" />
           <span className="poppins-bold ">Personal Expense Tracker</span>
         </div>
