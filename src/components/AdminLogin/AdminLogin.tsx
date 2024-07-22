@@ -31,7 +31,6 @@ function AdminLogin() {
       [e.target.name]: e.target.value,
     });
   };
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -61,11 +60,11 @@ function AdminLogin() {
           },
         });
       }
-      if (!isAdminValid) {
+      else if (!isAdminValid) {
         setError("Invalid credentials");
       }
     } catch (err) {
-      setError("Error fetching admin data");
+      setError("Invalid Credentials");
     }
   };
 

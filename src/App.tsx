@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import UserLogin from "./components/UserLogin";
 import HomePage from "./components/HomePage";
 import AdminLogin from "./components/AdminLogin/AdminLogin";
-import AdminDashboard from "./components/AdminDashboard";
+import AdminDashboard from "./components/AdminDashboard/AdminDashboard";
 import DummyData from "./components/DummyData";
 import LandingPage from "./components/LandingPage/LandingPage";
 import DeviceDimensions from "./components/DeviceDimensions";
