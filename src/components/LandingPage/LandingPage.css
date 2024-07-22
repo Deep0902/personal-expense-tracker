@@ -156,9 +156,6 @@
   font-size: 18px;
 }
 
-.mobile-menu-button {
-  display: none;
-}
 
 /* Phone Screen CSS */
 @media (max-width: 760px) {

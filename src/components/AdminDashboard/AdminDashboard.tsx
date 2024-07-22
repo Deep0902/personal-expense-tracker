@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import "./AdminDashboard.css"
+import "./AdminDashboard.css";
 import "../SignIn/SignIn.css";
 import logo from "/images/logo.svg";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -105,16 +105,8 @@ function AdminDashboard() {
           </div>
           {isDropdownOpen && (
             <div className="dropdown-menu">
-              <a
-                onClick={() => {
-                  navigate("/SignIn");
-                }}
-                className="dropdown-link"
-              >
-                Sign In
-              </a>
-              <a href="#link2" className="dropdown-link">
-                Admin Login
+              <a onClick={handleLogout} className="dropdown-link">
+                Logout
               </a>
             </div>
           )}

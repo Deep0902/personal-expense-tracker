@@ -12,9 +12,7 @@ function TopNavbarSignedOut() {
   return (
     <>
       <nav className="topNavbar">
-        <div className="title" onClick={()=>{
-          navigate("/LandingPage")
-        }}>
+        <div className="title">
           <img src={logo} alt="" />
           <span className="poppins-bold ">Personal Expense Tracker</span>
         </div>
@@ -37,7 +35,9 @@ function TopNavbarSignedOut() {
             >
               Sign In
             </a>
-            <a href="#link2" className="dropdown-link">
+            <a onClick={()=>{
+              navigate("/AdminLogin")
+            }} className="dropdown-link">
               Admin Login
             </a>
           </div>

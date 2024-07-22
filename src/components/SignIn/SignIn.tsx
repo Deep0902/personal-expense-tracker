@@ -3,6 +3,7 @@ import "./SignIn.css";
 import logo from "/images/logo.svg";
 import Footer from "../Footer/Footer";
 import { useState } from "react";
+import "../TopNavbarSignedOut/TopNavbarSignedOut.css";
 
 function SignIn() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -63,7 +64,12 @@ function SignIn() {
                 >
                   Sign In
                 </a>
-                <a href="#link2" className="dropdown-link">
+                <a
+                  onClick={() => {
+                    navigate("/AdminLogin");
+                  }}
+                  className="dropdown-link"
+                >
                   Admin Login
                 </a>
               </div>
