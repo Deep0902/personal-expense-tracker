@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import axios from "axios";
 
-function AdminLogin() {
+function AdminLogin2() {
   const [credentials, setCredentials] = useState({
     admin_id: "",
     admin_pass: "",
@@ -92,4 +92,4 @@ function AdminLogin() {
   );
 }
 
-export default AdminLogin;
+export default AdminLogin2;

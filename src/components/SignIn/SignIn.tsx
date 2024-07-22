@@ -43,7 +43,7 @@ function SignIn() {
             <div className="navbar-right">
               <button
                 onClick={() => {
-                  navigate("/SignIn");
+                  navigate("/AdminLogin");
                 }}
                 className="poppins-medium desktop-button"
               >
