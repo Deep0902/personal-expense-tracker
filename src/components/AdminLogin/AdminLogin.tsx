@@ -6,7 +6,6 @@ import TopNavbarSignedOut from "../TopNavbarSignedOut/TopNavbarSignedOut";
 import axios from "axios";
 
 function AdminLogin() {
-  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
   const handleMouseDown = () => {
@@ -20,12 +19,11 @@ function AdminLogin() {
   //   Admin Login Logic with API
   const [credentials, setCredentials] = useState({
     admin_id: "",
-    admin_pass: "",
+    admin_pass: " ", // Default value to avoid warnings
   });
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const token = "my_secure_token";
-  
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCredentials({
@@ -33,10 +31,7 @@ function AdminLogin() {
       [e.target.name]: e.target.value,
     });
   };
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
-    handleChange(e);
-  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -73,6 +68,7 @@ function AdminLogin() {
       setError("Error fetching admin data");
     }
   };
+
   return (
     <>
       <div className="mainConatiner">
@@ -100,7 +96,7 @@ function AdminLogin() {
             <div className="form-group inputBox">
               <input
                 type={showPassword ? "text" : "password"}
-                onChange={handlePasswordChange}
+                onChange={handleChange}
                 className="form-control poppins-regular"
                 name="admin_pass"
                 value={credentials.admin_pass}
