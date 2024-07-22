@@ -48,7 +48,9 @@
   overflow: hidden;
   z-index: 1;
 }
-
+.mobile-menu-button{
+  display: none;
+}
 .dropdown-link {
   display: block;
   padding: 10px 20px;
