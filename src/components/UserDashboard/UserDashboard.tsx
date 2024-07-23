@@ -1,15 +1,30 @@
+import { useEffect, useState } from "react";
 import axios from "axios";
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import Footer from "../Footer/Footer";
+import { useLocation, useNavigate } from "react-router-dom";
+
+interface User {
+  user_id: number;
+  user_name: string;
+  user_email: string;
+}
 
 function UserDashboard() {
   const navigate = useNavigate();
   const token = "my_secure_token";
+  const [users, setUsers] = useState<User[]>([]);
+
+  const location = useLocation();
+  const { user_email} = location.state || {};
 
   useEffect(() => {
-    if (!sessionStorage.user_email || !sessionStorage.user_pass) {
-      navigate("/personal-expense-tracker");
+    const email =
+      sessionStorage.getItem("user_email") ||
+      localStorage.getItem("user_email");
+    const pass =
+      sessionStorage.getItem("user_pass") || localStorage.getItem("user_pass");
+
+    if (!email || !pass) {
+      navigate("/SignIn");
       return;
     }
 
@@ -18,8 +33,8 @@ function UserDashboard() {
         const res = await axios.post(
           "http://127.0.0.1:5000/api/user",
           {
-            user_email: sessionStorage.user_email,
-            user_pass: sessionStorage.user_pass,
+            user_email: email,
+            user_pass: pass,
           },
           {
             headers: {
@@ -27,38 +42,67 @@ function UserDashboard() {
             },
           }
         );
-        const isUserValid = res.data.valid;
-        console.log(isUserValid);
-        if (!isUserValid) {
-          navigate("/personal-expense-tracker");
+        const isValidUser = res.data.valid;
+
+        if (!isValidUser) {
+          navigate("/SignIn");
         } else {
-          alert("Login Successfully verified");
+          fetchUsers();
         }
       } catch (err) {
         console.log(err);
-        navigate("/personal-expense-tracker");
+        navigate("/SignIn");
       }
     };
 
     verifyUser();
-    // Replace the current history state to prevent back navigation
-    window.history.replaceState(null, "", window.location.pathname);
   }, [navigate]);
+
+  const fetchUsers = async () => {
+    try {
+      const res = await axios.get("http://127.0.0.1:5000/api/users", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setUsers(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const handleLogout = () => {
     sessionStorage.removeItem("user_email");
     sessionStorage.removeItem("user_pass");
     navigate("/SignIn");
-    window.history.pushState(null, "", "/SignIn");
   };
 
   return (
-    <>
-      <h2>This is User Dashboard</h2>
-      <p>Hello {sessionStorage.user_email}</p>
-      <button onClick={handleLogout}>Logout</button>
-      <Footer />
-    </>
+    <div className="dashboard-container">
+      <h2>User Dashboard</h2>
+      {user_email && <p>Hi, {user_email}</p>}
+      <table>
+        <thead>
+          <tr>
+            <th>User ID</th>
+            <th>User Name</th>
+            <th>User Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          {users.map((user) => (
+            <tr key={user.user_id}>
+              <td>{user.user_id}</td>
+              <td>{user.user_name}</td>
+              <td>{user.user_email}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <button onClick={handleLogout} className="btn btn-primary">
+        Logout
+      </button>
+    </div>
   );
 }
 

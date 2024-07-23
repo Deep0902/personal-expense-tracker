@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import "./SignIn.css";
 import logo from "/images/logo.svg";
 import Footer from "../Footer/Footer";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../TopNavbarSignedOut/TopNavbarSignedOut.css";
 import axios from "axios";
 
@@ -35,6 +35,14 @@ function SignIn() {
 
   const token = "my_secure_token";
 
+  useEffect(() => {
+    const storedEmail = localStorage.getItem("user_email");
+    const storedPass = localStorage.getItem("user_pass");
+    if (storedEmail && storedPass) {
+      setCredentials({ user_email: storedEmail, user_pass: storedPass });
+    }
+  }, []);
+
   const handleChangeSignIn = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCredentials({
       ...credentials,
@@ -61,8 +69,15 @@ function SignIn() {
       const isUserValid = res.data.valid;
 
       if (isUserValid) {
-        sessionStorage.setItem("user_email", credentials.user_email);
-        sessionStorage.setItem("user_pass", credentials.user_pass);
+        if (isChecked) {
+          localStorage.setItem("user_email", credentials.user_email);
+          localStorage.setItem("user_pass", credentials.user_pass);
+        } else {
+          sessionStorage.setItem("user_email", credentials.user_email);
+          sessionStorage.setItem("user_pass", credentials.user_pass);
+          localStorage.removeItem("user_email");
+          localStorage.removeItem("user_pass");
+        }
         navigate("/UserDashboard", {
           state: {
             user_email: isUserValid.user_email,
