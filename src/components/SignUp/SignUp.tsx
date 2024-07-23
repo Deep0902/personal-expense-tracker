@@ -97,7 +97,7 @@ function SignUp() {
             <div className="inputBox">
               <input
                 type="text"
-                className="form-control"
+                className="form-control poppins-regular"
                 name="user_name"
                 value={userDetails.user_name}
                 onChange={handleChange}
@@ -108,7 +108,7 @@ function SignUp() {
             <div className="inputBox">
               <input
                 type="email"
-                className="form-control"
+                className="form-control poppins-regular"
                 name="user_email"
                 value={userDetails.user_email}
                 onChange={handleChange}
@@ -119,7 +119,7 @@ function SignUp() {
             <div className="inputBox">
               <input
                 type={showPassword ? "text" : "password"}
-                className="form-control"
+                className="form-control poppins-regular"
                 name="user_pass"
                 value={userDetails.user_pass}
                 onChange={handleChange}
@@ -133,7 +133,7 @@ function SignUp() {
             <div className="inputBox">
               <input
                 type={showConfirmPassword ? "text" : "password"}
-                className="form-control"
+                className="form-control poppins-regular"
                 name="confirm_pass"
                 value={userDetails.confirm_pass}
                 onChange={handleChange}
