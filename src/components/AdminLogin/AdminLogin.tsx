@@ -1,19 +1,15 @@
 import { useNavigate } from "react-router-dom";
-import "./AdminLogin.css";
 import Footer from "../Footer/Footer";
+import "./AdminLogin.css";
 import { useState } from "react";
 import TopNavbarSignedOut from "../TopNavbarSignedOut/TopNavbarSignedOut";
 import axios from "axios";
 
 function AdminLogin() {
   const [showPassword, setShowPassword] = useState(false);
-
-  const handleMouseDown = () => {
-    setShowPassword(true);
-  };
-
-  const handleMouseUp = () => {
-    setShowPassword(false);
+  const handlePasswordView = () => {
+    if (showPassword == true) setShowPassword(false);
+    else setShowPassword(true);
   };
 
   //   Admin Login Logic with API
@@ -59,8 +55,7 @@ function AdminLogin() {
             admin_pass: credentials.admin_pass,
           },
         });
-      }
-      else if (!isAdminValid) {
+      } else if (!isAdminValid) {
         setError("Invalid credentials");
       }
     } catch (err) {
@@ -102,12 +97,7 @@ function AdminLogin() {
                 placeholder="Password"
                 required
               />
-              <span
-                className="toggle-button"
-                onMouseDown={handleMouseDown}
-                onMouseUp={handleMouseUp}
-                onMouseLeave={handleMouseUp}
-              >
+              <span className="toggle-button" onClick={handlePasswordView}>
                 👁️
               </span>
             </div>

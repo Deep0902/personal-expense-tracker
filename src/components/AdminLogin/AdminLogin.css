@@ -122,6 +122,7 @@
 /* Phone Screen CSS */
 @media (max-width: 760px) {
   .credentialsCard {
+    margin: 35% auto;
     width: 35vh;
   }
   .credentialsCard > label {

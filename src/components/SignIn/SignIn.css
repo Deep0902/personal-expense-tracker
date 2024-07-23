@@ -121,6 +121,7 @@
 @media (max-width: 760px) {
   .credentialsCard {
     width: 35vh;
+    margin: 25% auto;
   }
   .credentialsCard > label {
     font-size: 22px;
