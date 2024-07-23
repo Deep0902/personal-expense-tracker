@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
+import TopNavbarSignedOut from "../TopNavbarSignedOut/TopNavbarSignedOut";
+import Footer from "../Footer/Footer";
 
 interface User {
   user_id: number;
@@ -14,7 +16,7 @@ function UserDashboard() {
   const [users, setUsers] = useState<User[]>([]);
 
   const location = useLocation();
-  const { user_email} = location.state || {};
+  const { user_email } = location.state || {};
 
   useEffect(() => {
     const email =
@@ -78,31 +80,17 @@ function UserDashboard() {
   };
 
   return (
-    <div className="dashboard-container">
-      <h2>User Dashboard</h2>
-      {user_email && <p>Hi, {user_email}</p>}
-      <table>
-        <thead>
-          <tr>
-            <th>User ID</th>
-            <th>User Name</th>
-            <th>User Email</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((user) => (
-            <tr key={user.user_id}>
-              <td>{user.user_id}</td>
-              <td>{user.user_name}</td>
-              <td>{user.user_email}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      <button onClick={handleLogout} className="btn btn-primary">
-        Logout
-      </button>
-    </div>
+    <>
+      <TopNavbarSignedOut />
+      <br />
+      <div className="mainContainer">
+        <h2>Hello {sessionStorage.user_email}</h2>
+        <button onClick={handleLogout} className="">
+          Logout
+        </button>
+      </div>
+      <Footer />
+    </>
   );
 }
 

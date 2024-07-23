@@ -11,6 +11,7 @@ import LandingPage from "./components/LandingPage/LandingPage";
 import DeviceDimensions from "./components/DeviceDimensions";
 import SignIn from "./components/SignIn/SignIn";
 import UserDashboard from "./components/UserDashboard/UserDashboard";
+import SignUp from "./components/SignUp/SignUp";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
         <Route path="/SignIn" element={<SignIn />} />
         <Route path="/AdminLogin" element={<AdminLogin />} />
         <Route path="/UserDashboard" element={<UserDashboard />} />
+        <Route path="/SignUp" element={<SignUp />} />
       </Routes>
     </Router>
   );

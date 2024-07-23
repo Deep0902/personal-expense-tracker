@@ -1,0 +1,181 @@
+import Footer from "../Footer/Footer";
+import TopNavbarSignedOut from "../TopNavbarSignedOut/TopNavbarSignedOut";
+import "./SignUp.css";
+import "../SignIn/SignIn.css";
+import axios from "axios";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+function SignUp() {
+  const navigate = useNavigate();
+  const [userDetails, setUserDetails] = useState({
+    user_pass: "",
+    confirm_pass: "",
+    user_email: "",
+    user_name: "",
+  });
+
+  // State for managing password visibility
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const handlePasswordView = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const handleConfirmPasswordView = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUserDetails({
+      ...userDetails,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const token = "my_secure_token";
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (userDetails.user_pass !== userDetails.confirm_pass) {
+      alert("Passwords don't match!");
+      setUserDetails({
+        user_pass: "",
+        confirm_pass: "",
+        user_email: "",
+        user_name: "",
+      });
+      return;
+    }
+
+    axios
+      .post("http://127.0.0.1:5000/api/users", userDetails, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        console.log("User added successfully:", res.data);
+        alert("User added successfully");
+        navigate("/SignIn");
+      })
+      .catch((err) => {
+        console.error("Error adding user:", err);
+        if (err.response && err.response.data && err.response.data.message) {
+          alert(err.response.data.message);
+          setUserDetails({
+            user_pass: "",
+            confirm_pass: "",
+            user_email: "",
+            user_name: "",
+          });
+        } else {
+          alert("An error occurred while adding the user");
+          setUserDetails({
+            user_pass: "",
+            confirm_pass: "",
+            user_email: "",
+            user_name: "",
+          });
+        }
+      });
+  };
+
+  return (
+    <>
+      <TopNavbarSignedOut />
+      <br />
+      <div className="mainContainer">
+        <div className="credentialsCard">
+          <label className="poppins-bold">Sign Up</label>
+          <span className="poppins-regular subtext">
+            Sign Up to enjoy the features!
+          </span>
+
+          <form onSubmit={handleSubmit}>
+            <div className="inputBox">
+              <input
+                type="text"
+                className="form-control"
+                name="user_name"
+                value={userDetails.user_name}
+                onChange={handleChange}
+                required
+                placeholder="User Name"
+              />
+            </div>
+            <div className="inputBox">
+              <input
+                type="email"
+                className="form-control"
+                name="user_email"
+                value={userDetails.user_email}
+                onChange={handleChange}
+                placeholder="Email"
+                required
+              />
+            </div>
+            <div className="inputBox">
+              <input
+                type={showPassword ? "text" : "password"}
+                className="form-control"
+                name="user_pass"
+                value={userDetails.user_pass}
+                onChange={handleChange}
+                placeholder="Password"
+                required
+              />
+              <span className="toggle-button" onClick={handlePasswordView}>
+                👁️
+              </span>
+            </div>
+            <div className="inputBox">
+              <input
+                type={showConfirmPassword ? "text" : "password"}
+                className="form-control"
+                name="confirm_pass"
+                value={userDetails.confirm_pass}
+                onChange={handleChange}
+                placeholder="Confirm Password"
+                required
+              />
+              <span
+                className="toggle-button"
+                onClick={handleConfirmPasswordView}
+              >
+                👁️
+              </span>
+            </div>
+
+            <button type="submit" className="poppins-semibold">
+              Sign Up
+            </button>
+          </form>
+
+          <div className="or-section">
+            <hr className="line" />
+            <span className="or-text poppins-medium">or</span>
+            <hr className="line" />
+          </div>
+          <div className="bottomSection">
+            <p className="poppins-regular">
+              Already have an account? &nbsp;
+              <span
+                onClick={() => {
+                  navigate("/SignIn");
+                }}
+                className="underlineText poppins-semibold"
+              >
+                Sign In
+              </span>
+            </p>
+          </div>
+        </div>
+      </div>
+      <Footer />
+    </>
+  );
+}
+
+export default SignUp;

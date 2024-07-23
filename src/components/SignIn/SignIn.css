@@ -91,6 +91,7 @@
   font-weight: bold;
 }
 .underlineText {
+  cursor: pointer;
   text-decoration: underline;
 }
 

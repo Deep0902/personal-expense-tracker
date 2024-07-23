@@ -1,0 +1,8 @@
+.mainContainer {
+  min-height: 94vh;
+  padding: 0;
+}
+
+.error-message {
+  color: #e74c3c;
+}

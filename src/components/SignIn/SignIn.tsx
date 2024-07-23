@@ -94,7 +94,7 @@ function SignIn() {
 
   return (
     <>
-      <div className="mainContainer">
+      <div className="">
         <div className="customTopNavbar">
           <nav className="topNavbar">
             <div
@@ -190,7 +190,7 @@ function SignIn() {
             <button type="submit" className="poppins-semibold">
               Sign In
             </button>
-            {error && <p className="error-message">{error}</p>}
+            {error && <p className="error-message poppins-bold">{error}</p>}
           </form>
 
           <div className="or-section">
@@ -201,7 +201,9 @@ function SignIn() {
           <div className="bottomSection">
             <p className="poppins-regular">
               Need an account?{" "}
-              <span className="underlineText poppins-semibold">Create One</span>
+              <span onClick={()=>{
+                navigate("/SignUp")
+              }} className="underlineText poppins-semibold">Create One</span>
             </p>
             <p className="underlineText poppins-semibold">Forgot Password</p>
           </div>
