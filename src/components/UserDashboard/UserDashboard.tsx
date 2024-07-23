@@ -1,22 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import axios from "axios";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import TopNavbarSignedOut from "../TopNavbarSignedOut/TopNavbarSignedOut";
 import Footer from "../Footer/Footer";
-
-interface User {
-  user_id: number;
-  user_name: string;
-  user_email: string;
-}
 
 function UserDashboard() {
   const navigate = useNavigate();
   const token = "my_secure_token";
-  const [users, setUsers] = useState<User[]>([]);
-
-  const location = useLocation();
-  const { user_email } = location.state || {};
 
   useEffect(() => {
     const email =
@@ -49,7 +39,6 @@ function UserDashboard() {
         if (!isValidUser) {
           navigate("/SignIn");
         } else {
-          fetchUsers();
         }
       } catch (err) {
         console.log(err);
@@ -59,19 +48,6 @@ function UserDashboard() {
 
     verifyUser();
   }, [navigate]);
-
-  const fetchUsers = async () => {
-    try {
-      const res = await axios.get("http://127.0.0.1:5000/api/users", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setUsers(res.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   const handleLogout = () => {
     sessionStorage.removeItem("user_email");
