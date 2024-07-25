@@ -38,7 +38,9 @@ function LandingPage() {
             for both pros and beginners!
           </div>
           <div className="item item-4 poppins-medium">
-            <button className="poppins-medium">Sign Up</button>
+            <button onClick={()=>{
+              navigate("/SignUp")
+            }} className="poppins-medium">Sign Up</button>
           </div>
         </div>
 
