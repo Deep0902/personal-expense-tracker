@@ -20,18 +20,24 @@ export let dummyUsers: Users[] = [
     user_name: "John Doe",
     user_email: "john.doe@example.com",
     user_pass: "pass123",
+    profile_img: 1,
+    wallet: 0,
   },
   {
     user_id: 2,
     user_name: "Jane Smith",
     user_email: "jane.smith@example.com",
     user_pass: "pass456",
+    profile_img: 1,
+    wallet: 0,
   },
   {
     user_id: 3,
     user_name: "Sam Brown",
     user_email: "sam.brown@example.com",
     user_pass: "pass789",
+    profile_img: 4,
+    wallet: 0,
   },
 ];
 
