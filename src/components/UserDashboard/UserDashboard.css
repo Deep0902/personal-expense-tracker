@@ -1,4 +1,11 @@
-.avatar{
-    height: 30px;
-    width: 30px;
+.mainContainer{
+    min-height: unset;
+    width: -webkit-fill-available;
+}
+.pageSectionHorizontal{
+    display: flex;
+    flex-direction: column;
+}
+.pageSectionVertical{
+    display: flex;
 }

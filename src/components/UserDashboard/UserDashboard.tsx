@@ -1,20 +1,23 @@
 import { useEffect, useState } from "react";
+import "./UserDashboard.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import TopNavbarSignedOut from "../TopNavbarSignedOut/TopNavbarSignedOut";
 import Footer from "../Footer/Footer";
-import { Expense } from "../../interfaces/Expense";
 import { Users } from "../../interfaces/Users";
+import TopNavbarProfile from "./TopNavbarProfile/TopNavbarProfile";
+import Sidebar from "./Sidebar/Sidebar";
 
 function UserDashboard() {
-  const navigate = useNavigate();
-  const token = "my_secure_token";
-  const currentEmail =
-    sessionStorage.getItem("user_email") || localStorage.getItem("user_email");
+  const navigate = useNavigate(); // Hook for navigation
+  const token = "my_secure_token"; // Token for authorization
 
+  // State for user data, initially null
   const [user_data, setData_user] = useState<Users | null>(null);
-  const [expense_data, setData] = useState<Expense[]>([]);
 
+  // State for expenses data, initially an empty array
+  // const [expense_data, setData] = useState<Expense[]>([]);
+
+  // Effect to verify user and fetch user data on component mount
   useEffect(() => {
     const email =
       sessionStorage.getItem("user_email") ||
@@ -23,10 +26,11 @@ function UserDashboard() {
       sessionStorage.getItem("user_pass") || localStorage.getItem("user_pass");
 
     if (!email || !pass) {
-      navigate("/SignIn");
+      navigate("/SignIn"); // Redirect to SignIn if no email or password
       return;
     }
 
+    // Function to verify user credentials
     const verifyUser = async () => {
       try {
         const res = await axios.post(
@@ -37,110 +41,92 @@ function UserDashboard() {
           },
           {
             headers: {
-              Authorization: `Bearer ${token}`,
+              Authorization: `Bearer ${token}`, // Include token in headers
             },
           }
         );
         const isValidUser = res.data.valid;
 
         if (!isValidUser) {
-          navigate("/SignIn");
+          navigate("/SignIn"); // Redirect to SignIn if user is not valid
         }
       } catch (err) {
-        console.log(err);
-        navigate("/SignIn");
+        console.log(err); // Log any errors
+        navigate("/SignIn"); // Redirect to SignIn on error
       }
     };
 
+    // Function to fetch user data by email
     const fetchUserData = async (email: string) => {
       try {
         const res = await axios.get(
           `http://127.0.0.1:5000/api/users/${email}`,
           {
             headers: {
-              Authorization: `Bearer ${token}`,
+              Authorization: `Bearer ${token}`, // Include token in headers
             },
           }
         );
-        setData_user(res.data);
+        setData_user(res.data); // Set user data state
       } catch (err) {
-        console.log(err);
+        console.log(err); // Log any errors
       }
     };
 
-    verifyUser();
+    verifyUser(); // Call function to verify user
     if (email) {
-      fetchUserData(email);
+      fetchUserData(email); // Fetch user data if email exists
     }
-  }, [navigate]);
+  }, [navigate]); // Effect dependency on navigate
 
-  useEffect(() => {
-    if (user_data) {
-      const fetchExpenses = async () => {
-        try {
-          const res = await axios.get(
-            `http://127.0.0.1:5000/api/expenses/${user_data.user_id}`,
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
-          setData(res.data);
-        } catch (err) {
-          alert(err);
-          console.log(err);
-        }
-      };
+  // Effect to fetch expenses data when user_data is updated
+  // useEffect(() => {
+  //   if (user_data) {
+  //     // Function to fetch expenses data by user ID
+  //     const fetchExpenses = async () => {
+  //       try {
+  //         const res = await axios.get(
+  //           `http://127.0.0.1:5000/api/expenses/${user_data.user_id}`,
+  //           {
+  //             headers: {
+  //               Authorization: `Bearer ${token}`, // Include token in headers
+  //             },
+  //           }
+  //         );
+  //         setData(res.data); // Set expenses data state
+  //       } catch (err) {
+  //         alert(err); // Show alert on error
+  //         console.log(err); // Log any errors
+  //       }
+  //     };
 
-      fetchExpenses();
-    }
-  }, [user_data, token]);
+  //     fetchExpenses(); // Call function to fetch expenses
+  //   }
+  // }, [user_data, token]); // Effect dependency on user_data and token
 
+  // Function to handle user logout
   const handleLogout = () => {
-    sessionStorage.removeItem("user_email");
-    sessionStorage.removeItem("user_pass");
-    navigate("/SignIn");
+    sessionStorage.removeItem("user_email"); // Remove user email from session storage
+    sessionStorage.removeItem("user_pass"); // Remove user password from session storage
+    navigate("/SignIn"); // Redirect to SignIn
   };
 
   return (
     <>
-      <TopNavbarSignedOut />
-      <br />
-      <div className="mainContainer">
-        <h2>Hello {currentEmail}</h2>
-        <button onClick={handleLogout} className="">
-          Logout
-        </button>
-        <h4>Expenses Collection</h4>
-        <table>
-          <thead>
-            <tr>
-              <th>User ID</th>
-              <th>Title</th>
-              <th>Category</th>
-              <th>Date</th>
-              <th>Amount</th>
-              <th>Transaction No</th>
-              <th>Transaction Type</th>
-            </tr>
-          </thead>
-          <tbody>
-            {expense_data.map((expense, index) => (
-              <tr key={index}>
-                <td>{expense.user_id}</td>
-                <td>{expense.title}</td>
-                <td>{expense.category}</td>
-                <td>{expense.date}</td>
-                <td>{expense.amount}</td>
-                <td>{expense.transaction_no}</td>
-                <td>{expense.transaction_type}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <div className="pageSectionHorizontal">
+        <div className="pageSectionVertical">
+          <Sidebar/>
+          <div className="mainContainer">
+          <TopNavbarProfile />
+          <br /><br />
+            <h2>Hello {user_data?.user_name}</h2>
+            <button onClick={handleLogout} className="">
+              Logout
+            </button>
+          </div>
+        </div>
+        <Footer />
       </div>
-      <Footer />
     </>
   );
 }

@@ -1,0 +1,21 @@
+.avatarLogo {
+  height: 35px;
+  width: 35px;
+}
+.topNavbar {
+  position: sticky;
+}
+.extra-option{
+  display: none;
+}
+
+/* Phone Screen CSS */
+@media (max-width: 760px) {
+  .avatarLogo {
+    height: 36px;
+    width: 36px;
+  }
+  .extra-option{
+    display: block;
+  }
+}
