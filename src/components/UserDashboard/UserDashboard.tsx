@@ -17,6 +17,11 @@ function UserDashboard() {
 
   // State for expenses data, initially an empty array
   const [expense_data, setData] = useState<Expense[]>([]);
+  
+  const [tabSelected, settabSelected] = useState("Dashboard");
+  const handleDataFromComponent = (data: string) => {
+    settabSelected(data);
+  };
 
   // Effect to verify user and fetch user data on component mount
   useEffect(() => {
@@ -116,7 +121,7 @@ function UserDashboard() {
     <>
       <div className="pageSectionHorizontal">
         <div className="pageSectionVertical">
-          <Sidebar Username={user_data?.user_name}/>
+          <Sidebar Username={user_data?.user_name}sendDataToParent={handleDataFromComponent}/>
           <div className="mainContainer">
             <TopNavbarProfile onLogoutClick={handleLogout}/>
             <div className="content">
@@ -148,6 +153,7 @@ function UserDashboard() {
                   ))}
                 </tbody>
               </table>
+              <span>You've selected {tabSelected}</span>
             </div>
           </div>
         </div>

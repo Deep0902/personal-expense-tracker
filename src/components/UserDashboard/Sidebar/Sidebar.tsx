@@ -7,8 +7,9 @@ import history from "/images/transaction-history.svg";
 import help from "/images/help.svg";
 interface SidebarProps{
   Username: any;
+  sendDataToParent: (data: any) => void;
 }
-function Sidebar({Username}: SidebarProps) {
+function Sidebar({Username, sendDataToParent}: SidebarProps) {
   const [isExpanded, setIsExpanded] = useState(true); // State to track if the div is expanded
   const resizableDivRef = useRef<HTMLDivElement>(null);
   const toggleDivSize = () => {
@@ -23,6 +24,7 @@ function Sidebar({Username}: SidebarProps) {
   const [selectedOption, setSelectedOption] = useState("Dashboard");
   const handleSelection = (option: string) => {
     setSelectedOption(option);
+    sendDataToParent(option);
   };
 
   return (
