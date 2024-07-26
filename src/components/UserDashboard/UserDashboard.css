@@ -9,3 +9,7 @@
 .pageSectionVertical{
     display: flex;
 }
+
+.content{
+    padding: 0px 1.5em;
+}

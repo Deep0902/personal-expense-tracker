@@ -3,8 +3,11 @@ import logo from "/images/logo.svg";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import avatarMale1 from "/images/avatars/avatar-male-1.svg";
+interface TopNavbarProps{
+  onLogoutClick: () => void;
+}
 
-function TopNavbarProfile() {
+function TopNavbarProfile({onLogoutClick}:TopNavbarProps) {
   const navigate = useNavigate();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const toggleDropdown = () => {
@@ -41,7 +44,7 @@ function TopNavbarProfile() {
         {isDropdownOpen && (
           <div className="dropdown-menu">
             <a className="dropdown-link">Profile</a>
-            <a className="dropdown-link">Logout</a>
+            <a className="dropdown-link" onClick={onLogoutClick}>Logout</a>
             <a className="dropdown-link extra-option">Dashboard</a>
           </div>
         )}

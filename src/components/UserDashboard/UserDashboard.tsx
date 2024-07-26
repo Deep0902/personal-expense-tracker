@@ -6,6 +6,7 @@ import Footer from "../Footer/Footer";
 import { Users } from "../../interfaces/Users";
 import TopNavbarProfile from "./TopNavbarProfile/TopNavbarProfile";
 import Sidebar from "./Sidebar/Sidebar";
+import { Expense } from "../../interfaces/Expense";
 
 function UserDashboard() {
   const navigate = useNavigate(); // Hook for navigation
@@ -15,7 +16,7 @@ function UserDashboard() {
   const [user_data, setData_user] = useState<Users | null>(null);
 
   // State for expenses data, initially an empty array
-  // const [expense_data, setData] = useState<Expense[]>([]);
+  const [expense_data, setData] = useState<Expense[]>([]);
 
   // Effect to verify user and fetch user data on component mount
   useEffect(() => {
@@ -79,30 +80,30 @@ function UserDashboard() {
     }
   }, [navigate]); // Effect dependency on navigate
 
-  // Effect to fetch expenses data when user_data is updated
-  // useEffect(() => {
-  //   if (user_data) {
-  //     // Function to fetch expenses data by user ID
-  //     const fetchExpenses = async () => {
-  //       try {
-  //         const res = await axios.get(
-  //           `http://127.0.0.1:5000/api/expenses/${user_data.user_id}`,
-  //           {
-  //             headers: {
-  //               Authorization: `Bearer ${token}`, // Include token in headers
-  //             },
-  //           }
-  //         );
-  //         setData(res.data); // Set expenses data state
-  //       } catch (err) {
-  //         alert(err); // Show alert on error
-  //         console.log(err); // Log any errors
-  //       }
-  //     };
+  //Effect to fetch expenses data when user_data is updated
+  useEffect(() => {
+    if (user_data) {
+      // Function to fetch expenses data by user ID
+      const fetchExpenses = async () => {
+        try {
+          const res = await axios.get(
+            `http://127.0.0.1:5000/api/expenses/${user_data.user_id}`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`, // Include token in headers
+              },
+            }
+          );
+          setData(res.data); // Set expenses data state
+        } catch (err) {
+          alert(err); // Show alert on error
+          console.log(err); // Log any errors
+        }
+      };
 
-  //     fetchExpenses(); // Call function to fetch expenses
-  //   }
-  // }, [user_data, token]); // Effect dependency on user_data and token
+      fetchExpenses(); // Call function to fetch expenses
+    }
+  }, [user_data, token]); // Effect dependency on user_data and token
 
   // Function to handle user logout
   const handleLogout = () => {
@@ -115,14 +116,39 @@ function UserDashboard() {
     <>
       <div className="pageSectionHorizontal">
         <div className="pageSectionVertical">
-          <Sidebar/>
+          <Sidebar Username={user_data?.user_name}/>
           <div className="mainContainer">
-          <TopNavbarProfile />
-          <br /><br />
-            <h2>Hello {user_data?.user_name}</h2>
-            <button onClick={handleLogout} className="">
-              Logout
-            </button>
+            <TopNavbarProfile onLogoutClick={handleLogout}/>
+            <div className="content">
+              {/* <h2>Hello {user_data?.user_name}</h2> */}
+              <h4>Expenses Collection</h4>
+              <table>
+                <thead>
+                  <tr>
+                    <th>User ID</th>
+                    <th>Title</th>
+                    <th>Category</th>
+                    <th>Date</th>
+                    <th>Amount</th>
+                    <th>Transaction No</th>
+                    <th>Transaction Type</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {expense_data.map((expense, index) => (
+                    <tr key={index}>
+                      <td>{expense.user_id}</td>
+                      <td>{expense.title}</td>
+                      <td>{expense.category}</td>
+                      <td>{expense.date}</td>
+                      <td>{expense.amount}</td>
+                      <td>{expense.transaction_no}</td>
+                      <td>{expense.transaction_type}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
         <Footer />

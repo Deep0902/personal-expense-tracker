@@ -1,5 +1,83 @@
-.bar{
-    width: 40px;
-    height: 100vh;
-    background-color: aquamarine;
+.bar {
+  width: 220px;
+  background-color: #277761;
+  border-radius: 0px 4px 4px 0px;
+  color: #f3f7f6;
+  min-height: 100%;
+}
+.toggleContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+}
+.username {
+  padding: 10px 15px;
+  transition: opacity 0.5s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.username span {
+  font-size: 16px;
+}
+.username label {
+  font-size: 25px;
+  margin-top: -8px;
+}
+
+.toggleContainer img {
+  padding-right: 10px;
+}
+.justifyCenter {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  height: 50px;
+  padding-top: 15px;
+}
+.rotate180 {
+  transform: rotate(180deg);
+  scale: 0.8;
+}
+.pagesToggle {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 10px;
+  min-height: 82vh;
+  max-height: 100%;
+}
+.selection {
+  margin-top: 13px;
+  display: flex;
+  align-items: center;
+  padding: 8px 5px;
+  border-radius: 8px;
+}
+.selection img {
+  height: 20px;
+  width: 20px;
+  padding-left: 5px;
+}
+.lastSelection {
+  margin-top: auto;
+}
+.selection span {
+  padding-left: 8px;
+  font-size: 19px;
+  flex: 1;
+}
+
+.selected {
+  background-color: #21c598;
+}
+.adjustImage {
+  padding-left: 2px !important;
+  scale: 0.8;
+}
+/* Phone Screen CSS */
+@media (max-width: 760px) {
+    .bar{
+        display: none;
+    }
 }

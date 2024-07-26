@@ -1,5 +1,5 @@
 * {
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
 }
 
 h1 {
@@ -113,6 +113,23 @@ h1 {
   font-weight: 900;
   font-style: italic;
 }
-button:hover{
+button:hover {
   cursor: pointer;
+}
+
+/* index.css or App.css */
+.custom-scrollbar {
+  overflow-y: auto; /* Ensure the element can be scrolled vertically */
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 10px;
+  /* Adjust the width of the scrollbar */
+}
+
+/* Handle */
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background: #a5bcb6;
+  /* Color of the scrollbar handle */
 }
