@@ -7,6 +7,7 @@ import { Users } from "../../interfaces/Users";
 import TopNavbarProfile from "./TopNavbarProfile/TopNavbarProfile";
 import Sidebar from "./Sidebar/Sidebar";
 import { Expense } from "../../interfaces/Expense";
+import DashboardDetails from "./DashboardDetails/DashboardDetails";
 
 function UserDashboard() {
   const navigate = useNavigate(); // Hook for navigation
@@ -125,34 +126,7 @@ function UserDashboard() {
           <div className="mainContainer">
             <TopNavbarProfile onLogoutClick={handleLogout}/>
             <div className="content">
-              {/* <h2>Hello {user_data?.user_name}</h2> */}
-              <h4>Expenses Collection</h4>
-              <table>
-                <thead>
-                  <tr>
-                    <th>User ID</th>
-                    <th>Title</th>
-                    <th>Category</th>
-                    <th>Date</th>
-                    <th>Amount</th>
-                    <th>Transaction No</th>
-                    <th>Transaction Type</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {expense_data.map((expense, index) => (
-                    <tr key={index}>
-                      <td>{expense.user_id}</td>
-                      <td>{expense.title}</td>
-                      <td>{expense.category}</td>
-                      <td>{expense.date}</td>
-                      <td>{expense.amount}</td>
-                      <td>{expense.transaction_no}</td>
-                      <td>{expense.transaction_type}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+              {(tabSelected === "Dashboard")&& <DashboardDetails userExpenses={expense_data} />}
               <span>You've selected {tabSelected}</span>
             </div>
           </div>
