@@ -1,15 +1,15 @@
-.mainContainer{
-    min-height: unset;
-    width: -webkit-fill-available;
+.mainContainer {
+  min-height: unset;
+  width: -webkit-fill-available;
 }
-.pageSectionHorizontal{
-    display: flex;
-    flex-direction: column;
+.pageSectionHorizontal {
+  display: flex;
+  flex-direction: column;
 }
-.pageSectionVertical{
-    display: flex;
+.pageSectionVertical {
+  display: flex;
 }
 
-.content{
-    padding: 0px 1.5em;
+.content {
+  padding: 0px 1.5em;
 }

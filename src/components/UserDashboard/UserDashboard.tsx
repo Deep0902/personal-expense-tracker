@@ -18,7 +18,7 @@ function UserDashboard() {
 
   // State for expenses data, initially an empty array
   const [expense_data, setData] = useState<Expense[]>([]);
-  
+
   const [tabSelected, settabSelected] = useState("Dashboard");
   const handleDataFromComponent = (data: string) => {
     settabSelected(data);
@@ -122,11 +122,19 @@ function UserDashboard() {
     <>
       <div className="pageSectionHorizontal">
         <div className="pageSectionVertical">
-          <Sidebar Username={user_data?.user_name}sendDataToParent={handleDataFromComponent}/>
+          <Sidebar
+            Username={user_data?.user_name}
+            sendDataToParent={handleDataFromComponent}
+          />
           <div className="mainContainer">
-            <TopNavbarProfile onLogoutClick={handleLogout}/>
+            <TopNavbarProfile onLogoutClick={handleLogout} />
             <div className="content">
-              {(tabSelected === "Dashboard")&& <DashboardDetails userExpenses={expense_data} />}
+              {tabSelected === "Dashboard" && (
+                <DashboardDetails
+                  userExpenses={expense_data}
+                  wallet={user_data?.wallet ?? 0}
+                />
+              )}
               <span>You've selected {tabSelected}</span>
             </div>
           </div>
