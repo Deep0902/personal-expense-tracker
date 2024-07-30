@@ -1,0 +1,85 @@
+.dashboardDetails {
+  padding-left: 5%;
+  padding-right: 5%;
+}
+.monthExpenses {
+  background-color: #eaf9f6;
+  text-align: center;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 25px;
+}
+.overview {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.transactionActions {
+  background-color: #eaf9f6;
+  text-align: center;
+  border-radius: 10px;
+  display: flex;
+  width: 500px;
+}
+.transactionActions > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 25px;
+  flex: 1;
+  height: 100px;
+}
+
+.transactionActions span {
+  font-size: 17px;
+}
+
+.transactionActions img {
+  height: 60px;
+  width: 60px;
+  margin-bottom: 1vh;
+}
+
+.customLeftBorder {
+  position: relative;
+}
+.customLeftBorder::before {
+  content: "";
+  position: absolute;
+  left: 0; /* Align to the left side */
+  top: 20%; /* Gap from the top */
+  bottom: 20%; /* Gap from the bottom */
+  width: 2px; /* Border width */
+  background-color: #003321; /* Border color */
+  border-radius: 3px;
+}
+.wallet {
+  background-color: #eaf9f6;
+  /* padding: 25px; */
+  border-radius: 10px;
+  font-size: 23px;
+  min-height: 100px;
+  max-height: fit-content;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.wallet p {
+  margin: 0;
+  font-size: 30px;
+  padding: 15px 25px;
+}
+
+.breakdown span {
+  font-size: 26px;
+}
+.breakdown label {
+  font-size: 15px;
+}
+.categoryCards {
+  background-color: #eaf9f6;
+  border-radius: 10px;
+}
