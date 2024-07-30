@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import logo from "/images/logo.svg";
 import { useState } from "react";
 import "./TopNavbarSignedOut.css";
+import moreIcon from "/images/more.svg"
 
 function TopNavbarSignedOut() {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ function TopNavbarSignedOut() {
             navigate("/SignIn");
           }} className="poppins-medium desktop-button">Sign In</button>
           <button className="mobile-menu-button" onClick={toggleDropdown}>
-            ☰
+            <img src={moreIcon} alt="" />
           </button>
         </div>
         {isDropdownOpen && (

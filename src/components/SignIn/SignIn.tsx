@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import "./SignIn.css";
 import logo from "/images/logo.svg";
+import moreIcon from "/images/more.svg"
 import Footer from "../Footer/Footer";
 import { useState, useEffect } from "react";
 import "../TopNavbarSignedOut/TopNavbarSignedOut.css";
@@ -117,7 +118,7 @@ function SignIn() {
                 Admin Login
               </button>
               <button className="mobile-menu-button" onClick={toggleDropdown}>
-                ☰
+              <img src={moreIcon} alt="" />
               </button>
             </div>
             {isDropdownOpen && (
