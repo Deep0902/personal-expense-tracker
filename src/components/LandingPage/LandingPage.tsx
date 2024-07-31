@@ -13,7 +13,7 @@ function LandingPage() {
   return (
     <>
       <div className="mainContainer">
-        <TopNavbarSignedOut/>
+        <TopNavbarSignedOut />
         <br />
         <br />
         <br />
@@ -38,9 +38,14 @@ function LandingPage() {
             for both pros and beginners!
           </div>
           <div className="item item-4 poppins-medium">
-            <button onClick={()=>{
-              navigate("/SignUp")
-            }} className="poppins-medium">Sign Up</button>
+            <button
+              onClick={() => {
+                navigate("/SignUp");
+              }}
+              className="poppins-medium"
+            >
+              Sign Up
+            </button>
           </div>
         </div>
 
@@ -125,13 +130,20 @@ function LandingPage() {
             Smart Spending Made Simple: Use Our Expense Tracker!
           </label>
           <span className="poppins-medium">Start your Journey Today!</span>
-          <button className="poppins-medium">Sign Up</button>
+          <button
+            className="poppins-medium"
+            onClick={() => {
+              navigate("/SignUp");
+            }}
+          >
+            Sign Up
+          </button>
         </div>
       </div>
       <br />
       <br />
       <br />
-      <Footer/>
+      <Footer />
       <button
         onClick={() => {
           navigate("/personal-expense-tracker");

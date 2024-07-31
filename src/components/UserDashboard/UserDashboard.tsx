@@ -133,9 +133,10 @@ function UserDashboard() {
                 <DashboardDetails
                   userExpenses={expense_data}
                   wallet={user_data?.wallet ?? 0}
+                  username={user_data?.user_name}
                 />
               )}
-              <span>You've selected {tabSelected}</span>
+              {tabSelected !== "Dashboard" && (<span>You've selected {tabSelected}</span>)}
             </div>
           </div>
         </div>

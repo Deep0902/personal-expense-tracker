@@ -76,6 +76,10 @@
   color: #003321;
 }
 
+.breakdown {
+  margin-top: 10px;
+}
+
 .breakdown span {
   font-size: 26px;
   color: #003321;
@@ -123,4 +127,86 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr); /* Creates 3 equal columns */
   gap: 30px 90px; /* Adjust the gap between cards as needed */
+}
+.displayUsername {
+  display: none;
+}
+/* Phone Screen CSS */
+@media (max-width: 760px) {
+  .monthExpenses {
+    font-size: 16px;
+  }
+  .displayUsername {
+    display: block;
+    color: #003321;
+    font-size: 30px;
+    margin-bottom: 12px;
+  }
+  .overview {
+    flex-direction: column-reverse;
+  }
+  .transactionActions {
+    width: -webkit-fill-available;
+  }
+  .transactionActions span {
+    font-size: 13px;
+  }
+  .transactionActions img {
+    height: 30px;
+    width: 30px;
+    margin-bottom: 1vh;
+  }
+  .transactionActions > div {
+    padding: 0;
+  }
+  .customLeftBorder::before {
+    width: 1.5px; /* Border width */
+  }
+  .wallet {
+    font-size: 28px;
+    margin-bottom: 25px;
+    width: -webkit-fill-available;
+  }
+  .wallet p {
+    font-size: 20px;
+    padding: 10px 25px;
+  }
+  .wallet p:nth-child(2) {
+    font-size: 35px;
+  }
+  .breakdown {
+    margin-top: unset;
+  }
+  .breakdown > span {
+    font-size: 22px;
+  }
+  .breakdown > label {
+    font-size: 14px;
+  }
+  .categoryCards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: unset;
+  }
+  .cards span {
+    font-size: 12px;
+  }
+  .cards label {
+    font-size: 20px;
+    padding-left: 8px;
+    margin-top: 12px;
+  }
+  .cards {
+    min-width: unset;
+    min-height: unset;
+    width: 130px;
+    padding: 6px;
+    margin-bottom: 20px;
+  }
+  .expandIcon {
+    height: 10px;
+    width: 10px;
+    margin-right: 4px;
+  }
 }

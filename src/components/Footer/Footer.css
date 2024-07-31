@@ -41,4 +41,8 @@
     top: -1em;
     position: relative;
   }
+  .footer {
+    background-color: #095339;
+    padding: 50px 50px 30px 50px;
+  }
 }

@@ -8,9 +8,14 @@ import { useState, useEffect } from "react";
 interface DashboardDetailsProps {
   userExpenses: Expense[];
   wallet: number;
+  username: any;
 }
 
-function DashboardDetails({ userExpenses, wallet }: DashboardDetailsProps) {
+function DashboardDetails({
+  userExpenses,
+  wallet,
+  username,
+}: DashboardDetailsProps) {
   // Emojis for category
   const categoryEmojis: { [key: string]: string } = {
     Entertainment: "🍿",
@@ -79,6 +84,9 @@ function DashboardDetails({ userExpenses, wallet }: DashboardDetailsProps) {
   return (
     <>
       <div className="dashboardDetails">
+        <div className="displayUsername">
+          <span className="poppins-bold">Hello, {username}!</span>
+        </div>
         <div className="monthExpenses">
           <span className="poppins-semibold">This Month's Expenses: </span>
           <span className="inter-bold">
@@ -98,7 +106,7 @@ function DashboardDetails({ userExpenses, wallet }: DashboardDetailsProps) {
             </div>
           </div>
           <div className="wallet">
-            <p className="poppins-bold">My Wallet</p>
+            <p className="poppins-bold">My Wallet 🪙</p>
             <p className="inter-extra-bold">₹ {wallet.toLocaleString()}</p>
           </div>
         </div>
@@ -127,7 +135,7 @@ function DashboardDetails({ userExpenses, wallet }: DashboardDetailsProps) {
             ))}
           </div>
         </div>
-        <h4>Expenses Collection</h4>
+        {/* <h4>Expenses Collection</h4>
         <table>
           <thead>
             <tr>
@@ -153,7 +161,7 @@ function DashboardDetails({ userExpenses, wallet }: DashboardDetailsProps) {
               </tr>
             ))}
           </tbody>
-        </table>
+        </table> */}
       </div>
     </>
   );
