@@ -8,6 +8,7 @@ import TopNavbarProfile from "./TopNavbarProfile/TopNavbarProfile";
 import Sidebar from "./Sidebar/Sidebar";
 import { Expense } from "../../interfaces/Expense";
 import DashboardDetails from "./DashboardDetails/DashboardDetails";
+import TransactionHistory from "./TransactionHistory/TransactionHistory";
 
 function UserDashboard() {
   const navigate = useNavigate(); // Hook for navigation
@@ -136,7 +137,11 @@ function UserDashboard() {
                   username={user_data?.user_name}
                 />
               )}
-              {tabSelected !== "Dashboard" && (<span>You've selected {tabSelected}</span>)}
+
+              {tabSelected === "History"&&(
+                <TransactionHistory  userExpenses={expense_data}/>
+              )}
+              {tabSelected !== "Dashboard" || "History" && (<span>You've selected {tabSelected}</span>)}
             </div>
           </div>
         </div>

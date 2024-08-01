@@ -1,0 +1,143 @@
+.TransactionHistory {
+  position: relative;
+  padding-right: 5%;
+  padding-left: 5%;
+}
+
+.Historytitle {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+.Historytitle h3 {
+  margin: 0;
+  color: #003321;
+  font-size: 27px;
+}
+.searchItems {
+  position: relative;
+  align-items: center;
+}
+.searchItems img {
+  background-color: #019863;
+  padding: 10px;
+  border-radius: 10px;
+  position: absolute;
+  right: -2px;
+  top: 0px;
+  height: 22px;
+  width: 24px;
+}
+
+.searchItems input {
+  border: 2px solid #019863;
+  border-radius: 10px;
+  padding: 10px;
+  width: 250px;
+  color: #003321;
+}
+
+.searchItems input:focus {
+  border: 2px solid #019863;
+  outline: 2px solid #019863;
+}
+.searchItems input:focus {
+  border-color: #019863;
+  outline: none;
+  position: relative;
+}
+
+.TransactionHistory button {
+  color: #f3f7f6;
+  background-color: #019863;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 20px;
+  font-size: 15px;
+}
+
+.historyList .date {
+  color: #003321;
+  font-size: 20px;
+}
+.categoryEmoji {
+  border-radius: 50%;
+  font-size: 20px;
+  padding: 10px 11px;
+  margin: 8px;
+}
+.green-emoji {
+  background-color: #41d2ac80;
+}
+
+.red-emoji {
+  background-color: #f6d6d3;
+}
+
+.transactionCard:hover {
+}
+
+.transactionCard {
+  background-color: #eaf9f6;
+  text-align: center;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  padding: 4px;
+}
+.categoryInfo {
+  margin-left: 10px;
+  text-align: left;
+  flex: 1;
+}
+
+.categoryInfo span {
+  color: #003321;
+  font-size: 20px;
+}
+
+.categoryInfo label {
+  font-size: 20px;
+}
+.moneyCredit {
+  color: #019863;
+}
+.moneyDebit {
+  color: #e74c3c;
+}
+.moreIconContainer {
+  position: relative;
+  display: inline-block;
+}
+
+.moreIconContainer p {
+  text-align: left;
+  margin: 0;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.moreIconContainer p:hover {
+  background-color: #555;
+}
+
+.historyDropdown {
+  position: absolute;
+  background-color: #444444;
+  border-radius: 4px;
+  color: #fff;
+  right: 0;
+  display: none; /* Initially hidden */
+  z-index: 1;
+}
+
+.moreIconContainer:hover .historyDropdown {
+  display: block; /* Show on hover for desktop */
+  cursor: pointer;
+}
+.noExpensesMessage{
+  text-align: center;
+  font-size: 30px;
+  color: #003321;
+}
