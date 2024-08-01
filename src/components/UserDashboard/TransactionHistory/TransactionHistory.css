@@ -74,9 +74,6 @@
   background-color: #f6d6d3;
 }
 
-.transactionCard:hover {
-}
-
 .transactionCard {
   background-color: #eaf9f6;
   text-align: center;
@@ -136,7 +133,7 @@
   display: block; /* Show on hover for desktop */
   cursor: pointer;
 }
-.noExpensesMessage{
+.noExpensesMessage {
   text-align: center;
   font-size: 30px;
   color: #003321;
