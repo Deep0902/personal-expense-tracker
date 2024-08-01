@@ -1,3 +1,4 @@
+import axios from "axios"; // Import axios for API calls
 import { useState } from "react";
 import { Expense } from "../../../interfaces/Expense";
 import "./TransactionHistory.css";
@@ -6,24 +7,59 @@ import moreIcon from "/images/more-dots.svg";
 
 interface HistoryDetailsProps {
   userExpenses: Expense[];
+  onDelete: (transaction_no: string) => void;
 }
 
-function TransactionHistory({ userExpenses }: HistoryDetailsProps) {
+function TransactionHistory({ userExpenses, onDelete }: HistoryDetailsProps) {
+  // State to manage expenses
+  const [expenses, setExpenses] = useState<Expense[]>(userExpenses);
+
+  // State for managing which dropdown is visible
+  const [visibleDropdownIndex, setVisibleDropdownIndex] = useState<
+    number | null
+  >(null);
+
+  // Delete Expense Function
+  const token = "my_secure_token"; // Token for authorization
+  const deleteExpense = async (transaction_no: string) => {
+    try {
+      const res = await axios.delete(
+        `http://127.0.0.1:5000/api/expenses/${userExpenses[0].user_id}/${transaction_no}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (res.status === 200) {
+        setExpenses(
+          expenses.filter(
+            (expense) => expense.transaction_no !== transaction_no
+          )
+        );
+      } else {
+        alert("Failed to delete expense");
+      }
+    } catch (err) {
+      alert("Error occurred while deleting expense");
+      console.error(err);
+    }
+  };
+
   // Dropdown Logic
-  const [isDropdownVisible, setDropdownVisible] = useState(false);
-  const handleMouseEnter = () => {
+  const handleMouseEnter = (index: number) => {
     if (window.innerWidth > 768) {
-      setDropdownVisible(true);
+      setVisibleDropdownIndex(index);
     }
   };
   const handleMouseLeave = () => {
     if (window.innerWidth > 768) {
-      setDropdownVisible(false);
+      setVisibleDropdownIndex(null);
     }
   };
-  const handleClick = () => {
+  const handleClick = (index: number) => {
     if (window.innerWidth <= 768) {
-      setDropdownVisible(!isDropdownVisible);
+      setVisibleDropdownIndex(visibleDropdownIndex === index ? null : index);
     }
   };
 
@@ -32,8 +68,7 @@ function TransactionHistory({ userExpenses }: HistoryDetailsProps) {
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value.toLowerCase());
   };
-  // Filter transactions based on search query
-  const filteredTransactions = userExpenses.filter((expense) =>
+  const filteredTransactions = expenses.filter((expense) =>
     expense.title.toLowerCase().includes(searchQuery)
   );
 
@@ -120,18 +155,26 @@ function TransactionHistory({ userExpenses }: HistoryDetailsProps) {
                     </div>
                     <div
                       className="moreIconContainer"
-                      onMouseEnter={handleMouseEnter}
+                      onMouseEnter={() => handleMouseEnter(index)}
                       onMouseLeave={handleMouseLeave}
-                      onClick={handleClick}
+                      onClick={() => handleClick(index)}
                     >
                       <img
                         className="moreIcon"
                         src={moreIcon}
                         alt="more options"
                       />
-                      {isDropdownVisible && (
+                      {visibleDropdownIndex === index && (
                         <div className="historyDropdown">
-                          <p>Delete</p>
+                          <p
+                            onClick={() => {
+                              deleteExpense(transaction.transaction_no);
+                              onDelete(transaction.transaction_no); // Call the passed function
+                            }}
+                          >
+                            Delete
+                          </p>
+
                           <p>Edit</p>
                         </div>
                       )}
