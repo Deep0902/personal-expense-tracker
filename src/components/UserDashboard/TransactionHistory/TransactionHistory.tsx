@@ -7,10 +7,9 @@ import moreIcon from "/images/more-dots.svg";
 
 interface HistoryDetailsProps {
   userExpenses: Expense[];
-  onDelete: (transaction_no: string) => void;
 }
 
-function TransactionHistory({ userExpenses, onDelete }: HistoryDetailsProps) {
+function TransactionHistory({ userExpenses }: HistoryDetailsProps) {
   // State to manage expenses
   const [expenses, setExpenses] = useState<Expense[]>(userExpenses);
 
@@ -37,7 +36,7 @@ function TransactionHistory({ userExpenses, onDelete }: HistoryDetailsProps) {
             (expense) => expense.transaction_no !== transaction_no
           )
         );
-        alert("Transaction Deleted")
+        alert("Transaction Deleted");
       } else {
         alert("Failed to delete expense");
       }
@@ -73,6 +72,11 @@ function TransactionHistory({ userExpenses, onDelete }: HistoryDetailsProps) {
     expense.title.toLowerCase().includes(searchQuery)
   );
 
+  // Sort transactions by date in descending order
+  const sortedTransactions = filteredTransactions.sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+  );
+
   const categoryEmojis: { [key: string]: string } = {
     Entertainment: "🍿",
     Fuel: "⛽",
@@ -80,8 +84,9 @@ function TransactionHistory({ userExpenses, onDelete }: HistoryDetailsProps) {
     Subscription: "💳",
   };
 
-  const groupTransactionsByDate = (userExpenses: Expense[]) => {
-    return userExpenses.reduce((acc, expense) => {
+  // Group transactions by date
+  const groupTransactionsByDate = (transactions: Expense[]) => {
+    return transactions.reduce((acc, expense) => {
       const date = expense.date;
       if (!acc[date]) {
         acc[date] = [];
@@ -90,7 +95,7 @@ function TransactionHistory({ userExpenses, onDelete }: HistoryDetailsProps) {
       return acc;
     }, {} as Record<string, Expense[]>);
   };
-  const groupedTransactions = groupTransactionsByDate(filteredTransactions);
+  const groupedTransactions = groupTransactionsByDate(sortedTransactions);
 
   return (
     <>
@@ -170,7 +175,6 @@ function TransactionHistory({ userExpenses, onDelete }: HistoryDetailsProps) {
                           <p
                             onClick={() => {
                               deleteExpense(transaction.transaction_no);
-                              onDelete(transaction.transaction_no); // Call the passed function
                             }}
                           >
                             Delete

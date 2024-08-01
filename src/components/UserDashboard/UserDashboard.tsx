@@ -110,18 +110,13 @@ function UserDashboard() {
 
       fetchExpenses(); // Call function to fetch expenses
     }
-  }, [user_data, token]); // Effect dependency on user_data and token
+  }, [user_data, token, tabSelected]); // Effect dependency on user_data and token
 
   // Function to handle user logout
   const handleLogout = () => {
     sessionStorage.removeItem("user_email"); // Remove user email from session storage
     sessionStorage.removeItem("user_pass"); // Remove user password from session storage
     navigate("/SignIn"); // Redirect to SignIn
-  };
-
-  //Handle the delete of a record
-  const handleDeleteExpense = (transaction_no: string) => {
-    setData(expense_data.filter(expense => expense.transaction_no !== transaction_no));
   };
   
 
@@ -145,7 +140,7 @@ function UserDashboard() {
               )}
 
               {tabSelected === "History"&&(
-                <TransactionHistory userExpenses={expense_data} onDelete={handleDeleteExpense} />
+                <TransactionHistory userExpenses={expense_data} />
 
               )}
               {tabSelected !== "Dashboard" || "History" && (<span>You've selected {tabSelected}</span>)}
