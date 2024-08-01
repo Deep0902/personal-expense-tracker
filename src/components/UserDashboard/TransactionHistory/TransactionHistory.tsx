@@ -37,6 +37,7 @@ function TransactionHistory({ userExpenses, onDelete }: HistoryDetailsProps) {
             (expense) => expense.transaction_no !== transaction_no
           )
         );
+        alert("Transaction Deleted")
       } else {
         alert("Failed to delete expense");
       }

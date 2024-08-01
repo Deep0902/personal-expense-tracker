@@ -44,7 +44,7 @@ export let dummyUsers: Users[] = [
 export let dummyExpenses: Expense[] = [
   {
     user_id: 1,
-    transaction_no: 1,
+    transaction_no: "1",
     title: "Groceries",
     amount: 50.25,
     category: "Food",
@@ -53,7 +53,7 @@ export let dummyExpenses: Expense[] = [
   },
   {
     user_id: 2,
-    transaction_no: 1,
+    transaction_no: "1",
     title: "Electric Bill",
     amount: 75.0,
     category: "Utilities",
@@ -62,7 +62,7 @@ export let dummyExpenses: Expense[] = [
   },
   {
     user_id: 3,
-    transaction_no: 1,
+    transaction_no: "1",
     title: "Salary",
     amount: 2000.0,
     category: "Income",
