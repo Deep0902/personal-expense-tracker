@@ -119,6 +119,12 @@ function UserDashboard() {
     navigate("/SignIn"); // Redirect to SignIn
   };
 
+  //Handle the delete of a record
+  const handleDeleteExpense = (transaction_no: string) => {
+    setData(expense_data.filter(expense => expense.transaction_no !== transaction_no));
+  };
+  
+
   return (
     <>
       <div className="pageSectionHorizontal">
@@ -139,7 +145,8 @@ function UserDashboard() {
               )}
 
               {tabSelected === "History"&&(
-                <TransactionHistory  userExpenses={expense_data}/>
+                <TransactionHistory userExpenses={expense_data} onDelete={handleDeleteExpense} />
+
               )}
               {tabSelected !== "Dashboard" || "History" && (<span>You've selected {tabSelected}</span>)}
             </div>

@@ -3,7 +3,7 @@ export interface Expense {
   title: string;
   date: string;
   amount: number;
-  transaction_no: number;
+  transaction_no: string;
   transaction_type: string;
   category: string;
 }
