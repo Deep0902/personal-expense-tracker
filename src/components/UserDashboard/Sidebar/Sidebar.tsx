@@ -1,15 +1,16 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import "./Sidebar.css";
 import sidebarToggle from "/images/sidebar-toggle.svg";
 import dashoboard from "/images/dashboard.svg";
 import settings from "/images/settings.svg";
 import history from "/images/transaction-history.svg";
 import help from "/images/help.svg";
-interface SidebarProps{
+interface SidebarProps {
   Username: any;
   sendDataToParent: (data: any) => void;
+  activeTab: string;
 }
-function Sidebar({Username, sendDataToParent}: SidebarProps) {
+function Sidebar({ Username, sendDataToParent, activeTab }: SidebarProps) {
   const [isExpanded, setIsExpanded] = useState(true); // State to track if the div is expanded
   const resizableDivRef = useRef<HTMLDivElement>(null);
   const toggleDivSize = () => {
@@ -20,6 +21,9 @@ function Sidebar({Username, sendDataToParent}: SidebarProps) {
       setIsExpanded(!isExpanded); // Toggle the state
     }
   };
+  useEffect(() => {
+    setSelectedOption(activeTab);
+  }, [activeTab]);
 
   const [selectedOption, setSelectedOption] = useState("Dashboard");
   const handleSelection = (option: string) => {

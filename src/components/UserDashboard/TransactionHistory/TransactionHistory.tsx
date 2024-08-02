@@ -102,7 +102,8 @@ function TransactionHistory({ userExpenses }: HistoryDetailsProps) {
       <div className="TransactionHistory">
         <div className="Historytitle">
           <h3>Transaction History</h3>
-          <div className="searchItems">
+          <button className="mobileView poppins-medium">Add Transaction</button>
+          <div className="webView searchItems">
             <input
               className="poppins-regular"
               type="text"
@@ -114,8 +115,17 @@ function TransactionHistory({ userExpenses }: HistoryDetailsProps) {
           </div>
         </div>
         <br />
-        <button className="poppins-medium">Add Transaction</button>
-        <br />
+        <div className="mobileView searchItems">
+          <input
+            className="poppins-regular"
+            type="text"
+            placeholder="Search"
+            value={searchQuery}
+            onChange={handleSearchChange}
+          />
+          <img src={filter} alt="" />
+        </div>
+        <button className="poppins-medium webView">Add Transaction</button>
         <br />
 
         <div className="historyList">

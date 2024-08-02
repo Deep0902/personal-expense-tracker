@@ -13,3 +13,18 @@
 .content {
   padding: 0px 1.5em;
 }
+.mobileView {
+  display: none;
+}
+.webView {
+  display: block;
+}
+
+@media (max-width: 760px) {
+  .mobileView {
+    display: block;
+  }
+  .webView {
+    display: none;
+  }
+}

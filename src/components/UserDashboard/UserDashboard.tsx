@@ -85,7 +85,7 @@ function UserDashboard() {
     if (email) {
       fetchUserData(email); // Fetch user data if email exists
     }
-  }, [navigate]); // Effect dependency on navigate
+  }, [navigate, tabSelected]); // Effect dependency on navigate
 
   //Effect to fetch expenses data when user_data is updated
   useEffect(() => {
@@ -110,7 +110,7 @@ function UserDashboard() {
 
       fetchExpenses(); // Call function to fetch expenses
     }
-  }, [user_data, token, tabSelected]); // Effect dependency on user_data and token
+  }, [user_data, token]); // Effect dependency on user_data and token
 
   // Function to handle user logout
   const handleLogout = () => {
@@ -118,7 +118,6 @@ function UserDashboard() {
     sessionStorage.removeItem("user_pass"); // Remove user password from session storage
     navigate("/SignIn"); // Redirect to SignIn
   };
-  
 
   return (
     <>
@@ -127,23 +126,29 @@ function UserDashboard() {
           <Sidebar
             Username={user_data?.user_name}
             sendDataToParent={handleDataFromComponent}
+            activeTab={tabSelected}
           />
           <div className="mainContainer">
-            <TopNavbarProfile onLogoutClick={handleLogout} />
+            <TopNavbarProfile
+              onLogoutClick={handleLogout}
+              profileIcon={user_data?.profile_img}
+            />
             <div className="content">
+              <br />
+              <div className="mobileView">
+                <br />
+              </div>
               {tabSelected === "Dashboard" && (
                 <DashboardDetails
                   userExpenses={expense_data}
                   wallet={user_data?.wallet ?? 0}
                   username={user_data?.user_name}
+                  onHistoryClick={() => handleDataFromComponent("History")}
                 />
               )}
-
-              {tabSelected === "History"&&(
+              {tabSelected === "History" && (
                 <TransactionHistory userExpenses={expense_data} />
-
               )}
-              {tabSelected !== "Dashboard" || "History" && (<span>You've selected {tabSelected}</span>)}
             </div>
           </div>
         </div>

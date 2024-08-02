@@ -9,12 +9,14 @@ interface DashboardDetailsProps {
   userExpenses: Expense[];
   wallet: number;
   username: any;
+  onHistoryClick: () => void;
 }
 
 function DashboardDetails({
   userExpenses,
   wallet,
   username,
+  onHistoryClick,
 }: DashboardDetailsProps) {
   // Emojis for category
   const categoryEmojis: { [key: string]: string } = {
@@ -100,7 +102,7 @@ function DashboardDetails({
               <img src={addTransaction} alt="" />
               <span className="poppins-regular">Add a Transaction</span>
             </div>
-            <div className="customLeftBorder">
+            <div className="customLeftBorder" onClick={() => onHistoryClick()}>
               <img src={transactionHistory} alt="" />
               <span className="poppins-regular">Transaction History</span>
             </div>

@@ -103,9 +103,20 @@
 .moneyDebit {
   color: #e74c3c;
 }
+.moreIcon {
+  height: 35px;
+  width: 35px;
+  margin-right: 4px;
+}
 .moreIconContainer {
   position: relative;
   display: inline-block;
+}
+.mobileView {
+  display: none;
+}
+.webView {
+  display: block;
 }
 
 .moreIconContainer p {
@@ -137,4 +148,50 @@
   text-align: center;
   font-size: 30px;
   color: #003321;
+}
+/* Phone Screen CSS */
+@media (max-width: 760px) {
+  .TransactionHistory {
+    padding: 0;
+    position: relative;
+    margin-top: 18px;
+  }
+  .mobileView {
+    display: block;
+  }
+  .webView {
+    display: none;
+  }
+  .Historytitle h3 {
+    font-size: 17px;
+  }
+  .searchItems input {
+    width: 93%;
+    position: sticky;
+  }
+  .searchItems img {
+    height: 23.5px;
+  }
+  .TransactionHistory button {
+    padding: 5px 5px;
+    font-size: 12px;
+  }
+  .historyList {
+    margin-top: 10px;
+  }
+  .historyList .date {
+    font-size: 18px;
+  }
+  .categoryInfo span {
+    font-size: 16px;
+    width: 100%;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 220px; /* Set width as needed */
+  }
+  .categoryInfo label {
+    font-size: 16px;
+  }
 }

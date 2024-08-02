@@ -77,7 +77,7 @@
 }
 /* Phone Screen CSS */
 @media (max-width: 760px) {
-    .bar{
-        display: none;
-    }
+  .bar {
+    display: none;
+  }
 }

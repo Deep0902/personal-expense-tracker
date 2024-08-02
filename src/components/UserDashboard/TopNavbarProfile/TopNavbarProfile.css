@@ -5,7 +5,7 @@
 .topNavbar {
   position: sticky;
 }
-.extra-option{
+.extra-option {
   display: none;
 }
 
@@ -15,7 +15,10 @@
     height: 36px;
     width: 36px;
   }
-  .extra-option{
+  .topNavbar {
+    position: fixed;
+  }
+  .extra-option {
     display: block;
   }
 }
