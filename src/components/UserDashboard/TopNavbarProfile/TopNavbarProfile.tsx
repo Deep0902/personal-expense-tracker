@@ -11,9 +11,14 @@ import avatar6 from "/images/avatars/avatar-girl-3.svg";
 interface TopNavbarProps {
   onLogoutClick: () => void;
   profileIcon: any;
+  onProfileClick: (tab: string) => void;
 }
 
-function TopNavbarProfile({ onLogoutClick, profileIcon }: TopNavbarProps) {
+function TopNavbarProfile({
+  onLogoutClick,
+  profileIcon,
+  onProfileClick,
+}: TopNavbarProps) {
   const profileImages = [avatar1, avatar2, avatar3, avatar4, avatar5, avatar6];
   const imageSrc =
     profileIcon >= 1 && profileIcon <= 6
@@ -55,11 +60,36 @@ function TopNavbarProfile({ onLogoutClick, profileIcon }: TopNavbarProps) {
         </div>
         {isDropdownOpen && (
           <div className="dropdown-menu">
-            <a className="dropdown-link">Profile</a>
+            <a
+              className="dropdown-link extra-option"
+              onClick={() => {
+                onProfileClick("Dashboard");
+                toggleDropdown();
+              }}
+            >
+              Dashboard
+            </a>
+            <a
+              className="dropdown-link extra-option"
+              onClick={() => {
+                onProfileClick("History");
+                toggleDropdown();
+              }}
+            >
+              Transaction History
+            </a>
+            <a
+              className="dropdown-link"
+              onClick={() => {
+                onProfileClick("Settings");
+                toggleDropdown();
+              }}
+            >
+              Profile
+            </a>
             <a className="dropdown-link" onClick={onLogoutClick}>
               Logout
             </a>
-            <a className="dropdown-link extra-option">Dashboard</a>
           </div>
         )}
       </nav>

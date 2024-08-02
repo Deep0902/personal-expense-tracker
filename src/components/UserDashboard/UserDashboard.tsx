@@ -131,6 +131,7 @@ function UserDashboard() {
           <div className="mainContainer">
             <TopNavbarProfile
               onLogoutClick={handleLogout}
+              onProfileClick={(tab) => handleDataFromComponent(tab)}
               profileIcon={user_data?.profile_img}
             />
             <div className="content">
