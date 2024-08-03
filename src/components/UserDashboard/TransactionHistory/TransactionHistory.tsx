@@ -125,6 +125,13 @@ function TransactionHistory({
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   );
 
+  
+  // Helper function to convert string to sentence case
+  const toSentenceCase = (str: string) => {
+    if (!str) return "";
+    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+  };
+  
   const categoryEmojis: { [key: string]: string } = {
     Entertainment: "🍿",
     Fuel: "⛽",
@@ -150,7 +157,6 @@ function TransactionHistory({
       <div className="TransactionHistory">
         <div className="Historytitle">
           <h3>Transaction History</h3>
-          {userData.wallet}
           <button
             className="mobileView poppins-medium"
             onClick={onNewTransaction}
@@ -212,7 +218,7 @@ function TransactionHistory({
                     </div>
                     <div className="categoryInfo">
                       <span className="poppins-bold">
-                        {transaction.title} ({transaction.category})
+                        {toSentenceCase(transaction.title)} ({toSentenceCase(transaction.category)})
                       </span>
                       <br />
                       <label

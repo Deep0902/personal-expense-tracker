@@ -28,6 +28,12 @@ function DashboardDetails({
     Subscription: "💳",
   };
 
+  // Helper function to convert string to sentence case
+  const toSentenceCase = (str: string) => {
+    if (!str) return "";
+    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+  };
+
   // Segrate category wise amount based on current month
   const calculateMonthlyCategoryTotals = (
     expenses: Expense[]
@@ -44,7 +50,7 @@ function DashboardDetails({
         expenseDate.getMonth() === currentMonth &&
         expenseDate.getFullYear() === currentYear
       ) {
-        const category = expense.category;
+        const category = expense.category.toLowerCase(); // Normalize category to lowercase
         const amount = expense.amount;
         if (totals[category]) {
           // If the category already exists, add the amount to the total
@@ -58,6 +64,7 @@ function DashboardDetails({
 
     return totals;
   };
+
   const categoryTotals = calculateMonthlyCategoryTotals(userExpenses);
 
   // Calculate monthly expenses
@@ -78,6 +85,7 @@ function DashboardDetails({
       return total;
     }, 0);
   };
+
   const [totalMonthlyExpenses, setTotalMonthlyExpenses] = useState<number>(0);
 
   useEffect(() => {
@@ -128,7 +136,8 @@ function DashboardDetails({
               <div key={category} className="cards">
                 <div>
                   <span className="poppins-semibold">
-                    {categoryEmojis[category] || "📝"} {category}
+                    {categoryEmojis[toSentenceCase(category)] || "📝"}{" "}
+                    {toSentenceCase(category)}
                   </span>
                   <img className="expandIcon" src={expand} alt="expand" />
                 </div>
@@ -139,33 +148,6 @@ function DashboardDetails({
             ))}
           </div>
         </div>
-        {/* <h4>Expenses Collection</h4>
-        <table>
-          <thead>
-            <tr>
-              <th>User ID</th>
-              <th>Title</th>
-              <th>Category</th>
-              <th>Date</th>
-              <th>Amount</th>
-              <th>Transaction No</th>
-              <th>Transaction Type</th>
-            </tr>
-          </thead>
-          <tbody>
-            {userExpenses.map((expense, index) => (
-              <tr key={index}>
-                <td>{expense.user_id}</td>
-                <td>{expense.title}</td>
-                <td>{expense.category}</td>
-                <td>{expense.date}</td>
-                <td>{expense.amount}</td>
-                <td>{expense.transaction_no}</td>
-                <td>{expense.transaction_type}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table> */}
       </div>
     </>
   );
