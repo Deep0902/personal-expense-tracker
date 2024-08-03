@@ -3,11 +3,13 @@
   width: -webkit-fill-available;
 }
 .pageSectionHorizontal {
+  position: relative;
   display: flex;
   flex-direction: column;
 }
 .pageSectionVertical {
   display: flex;
+  position: relative;
 }
 
 .content {

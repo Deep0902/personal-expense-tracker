@@ -9,6 +9,7 @@ import Sidebar from "./Sidebar/Sidebar";
 import { Expense } from "../../interfaces/Expense";
 import DashboardDetails from "./DashboardDetails/DashboardDetails";
 import TransactionHistory from "./TransactionHistory/TransactionHistory";
+import NewTransacrion from "./NewTransacrion/NewTransacrion";
 
 function UserDashboard() {
   const navigate = useNavigate(); // Hook for navigation
@@ -23,6 +24,11 @@ function UserDashboard() {
   const [tabSelected, settabSelected] = useState("Dashboard");
   const handleDataFromComponent = (data: string) => {
     settabSelected(data);
+  };
+
+  const [newTransactionVisible, setNewTransactionVisible] = useState(false);
+  const toggleNewTransaction = () => {
+    setNewTransactionVisible(!newTransactionVisible);
   };
 
   // Effect to verify user and fetch user data on component mount
@@ -85,7 +91,7 @@ function UserDashboard() {
     if (email) {
       fetchUserData(email); // Fetch user data if email exists
     }
-  }, [navigate, tabSelected]); // Effect dependency on navigate
+  }, [navigate, tabSelected, newTransactionVisible]); // Effect dependency on navigate
 
   //Effect to fetch expenses data when user_data is updated
   useEffect(() => {
@@ -122,6 +128,13 @@ function UserDashboard() {
   return (
     <>
       <div className="pageSectionHorizontal">
+        {newTransactionVisible && (
+          <NewTransacrion
+            onNewTransaction={toggleNewTransaction}
+            userData={user_data}
+          />
+        )}
+
         <div className="pageSectionVertical">
           <Sidebar
             Username={user_data?.user_name}
@@ -144,11 +157,16 @@ function UserDashboard() {
                   userExpenses={expense_data}
                   wallet={user_data?.wallet ?? 0}
                   username={user_data?.user_name}
+                  onNewTransaction={toggleNewTransaction}
                   onHistoryClick={() => handleDataFromComponent("History")}
                 />
               )}
               {tabSelected === "History" && (
-                <TransactionHistory userExpenses={expense_data} />
+                <TransactionHistory
+                  userExpenses={expense_data}
+                  onNewTransaction={toggleNewTransaction}
+                  userData={user_data}
+                />
               )}
             </div>
           </div>

@@ -7,9 +7,15 @@ import moreIcon from "/images/more-dots.svg";
 
 interface HistoryDetailsProps {
   userExpenses: Expense[];
+  onNewTransaction: () => void;
+  userData: any;
 }
 
-function TransactionHistory({ userExpenses }: HistoryDetailsProps) {
+function TransactionHistory({
+  userExpenses,
+  onNewTransaction,
+  userData,
+}: HistoryDetailsProps) {
   // State to manage expenses
   const [expenses, setExpenses] = useState<Expense[]>(userExpenses);
 
@@ -22,7 +28,24 @@ function TransactionHistory({ userExpenses }: HistoryDetailsProps) {
   const token = "my_secure_token"; // Token for authorization
   const deleteExpense = async (transaction_no: string) => {
     try {
-      const res = await axios.delete(
+      // Find the transaction to be deleted to access its details
+      const transaction = expenses.find(
+        (expense) => expense.transaction_no === transaction_no
+      );
+
+      if (!transaction) {
+        alert("Transaction not found.");
+        return;
+      }
+
+      // Calculate the new wallet balance based on the transaction type
+      const updatedWallet =
+        transaction.transaction_type === "debit"
+          ? userData.wallet + transaction.amount
+          : userData.wallet - transaction.amount;
+
+      // Make the DELETE request to remove the transaction
+      const deleteTransactionPromise = axios.delete(
         `http://127.0.0.1:5000/api/expenses/${userExpenses[0].user_id}/${transaction_no}`,
         {
           headers: {
@@ -30,18 +53,41 @@ function TransactionHistory({ userExpenses }: HistoryDetailsProps) {
           },
         }
       );
-      if (res.status === 200) {
+
+      // Make the PUT request to update the user's wallet
+      const updateUserPromise = axios.put(
+        `http://127.0.0.1:5000/api/users/${userExpenses[0].user_id}`,
+        {
+          wallet: updatedWallet,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      // Wait for both API calls to complete
+      const [deleteTransactionResponse, updateUserResponse] = await Promise.all(
+        [deleteTransactionPromise, updateUserPromise]
+      );
+
+      // If both requests succeed, update the UI
+      if (
+        deleteTransactionResponse.status === 200 &&
+        updateUserResponse.status === 200
+      ) {
         setExpenses(
           expenses.filter(
             (expense) => expense.transaction_no !== transaction_no
           )
         );
-        alert("Transaction Deleted");
+        alert("Transaction deleted and wallet updated successfully.");
       } else {
-        alert("Failed to delete expense");
+        alert("Failed to delete transaction or update wallet.");
       }
     } catch (err) {
-      alert("Error occurred while deleting expense");
+      alert("Error occurred while deleting expense or updating wallet.");
       console.error(err);
     }
   };
@@ -68,8 +114,10 @@ function TransactionHistory({ userExpenses }: HistoryDetailsProps) {
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value.toLowerCase());
   };
-  const filteredTransactions = expenses.filter((expense) =>
-    expense.title.toLowerCase().includes(searchQuery)
+  const filteredTransactions = expenses.filter(
+    (expense) =>
+      expense.title.toLowerCase().includes(searchQuery) ||
+      expense.category.toLowerCase().includes(searchQuery)
   );
 
   // Sort transactions by date in descending order
@@ -102,7 +150,13 @@ function TransactionHistory({ userExpenses }: HistoryDetailsProps) {
       <div className="TransactionHistory">
         <div className="Historytitle">
           <h3>Transaction History</h3>
-          <button className="mobileView poppins-medium">Add Transaction</button>
+          {userData.wallet}
+          <button
+            className="mobileView poppins-medium"
+            onClick={onNewTransaction}
+          >
+            Add Transaction
+          </button>
           <div className="webView searchItems">
             <input
               className="poppins-regular"
@@ -125,7 +179,9 @@ function TransactionHistory({ userExpenses }: HistoryDetailsProps) {
           />
           <img src={filter} alt="" />
         </div>
-        <button className="poppins-medium webView">Add Transaction</button>
+        <button className="poppins-medium webView" onClick={onNewTransaction}>
+          Add Transaction
+        </button>
         <br />
 
         <div className="historyList">
