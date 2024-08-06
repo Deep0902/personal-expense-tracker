@@ -13,7 +13,7 @@ function NewTransaction({ userData, onNewTransaction }: NewTransactionProps) {
   const [date, setDate] = useState("");
   const [amount, setAmount] = useState<string | number>(""); // Change initial state to an empty string
   const [category, setCategory] = useState("");
-  const [transactionType, setTransactionType] = useState("credit");
+  const [transactionType, setTransactionType] = useState("debit");
   const token = "my_secure_token"; // Token for authorization
 
   // State for error messages
@@ -135,16 +135,21 @@ function NewTransaction({ userData, onNewTransaction }: NewTransactionProps) {
         <div className="overlay">
           <div className="overlayContent">
             <div className="popupBox">
-              <button onClick={onNewTransaction}>Close</button>
               <span className="poppins-bold">New Transaction</span>
+              <label className="poppins-regular">
+                Enter Transaction details
+              </label>
+              <br />
               <form onSubmit={handleSubmit} className="transaction-form">
-                <div className="form-group">
-                  <label>Name</label>
+                <div className="form-group ">
                   <input
                     type="text"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
-                    className={errors.title ? "error" : ""}
+                    className={
+                      errors.title ? "error poppins-regular" : "poppins-regular"
+                    }
+                    placeholder="Name"
                   />
                   {errors.title && (
                     <span className="error-message">{errors.title}</span>
@@ -152,12 +157,14 @@ function NewTransaction({ userData, onNewTransaction }: NewTransactionProps) {
                 </div>
 
                 <div className="form-group">
-                  <label>Date</label>
                   <input
                     type="date"
                     value={date}
+                    placeholder="Date"
                     onChange={(e) => setDate(e.target.value)}
-                    className={errors.date ? "error" : ""}
+                    className={
+                      errors.date ? "error poppins-regular" : "poppins-regular"
+                    }
                   />
                   {errors.date && (
                     <span className="error-message">{errors.date}</span>
@@ -165,12 +172,16 @@ function NewTransaction({ userData, onNewTransaction }: NewTransactionProps) {
                 </div>
 
                 <div className="form-group">
-                  <label>Amount</label>
                   <input
                     type="number"
+                    placeholder="Amount"
                     value={amount}
                     onChange={(e) => setAmount(e.target.value)} // Set the amount directly as a string
-                    className={errors.amount ? "error" : ""}
+                    className={
+                      errors.amount
+                        ? "error poppins-regular"
+                        : "poppins-regular"
+                    }
                   />
                   {errors.amount && (
                     <span className="error-message">{errors.amount}</span>
@@ -178,12 +189,16 @@ function NewTransaction({ userData, onNewTransaction }: NewTransactionProps) {
                 </div>
 
                 <div className="form-group">
-                  <label>Category</label>
                   <input
                     type="text"
+                    placeholder="Category"
                     value={category}
                     onChange={(e) => setCategory(e.target.value)}
-                    className={errors.category ? "error" : ""}
+                    className={
+                      errors.category
+                        ? "error poppins-regular"
+                        : "poppins-regular"
+                    }
                   />
                   {errors.category && (
                     <span className="error-message">{errors.category}</span>
@@ -191,20 +206,30 @@ function NewTransaction({ userData, onNewTransaction }: NewTransactionProps) {
                 </div>
 
                 <div className="form-group">
-                  <label>Transaction Type</label>
                   <select
+                    className="poppins-regular"
                     value={transactionType}
                     onChange={(e) => setTransactionType(e.target.value)}
                   >
-                    <option value="credit">Credit</option>
-                    <option value="debit">Debit</option>
+                    <option className="poppins-regular" value="credit">
+                      Credit
+                    </option>
+                    <option className="poppins-regular" value="debit">
+                      Debit
+                    </option>
                   </select>
                 </div>
 
-                <button type="submit" className="add-button">
+                <button type="submit" className="poppins-semibold add-button">
                   Add
                 </button>
               </form>
+              <button
+                className="poppins-semibold cancel-button"
+                onClick={onNewTransaction}
+              >
+                Cancel
+              </button>
             </div>
           </div>
         </div>
