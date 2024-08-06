@@ -116,7 +116,7 @@ function UserDashboard() {
 
       fetchExpenses(); // Call function to fetch expenses
     }
-  }, [user_data, token]); // Effect dependency on user_data and token
+  }, [user_data, token, newTransactionVisible]); // Effect dependency on user_data and token
 
   // Function to handle user logout
   const handleLogout = () => {
