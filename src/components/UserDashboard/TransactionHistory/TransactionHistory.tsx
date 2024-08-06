@@ -8,12 +8,14 @@ import moreIcon from "/images/more-dots.svg";
 interface HistoryDetailsProps {
   userExpenses: Expense[];
   onNewTransaction: () => void;
+  onEditTransaction: (transaction: Expense) => void;
   userData: any;
 }
 
 function TransactionHistory({
   userExpenses,
   onNewTransaction,
+  onEditTransaction,
   userData,
 }: HistoryDetailsProps) {
   // State to manage expenses
@@ -36,6 +38,20 @@ function TransactionHistory({
       if (!transaction) {
         alert("Transaction not found.");
         return;
+      }
+
+      // Alert the user with the transaction details before deletion
+      const confirmDelete = window.confirm(
+        `Are you sure you want to delete this transaction?\n\n` +
+          `Title: ${transaction.title}\n` +
+          `Date: ${new Date(transaction.date).toLocaleDateString()}\n` +
+          `Amount: ₹${transaction.amount.toLocaleString()}\n` +
+          `Category: ${transaction.category}\n` +
+          `Type: ${transaction.transaction_type}`
+      );
+
+      if (!confirmDelete) {
+        return; // If user cancels, do not proceed with deletion
       }
 
       // Calculate the new wallet balance based on the transaction type
@@ -125,13 +141,12 @@ function TransactionHistory({
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   );
 
-  
   // Helper function to convert string to sentence case
   const toSentenceCase = (str: string) => {
     if (!str) return "";
     return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
   };
-  
+
   const categoryEmojis: { [key: string]: string } = {
     Entertainment: "🍿",
     Fuel: "⛽",
@@ -167,7 +182,7 @@ function TransactionHistory({
             <input
               className="poppins-regular"
               type="text"
-              placeholder="Search"
+              placeholder="Search Transaction/Category"
               value={searchQuery}
               onChange={handleSearchChange}
             />
@@ -179,7 +194,7 @@ function TransactionHistory({
           <input
             className="poppins-regular"
             type="text"
-            placeholder="Search"
+            placeholder="Search Transaction/Category"
             value={searchQuery}
             onChange={handleSearchChange}
           />
@@ -218,7 +233,8 @@ function TransactionHistory({
                     </div>
                     <div className="categoryInfo">
                       <span className="poppins-bold">
-                        {toSentenceCase(transaction.title)} ({toSentenceCase(transaction.category)})
+                        {toSentenceCase(transaction.title)} (
+                        {toSentenceCase(transaction.category)})
                       </span>
                       <br />
                       <label
@@ -252,7 +268,13 @@ function TransactionHistory({
                             Delete
                           </p>
 
-                          <p>Edit</p>
+                          <p
+                            onClick={() => {
+                              onEditTransaction(transaction); // Pass transaction to onEditTransaction
+                            }}
+                          >
+                            Edit
+                          </p>
                         </div>
                       )}
                     </div>

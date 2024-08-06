@@ -10,6 +10,7 @@ import { Expense } from "../../interfaces/Expense";
 import DashboardDetails from "./DashboardDetails/DashboardDetails";
 import TransactionHistory from "./TransactionHistory/TransactionHistory";
 import NewTransacrion from "./NewTransacrion/NewTransacrion";
+import EditTransaction from "./EditTransaction/EditTransaction";
 
 function UserDashboard() {
   const navigate = useNavigate(); // Hook for navigation
@@ -26,9 +27,18 @@ function UserDashboard() {
     settabSelected(data);
   };
 
+  //New Transaction
   const [newTransactionVisible, setNewTransactionVisible] = useState(false);
   const toggleNewTransaction = () => {
     setNewTransactionVisible(!newTransactionVisible);
+  };
+
+  //Edit Transaction
+  const [editingTransaction, setEditingTransaction] = useState<Expense | null>(null); // New state to hold the selected transaction
+  const [EditTransactionVisible, setEditTransactionVisible] = useState(false);
+  const toggleEditTransaction = (transaction?: Expense) => {
+    setEditTransactionVisible(!EditTransactionVisible);
+    setEditingTransaction(transaction || null); // Set the selected transaction or null if toggling off
   };
 
   // Effect to verify user and fetch user data on component mount
@@ -91,7 +101,7 @@ function UserDashboard() {
     if (email) {
       fetchUserData(email); // Fetch user data if email exists
     }
-  }, [navigate, tabSelected, newTransactionVisible]); // Effect dependency on navigate
+  }, [navigate, tabSelected, newTransactionVisible, EditTransactionVisible]); // Effect dependency on navigate
 
   //Effect to fetch expenses data when user_data is updated
   useEffect(() => {
@@ -116,7 +126,7 @@ function UserDashboard() {
 
       fetchExpenses(); // Call function to fetch expenses
     }
-  }, [user_data, token, newTransactionVisible]); // Effect dependency on user_data and token
+  }, [user_data, token, newTransactionVisible, EditTransactionVisible]); // Effect dependency on user_data and token
 
   // Function to handle user logout
   const handleLogout = () => {
@@ -132,6 +142,12 @@ function UserDashboard() {
           <NewTransacrion
             onNewTransaction={toggleNewTransaction}
             userData={user_data}
+          />
+        )}
+        {EditTransactionVisible && editingTransaction && ( // Ensure transaction data is passed
+          <EditTransaction
+            onEditTransaction={toggleEditTransaction}
+            transaction={editingTransaction} // Pass the selected transaction
           />
         )}
 
@@ -165,6 +181,7 @@ function UserDashboard() {
                 <TransactionHistory
                   userExpenses={expense_data}
                   onNewTransaction={toggleNewTransaction}
+                  onEditTransaction={toggleEditTransaction}
                   userData={user_data}
                 />
               )}
