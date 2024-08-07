@@ -11,70 +11,56 @@ function NewTransaction({ userData, onNewTransaction }: NewTransactionProps) {
   // State for form inputs
   const [title, setTitle] = useState("");
   const [date, setDate] = useState("");
-  const [amount, setAmount] = useState<string | number>(""); // Change initial state to an empty string
+  const [amount, setAmount] = useState<string | number>("");
   const [category, setCategory] = useState("");
   const [transactionType, setTransactionType] = useState("debit");
   const token = "my_secure_token"; // Token for authorization
 
-  // State for error messages
-  const [errors, setErrors] = useState({
-    title: "",
-    date: "",
-    amount: "",
-    category: "",
-    transactionType: "",
-  });
+  function alertDisplay(message: string) {
+    alert(message);
+  }
 
   // Handle form submission
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    // Reset errors
-    setErrors({
-      title: "",
-      date: "",
-      amount: "",
-      category: "",
-      transactionType: "",
-    });
-
     // Perform validations
     let hasError = false;
-    const currentDate = new Date();
-    const enteredDate = new Date(date);
-    const newErrors = { ...errors };
 
     if (!title) {
-      newErrors.title = "Title is required.";
+      alertDisplay("Title is required.");
       hasError = true;
     }
 
+    const currentDate = new Date();
+    const enteredDate = new Date(date);
     if (!date) {
-      newErrors.date = "Date is required.";
+      alertDisplay("Date is required.");
       hasError = true;
     } else if (enteredDate > currentDate) {
-      newErrors.date = "Date cannot be in the future.";
+      alertDisplay("Date cannot be in the future.");
       hasError = true;
     }
 
     if (!amount || Number(amount) <= 0) {
-      newErrors.amount = "Amount must be a positive number.";
+      alertDisplay("Amount must be a positive number.");
       hasError = true;
     } else if (
       transactionType === "debit" &&
       Number(amount) > userData.wallet
     ) {
-      newErrors.amount = `Amount cannot exceed wallet balance of ${userData.wallet}.`;
+      alertDisplay(
+        `Amount cannot exceed wallet balance of ${userData.wallet}.`
+      );
       hasError = true;
     }
 
     if (!category) {
-      newErrors.category = "Category is required.";
+      alertDisplay("Category is required.");
       hasError = true;
     }
 
     if (hasError) {
-      setErrors(newErrors);
       return;
     }
 
@@ -146,14 +132,9 @@ function NewTransaction({ userData, onNewTransaction }: NewTransactionProps) {
                     type="text"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
-                    className={
-                      errors.title ? "error poppins-regular" : "poppins-regular"
-                    }
+                    className="poppins-regular"
                     placeholder="Name"
                   />
-                  {errors.title && (
-                    <span className="error-message">{errors.title}</span>
-                  )}
                 </div>
 
                 <div className="form-group">
@@ -162,13 +143,8 @@ function NewTransaction({ userData, onNewTransaction }: NewTransactionProps) {
                     value={date}
                     placeholder="Date"
                     onChange={(e) => setDate(e.target.value)}
-                    className={
-                      errors.date ? "error poppins-regular" : "poppins-regular"
-                    }
+                    className="poppins-regular"
                   />
-                  {errors.date && (
-                    <span className="error-message">{errors.date}</span>
-                  )}
                 </div>
 
                 <div className="form-group">
@@ -176,16 +152,9 @@ function NewTransaction({ userData, onNewTransaction }: NewTransactionProps) {
                     type="number"
                     placeholder="Amount"
                     value={amount}
-                    onChange={(e) => setAmount(e.target.value)} // Set the amount directly as a string
-                    className={
-                      errors.amount
-                        ? "error poppins-regular"
-                        : "poppins-regular"
-                    }
+                    onChange={(e) => setAmount(e.target.value)}
+                    className="poppins-regular"
                   />
-                  {errors.amount && (
-                    <span className="error-message">{errors.amount}</span>
-                  )}
                 </div>
 
                 <div className="form-group">
@@ -194,15 +163,8 @@ function NewTransaction({ userData, onNewTransaction }: NewTransactionProps) {
                     placeholder="Category"
                     value={category}
                     onChange={(e) => setCategory(e.target.value)}
-                    className={
-                      errors.category
-                        ? "error poppins-regular"
-                        : "poppins-regular"
-                    }
+                    className="poppins-regular"
                   />
-                  {errors.category && (
-                    <span className="error-message">{errors.category}</span>
-                  )}
                 </div>
 
                 <div className="form-group">
