@@ -134,6 +134,7 @@ function NewTransaction({ userData, onNewTransaction }: NewTransactionProps) {
                     onChange={(e) => setTitle(e.target.value)}
                     className="poppins-regular"
                     placeholder="Name"
+                    required
                   />
                 </div>
 
@@ -144,6 +145,7 @@ function NewTransaction({ userData, onNewTransaction }: NewTransactionProps) {
                     placeholder="Date"
                     onChange={(e) => setDate(e.target.value)}
                     className="poppins-regular"
+                    required
                   />
                 </div>
 
@@ -154,6 +156,7 @@ function NewTransaction({ userData, onNewTransaction }: NewTransactionProps) {
                     value={amount}
                     onChange={(e) => setAmount(e.target.value)}
                     className="poppins-regular"
+                    required
                   />
                 </div>
 
@@ -164,6 +167,7 @@ function NewTransaction({ userData, onNewTransaction }: NewTransactionProps) {
                     value={category}
                     onChange={(e) => setCategory(e.target.value)}
                     className="poppins-regular"
+                    required
                   />
                 </div>
 
@@ -172,6 +176,7 @@ function NewTransaction({ userData, onNewTransaction }: NewTransactionProps) {
                     className="poppins-regular"
                     value={transactionType}
                     onChange={(e) => setTransactionType(e.target.value)}
+                    required
                   >
                     <option className="poppins-regular" value="credit">
                       Credit

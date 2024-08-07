@@ -147,6 +147,7 @@ function UserDashboard() {
         {EditTransactionVisible && editingTransaction && ( // Ensure transaction data is passed
           <EditTransaction
             onEditTransaction={toggleEditTransaction}
+            userData={user_data}
             transaction={editingTransaction} // Pass the selected transaction
           />
         )}
