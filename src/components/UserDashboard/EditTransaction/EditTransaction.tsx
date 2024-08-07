@@ -104,7 +104,11 @@ function EditTransaction({
       }
 
       const newWallet = userData.wallet + walletAdjustment;
-
+      // Check if the new wallet balance will be negative
+      if (newWallet < 0) {
+        alertDisplay("Amount is exceeding the wallet");
+        return;
+      }
       // Call the API to update the transaction
       await axios.put(
         `http://127.0.0.1:5000/api/expenses/${userData.user_id}/${transaction.transaction_no}`,
