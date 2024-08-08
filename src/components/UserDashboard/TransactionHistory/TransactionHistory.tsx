@@ -4,6 +4,8 @@ import { Expense } from "../../../interfaces/Expense";
 import "./TransactionHistory.css";
 import filter from "/images/filter.svg";
 import moreIcon from "/images/more-dots.svg";
+import { downloadCSV } from "../../utils/csvUtils";
+import csvExport from "/images/csv-export.svg";
 
 interface HistoryDetailsProps {
   userExpenses: Expense[];
@@ -23,7 +25,7 @@ function TransactionHistory({
   //State to manage filter overlay
   const [dateFilter, setDateFilter] = useState(false);
 
-  //State to filter by dates
+  // State management
   const [fromDate, setFromDate] = useState<string | null>(null);
   const [toDate, setToDate] = useState<string | null>(null);
   function toggleDateFilter(applyFilter = false) {
@@ -38,7 +40,7 @@ function TransactionHistory({
     } else {
       setFromDate(null);
       setToDate(null);
-      setExpenses(userExpenses); // Reset to original expenses
+      setExpenses(userExpenses);
     }
     setDateFilter(!dateFilter);
   }
@@ -209,6 +211,18 @@ function TransactionHistory({
     setExpenses(filteredExpenses);
   }, [searchQuery, fromDate, toDate, userExpenses]);
 
+  // Trigger CSV download
+  const handleDownloadCSV = () => {
+    const data = sortedTransactions.map((transaction) => ({
+      Date: new Date(transaction.date),
+      Title: transaction.title,
+      Category: transaction.category,
+      Amount: transaction.amount,
+      Type: transaction.transaction_type,
+    }));
+
+    downloadCSV(data, `${userData.user_name}'s Expenses`);
+  };
   return (
     <>
       <div className="TransactionHistory">
@@ -249,12 +263,16 @@ function TransactionHistory({
 
         <div className="Historytitle">
           <h3>Transaction History</h3>
-          <button
-            className="mobileView poppins-medium"
-            onClick={onNewTransaction}
-          >
-            Add Transaction
-          </button>
+          <div className="mobileView">
+            <button
+              className="poppins-medium csvButton"
+              onClick={handleDownloadCSV}
+            >
+              <img src={csvExport} alt="" />
+              Export CSV
+            </button>
+          </div>
+
           <div className="webView searchItems">
             <input
               className="poppins-regular"
@@ -280,12 +298,27 @@ function TransactionHistory({
             onChange={handleSearchChange}
           />
           <img src={filter} alt="" onClick={() => setDateFilter(!dateFilter)} />
+          <button
+            className="poppins-medium mobileViewAddTransaction"
+            onClick={onNewTransaction}
+          >
+            Add Transaction
+          </button>
         </div>
-        <button className="poppins-medium webView" onClick={onNewTransaction}>
-          Add Transaction
-        </button>
+        <div className="buttons-alignment">
+          <button className="poppins-medium webView" onClick={onNewTransaction}>
+            Add Transaction
+          </button>
+          <button
+            className="poppins-medium csvButton webView"
+            onClick={handleDownloadCSV}
+          >
+            <img src={csvExport} alt="" />
+            Export CSV
+          </button>
+        </div>
         <br />
-
+        <div className="TransactionHistory">{/* Rest of your JSX */}</div>
         <div className="historyList">
           {Object.keys(groupedTransactions).length === 0 ? (
             <div className="noExpensesMessage">

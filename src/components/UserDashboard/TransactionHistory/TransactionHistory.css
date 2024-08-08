@@ -46,8 +46,11 @@
   outline: none;
   position: relative;
 }
-
-.TransactionHistory > button {
+.buttons-alignment{
+  display: flex;
+  justify-content: space-between;
+}
+.TransactionHistory  button {
   color: #f3f7f6;
   background-color: #019863;
   border: none;
@@ -221,17 +224,26 @@
   font-size: 15px;
   width: -webkit-fill-available;
 }
+.csvButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 10px !important;
+}
+.csvButton > img {
+  margin-right: 4px;
+  height: 20px;
+  width: 20px;
+}
 /* Phone Screen CSS */
 @media (max-width: 760px) {
   .TransactionHistory {
     padding: 0;
     position: relative;
     margin-top: 18px;
-    
   }
   .mobileView {
     display: block;
-    
   }
   .webView {
     display: none;
@@ -247,7 +259,6 @@
     height: 23.5px;
   }
   .TransactionHistory button {
-    padding: 5px 10px;
     font-size: 12px;
     color: #f3f7f6;
     background-color: #019863;
@@ -271,5 +282,10 @@
   }
   .categoryInfo label {
     font-size: 16px;
+  }
+  .mobileViewAddTransaction{
+    width: 100%;
+    margin-top: 10px;
+    padding: 8px 10px !important;
   }
 }
