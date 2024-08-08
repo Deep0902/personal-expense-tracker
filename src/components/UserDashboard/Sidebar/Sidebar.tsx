@@ -9,8 +9,9 @@ interface SidebarProps {
   Username: any;
   sendDataToParent: (data: any) => void;
   activeTab: string;
+  resetSearchQuery: () => void;
 }
-function Sidebar({ Username, sendDataToParent, activeTab }: SidebarProps) {
+function Sidebar({ Username, sendDataToParent, activeTab, resetSearchQuery }: SidebarProps) {
   const [isExpanded, setIsExpanded] = useState(true); // State to track if the div is expanded
   const resizableDivRef = useRef<HTMLDivElement>(null);
   const toggleDivSize = () => {
@@ -29,6 +30,9 @@ function Sidebar({ Username, sendDataToParent, activeTab }: SidebarProps) {
   const handleSelection = (option: string) => {
     setSelectedOption(option);
     sendDataToParent(option);
+    if (option === "History") {
+      resetSearchQuery(); // Reset search query when History is selected
+    }
   };
 
   return (

@@ -166,6 +166,7 @@ function UserDashboard() {
             Username={user_data?.user_name}
             sendDataToParent={handleDataFromComponent}
             activeTab={tabSelected}
+            resetSearchQuery={() => setSearchQuery("")}
           />
           <div className="mainContainer">
             <TopNavbarProfile
