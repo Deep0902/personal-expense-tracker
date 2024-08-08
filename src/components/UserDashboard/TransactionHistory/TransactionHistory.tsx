@@ -1,5 +1,5 @@
 import axios from "axios"; // Import axios for API calls
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Expense } from "../../../interfaces/Expense";
 import "./TransactionHistory.css";
 import filter from "/images/filter.svg";
@@ -10,6 +10,7 @@ interface HistoryDetailsProps {
   onNewTransaction: () => void;
   onEditTransaction: (transaction: Expense) => void;
   userData: any;
+  initialSearchQuery: any;
 }
 
 function TransactionHistory({
@@ -17,7 +18,15 @@ function TransactionHistory({
   onNewTransaction,
   onEditTransaction,
   userData,
+  initialSearchQuery = "", // New prop with default empty string
 }: HistoryDetailsProps) {
+  
+  //State to manage filter overlay
+  const [dateFilter, setDateFilter] = useState(false);
+  function toggleDateFilter() {
+    setDateFilter(!dateFilter);
+  }
+
   // State to manage expenses
   const [expenses, setExpenses] = useState<Expense[]>(userExpenses);
 
@@ -126,7 +135,7 @@ function TransactionHistory({
   };
 
   // Search Logic
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState(initialSearchQuery);
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value.toLowerCase());
   };
@@ -166,10 +175,43 @@ function TransactionHistory({
     }, {} as Record<string, Expense[]>);
   };
   const groupedTransactions = groupTransactionsByDate(sortedTransactions);
-
+  useEffect(() => {
+    setExpenses(userExpenses.filter(
+      (expense) =>
+        expense.title.toLowerCase().includes(searchQuery) ||
+        expense.category.toLowerCase().includes(searchQuery)
+    ));
+  }, [searchQuery, userExpenses]);
+  
   return (
     <>
       <div className="TransactionHistory">
+        {dateFilter && (
+          <div className="overlayBackground">
+            <div className="poppins-bold">
+              <div className="overlayBox">
+                <label className="">Custom Date Filter</label>
+                <br />
+                <span className="poppins-regular">From Date</span>
+                <input type="date" />
+                <span className="poppins-regular">To Date</span>
+                <input type="date" />
+                <button
+                  className="poppins-semibold add-button"
+                  onClick={toggleDateFilter}
+                >
+                  Apply
+                </button>
+                <button
+                  className="poppins-semibold cancel-button"
+                  onClick={toggleDateFilter}
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
         <div className="Historytitle">
           <h3>Transaction History</h3>
           <button
@@ -186,7 +228,7 @@ function TransactionHistory({
               value={searchQuery}
               onChange={handleSearchChange}
             />
-            <img src={filter} alt="" />
+            <img src={filter} alt="" onClick={toggleDateFilter} />
           </div>
         </div>
         <br />
@@ -198,7 +240,7 @@ function TransactionHistory({
             value={searchQuery}
             onChange={handleSearchChange}
           />
-          <img src={filter} alt="" />
+          <img src={filter} alt="" onClick={toggleDateFilter} />
         </div>
         <button className="poppins-medium webView" onClick={onNewTransaction}>
           Add Transaction

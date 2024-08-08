@@ -9,7 +9,7 @@ interface DashboardDetailsProps {
   userExpenses: Expense[];
   wallet: number;
   username: any;
-  onHistoryClick: () => void;
+  onHistoryClick: (tab: string, category: string) => void; // Updated
   onNewTransaction: () => void;
 }
 
@@ -93,6 +93,11 @@ function DashboardDetails({
     setTotalMonthlyExpenses(total);
   }, [userExpenses]);
 
+  //Handle Expand click
+  const handleHistoryClick = (category: string) => {
+    onHistoryClick("History", category);
+  };  
+
   return (
     <>
       <div className="dashboardDetails">
@@ -112,7 +117,7 @@ function DashboardDetails({
               <img src={addTransaction} alt="" />
               <span className="poppins-regular">Add a Transaction</span>
             </div>
-            <div className="customLeftBorder" onClick={() => onHistoryClick()}>
+            <div className="customLeftBorder" onClick={() => onHistoryClick("History", "")}>
               <img src={transactionHistory} alt="" />
               <span className="poppins-regular">Transaction History</span>
             </div>
@@ -139,7 +144,12 @@ function DashboardDetails({
                     {categoryEmojis[toSentenceCase(category)] || "📝"}{" "}
                     {toSentenceCase(category)}
                   </span>
-                  <img className="expandIcon" src={expand} alt="expand" />
+                  <img
+                    className="expandIcon"
+                    src={expand}
+                    alt="expand"
+                    onClick={() => handleHistoryClick(category)} // Pass the category name
+                  />
                 </div>
                 <label className="inter-extra-bold">
                   ₹ {categoryTotals[category].toLocaleString()}

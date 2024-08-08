@@ -22,10 +22,16 @@ function UserDashboard() {
   // State for expenses data, initially an empty array
   const [expense_data, setData] = useState<Expense[]>([]);
 
+  //Handle search query
+  const [searchQuery, setSearchQuery] = useState("");
   const [tabSelected, settabSelected] = useState("Dashboard");
-  const handleDataFromComponent = (data: string) => {
-    settabSelected(data);
+  const handleDataFromComponent = (tab: string, category?: string) => {
+    settabSelected(tab);
+    if (category) {
+      setSearchQuery(category.toLowerCase());
+    }
   };
+
 
   //New Transaction
   const [newTransactionVisible, setNewTransactionVisible] = useState(false);
@@ -34,7 +40,9 @@ function UserDashboard() {
   };
 
   //Edit Transaction
-  const [editingTransaction, setEditingTransaction] = useState<Expense | null>(null); // New state to hold the selected transaction
+  const [editingTransaction, setEditingTransaction] = useState<Expense | null>(
+    null
+  ); // New state to hold the selected transaction
   const [EditTransactionVisible, setEditTransactionVisible] = useState(false);
   const toggleEditTransaction = (transaction?: Expense) => {
     setEditTransactionVisible(!EditTransactionVisible);
@@ -144,13 +152,14 @@ function UserDashboard() {
             userData={user_data}
           />
         )}
-        {EditTransactionVisible && editingTransaction && ( // Ensure transaction data is passed
-          <EditTransaction
-            onEditTransaction={toggleEditTransaction}
-            userData={user_data}
-            transaction={editingTransaction} // Pass the selected transaction
-          />
-        )}
+        {EditTransactionVisible &&
+          editingTransaction && ( // Ensure transaction data is passed
+            <EditTransaction
+              onEditTransaction={toggleEditTransaction}
+              userData={user_data}
+              transaction={editingTransaction} // Pass the selected transaction
+            />
+          )}
 
         <div className="pageSectionVertical">
           <Sidebar
@@ -175,7 +184,7 @@ function UserDashboard() {
                   wallet={user_data?.wallet ?? 0}
                   username={user_data?.user_name}
                   onNewTransaction={toggleNewTransaction}
-                  onHistoryClick={() => handleDataFromComponent("History")}
+                  onHistoryClick={handleDataFromComponent}
                 />
               )}
               {tabSelected === "History" && (
@@ -184,6 +193,7 @@ function UserDashboard() {
                   onNewTransaction={toggleNewTransaction}
                   onEditTransaction={toggleEditTransaction}
                   userData={user_data}
+                  initialSearchQuery={searchQuery} // Pass the search query
                 />
               )}
             </div>
