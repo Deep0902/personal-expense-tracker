@@ -11,6 +11,7 @@ import DashboardDetails from "./DashboardDetails/DashboardDetails";
 import TransactionHistory from "./TransactionHistory/TransactionHistory";
 import NewTransacrion from "./NewTransacrion/NewTransacrion";
 import EditTransaction from "./EditTransaction/EditTransaction";
+import About from "./About/About";
 
 function UserDashboard() {
   const navigate = useNavigate(); // Hook for navigation
@@ -196,6 +197,9 @@ function UserDashboard() {
                   userData={user_data}
                   initialSearchQuery={searchQuery} // Pass the search query
                 />
+              )}
+              {tabSelected === "About" &&(
+                <About/>
               )}
             </div>
           </div>

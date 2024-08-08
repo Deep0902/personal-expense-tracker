@@ -93,16 +93,16 @@ function Sidebar({ Username, sendDataToParent, activeTab, resetSearchQuery }: Si
         </div>
         <div
           className={`selection lastSelection ${
-            selectedOption === "Help" ? "selected" : ""
+            selectedOption === "About" ? "selected" : ""
           }`}
-          onClick={() => handleSelection("Help")}
+          onClick={() => handleSelection("About")}
         >
           <img
             src={help}
             className={isExpanded ? "" : "adjustImage"}
-            alt="Help"
+            alt="About"
           />
-          {isExpanded && <span className="poppins-semibold">Help</span>}
+          {isExpanded && <span className="poppins-semibold">About</span>}
         </div>
       </div>
     </div>

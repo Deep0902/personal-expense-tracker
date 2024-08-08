@@ -227,9 +227,11 @@
     padding: 0;
     position: relative;
     margin-top: 18px;
+    
   }
   .mobileView {
     display: block;
+    
   }
   .webView {
     display: none;
@@ -245,8 +247,12 @@
     height: 23.5px;
   }
   .TransactionHistory button {
-    padding: 5px 5px;
+    padding: 5px 10px;
     font-size: 12px;
+    color: #f3f7f6;
+    background-color: #019863;
+    border: none;
+    border-radius: 5px;
   }
   .historyList {
     margin-top: 10px;

@@ -87,6 +87,12 @@ function TopNavbarProfile({
             >
               Profile
             </a>
+            <a className="dropdown-link" onClick={() => {
+                onProfileClick("About");
+                toggleDropdown();
+              }}>
+              About
+            </a>
             <a className="dropdown-link" onClick={onLogoutClick}>
               Logout
             </a>
