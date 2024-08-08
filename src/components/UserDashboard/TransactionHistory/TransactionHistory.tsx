@@ -20,10 +20,26 @@ function TransactionHistory({
   userData,
   initialSearchQuery = "", // New prop with default empty string
 }: HistoryDetailsProps) {
-  
   //State to manage filter overlay
   const [dateFilter, setDateFilter] = useState(false);
-  function toggleDateFilter() {
+
+  //State to filter by dates
+  const [fromDate, setFromDate] = useState<string | null>(null);
+  const [toDate, setToDate] = useState<string | null>(null);
+  function toggleDateFilter(applyFilter = false) {
+    if (applyFilter && fromDate && toDate) {
+      const filteredExpenses = userExpenses.filter((expense) => {
+        const expenseDate = new Date(expense.date);
+        return (
+          expenseDate >= new Date(fromDate) && expenseDate <= new Date(toDate)
+        );
+      });
+      setExpenses(filteredExpenses);
+    } else {
+      setFromDate(null);
+      setToDate(null);
+      setExpenses(userExpenses); // Reset to original expenses
+    }
     setDateFilter(!dateFilter);
   }
 
@@ -176,13 +192,23 @@ function TransactionHistory({
   };
   const groupedTransactions = groupTransactionsByDate(sortedTransactions);
   useEffect(() => {
-    setExpenses(userExpenses.filter(
-      (expense) =>
+    const filteredExpenses = userExpenses.filter((expense) => {
+      const matchesSearchQuery =
         expense.title.toLowerCase().includes(searchQuery) ||
-        expense.category.toLowerCase().includes(searchQuery)
-    ));
-  }, [searchQuery, userExpenses]);
-  
+        expense.category.toLowerCase().includes(searchQuery);
+
+      if (fromDate && toDate) {
+        const expenseDate = new Date(expense.date);
+        const matchesDateFilter =
+          expenseDate >= new Date(fromDate) && expenseDate <= new Date(toDate);
+        return matchesSearchQuery && matchesDateFilter;
+      }
+
+      return matchesSearchQuery;
+    });
+    setExpenses(filteredExpenses);
+  }, [searchQuery, fromDate, toDate, userExpenses]);
+
   return (
     <>
       <div className="TransactionHistory">
@@ -193,18 +219,26 @@ function TransactionHistory({
                 <label className="">Custom Date Filter</label>
                 <br />
                 <span className="poppins-regular">From Date</span>
-                <input type="date" />
+                <input
+                  type="date"
+                  value={fromDate || ""}
+                  onChange={(e) => setFromDate(e.target.value)}
+                />
                 <span className="poppins-regular">To Date</span>
-                <input type="date" />
+                <input
+                  type="date"
+                  value={toDate || ""}
+                  onChange={(e) => setToDate(e.target.value)}
+                />
                 <button
                   className="poppins-semibold add-button"
-                  onClick={toggleDateFilter}
+                  onClick={() => toggleDateFilter(true)}
                 >
                   Apply
                 </button>
                 <button
                   className="poppins-semibold cancel-button"
-                  onClick={toggleDateFilter}
+                  onClick={() => toggleDateFilter(false)}
                 >
                   Close
                 </button>
@@ -212,6 +246,7 @@ function TransactionHistory({
             </div>
           </div>
         )}
+
         <div className="Historytitle">
           <h3>Transaction History</h3>
           <button
@@ -228,7 +263,11 @@ function TransactionHistory({
               value={searchQuery}
               onChange={handleSearchChange}
             />
-            <img src={filter} alt="" onClick={toggleDateFilter} />
+            <img
+              src={filter}
+              alt=""
+              onClick={() => setDateFilter(!dateFilter)}
+            />
           </div>
         </div>
         <br />
@@ -240,7 +279,7 @@ function TransactionHistory({
             value={searchQuery}
             onChange={handleSearchChange}
           />
-          <img src={filter} alt="" onClick={toggleDateFilter} />
+          <img src={filter} alt="" onClick={() => setDateFilter(!dateFilter)} />
         </div>
         <button className="poppins-medium webView" onClick={onNewTransaction}>
           Add Transaction

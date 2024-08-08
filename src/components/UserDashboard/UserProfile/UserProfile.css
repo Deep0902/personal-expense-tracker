@@ -1,0 +1,95 @@
+.userProfileContainer {
+  padding: 0 5%;
+}
+.accountInfo {
+  display: flex;
+  align-items: center;
+}
+.largeProfileIcon {
+  position: relative;
+}
+.largeProfileIcon > img:nth-child(2) {
+  position: absolute;
+  bottom: 15px;
+  right: 0;
+}
+.profileImg {
+  height: 180px;
+  width: 180px;
+}
+.userDetails {
+  padding: 0 3%;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+.userDetails > span {
+  font-size: 45px;
+}
+.userDetails > label {
+  font-size: 25px;
+}
+.primary-button {
+  color: #f3f7f6;
+  background-color: #019863;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 20px;
+  font-size: 15px;
+}
+.warning-button {
+  color: #f3f7f6;
+  background-color: #e74c3c;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 20px;
+  font-size: 15px;
+}
+.accountDetails input {
+  margin: 0;
+  font-family: poppins;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #b3b3b3;
+  margin-bottom: 15px;
+  font-size: 15px;
+}
+
+.accountDetails input:focus {
+  border: 1px solid #019863;
+  outline: 1px solid #019863;
+}
+.accountDetails input:focus {
+  border-color: #019863;
+  outline: none;
+  position: relative;
+}
+
+.accountDetails {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0px 50px;
+}
+.actionButtons {
+  display: flex;
+  justify-content: space-between;
+}
+.passwordChange {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: 0.3s ease;
+}
+.hidden {
+  height: 0;
+}
+
+.visible {
+  height: auto;
+}
+@media (max-width: 760px) {
+  .accountDetails input {
+    margin-bottom: 15px;
+    font-size: 13px;
+  }
+}

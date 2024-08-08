@@ -12,6 +12,7 @@ import TransactionHistory from "./TransactionHistory/TransactionHistory";
 import NewTransacrion from "./NewTransacrion/NewTransacrion";
 import EditTransaction from "./EditTransaction/EditTransaction";
 import About from "./About/About";
+import UserProfile from "./UserProfile/UserProfile";
 
 function UserDashboard() {
   const navigate = useNavigate(); // Hook for navigation
@@ -200,6 +201,9 @@ function UserDashboard() {
               )}
               {tabSelected === "About" &&(
                 <About/>
+              )}
+              {tabSelected === "Settings" &&(
+                <UserProfile userData={user_data}/>
               )}
             </div>
           </div>
