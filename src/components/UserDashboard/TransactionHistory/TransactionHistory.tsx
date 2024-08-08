@@ -10,7 +10,7 @@ interface HistoryDetailsProps {
   onNewTransaction: () => void;
   onEditTransaction: (transaction: Expense) => void;
   userData: any;
-  initialSearchQuery: any;
+  initialSearchQuery: string;
 }
 
 function TransactionHistory({
