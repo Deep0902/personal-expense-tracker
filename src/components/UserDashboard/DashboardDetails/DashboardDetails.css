@@ -95,6 +95,7 @@
   margin-right: 10px;
 }
 .cards {
+  cursor: pointer;
   background-color: #eaf9f6;
   border-radius: 10px;
   margin-bottom: 10px;

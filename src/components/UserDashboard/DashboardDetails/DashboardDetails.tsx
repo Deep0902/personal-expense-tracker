@@ -138,8 +138,8 @@ function DashboardDetails({
           <br />
           <div className="categoryCards">
             {Object.keys(categoryTotals).map((category) => (
-              <div key={category} className="cards">
-                <div>
+              <div key={category} className="cards" onClick={() => handleHistoryClick(category)}>
+                <div >
                   <span className="poppins-semibold">
                     {categoryEmojis[toSentenceCase(category)] || "📝"}{" "}
                     {toSentenceCase(category)}
@@ -148,7 +148,7 @@ function DashboardDetails({
                     className="expandIcon"
                     src={expand}
                     alt="expand"
-                    onClick={() => handleHistoryClick(category)} // Pass the category name
+                   
                   />
                 </div>
                 <label className="inter-extra-bold">
