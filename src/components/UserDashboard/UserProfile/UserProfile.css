@@ -12,6 +12,7 @@
   position: absolute;
   bottom: 15px;
   right: 0;
+  cursor: pointer;
 }
 .profileImg {
   height: 180px;
@@ -84,7 +85,7 @@
   overflow: hidden;
   transition: 0.3s ease;
 }
-.passwordsButton{
+.passwordsButton {
   display: flex;
   justify-content: space-between;
 }
@@ -94,6 +95,36 @@
 
 .visible {
   height: auto;
+}
+.inputBox {
+  position: relative;
+  margin: 0;
+}
+.inputBox span {
+  position: absolute;
+  bottom: 23px;
+  right: 10px;
+  cursor: pointer;
+}
+.overlayBackground {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #00332158;
+  z-index: 3;
+}
+.iconsDisplay {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.iconsDisplay img {
+  height: 70px;
+  margin: 10px;
+}
+.profile-selected{
+  background: #000000;
 }
 @media (max-width: 760px) {
   .accountDetails input {

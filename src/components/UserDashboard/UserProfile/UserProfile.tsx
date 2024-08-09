@@ -30,6 +30,9 @@ function UserProfile({ userData }: UserProfileProps) {
   const token = "my_secure_token"; // Add token for authorization
 
   const [updatePasswordFields, setpasswordChange] = useState(false);
+  const [chooseProfileOverlay, setChooseProfileOverlay] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(imageSrc);
+  const [imageIndex, setImageIndex] = useState<number | null>(null);
 
   const toggleUpdatePasswordFields = () => {
     setpasswordChange(!updatePasswordFields);
@@ -114,16 +117,15 @@ function UserProfile({ userData }: UserProfileProps) {
       alert("An error occurred while updating the profile.");
     }
   };
+
   const deleteUser = async () => {
-    // Show confirmation dialog
     const confirmed = window.confirm(
       "Are you sure you want to delete this user? This action cannot be undone."
     );
 
     if (confirmed) {
       try {
-        // If the user confirms, proceed with the API call
-        await axios.delete(
+        const response = await axios.delete(
           `http://127.0.0.1:5000/api/users/${userData.user_id}`,
           {
             headers: {
@@ -132,16 +134,72 @@ function UserProfile({ userData }: UserProfileProps) {
           }
         );
         alert("User deleted successfully");
-        navigate("/SignIn")
-       
+        navigate("/SignIn");
+        console.log(response.data.message);
       } catch (error) {
         console.error("Error deleting user:", error);
         alert("An error occurred while trying to delete the user.");
       }
     } else {
-      // If the user cancels, do nothing
       alert("User deletion cancelled.");
     }
+  };
+
+  const toggleChooseProfileOverlay = () => {
+    setChooseProfileOverlay(!chooseProfileOverlay);
+    setSelectedImage(imageSrc); // Set the initially selected image
+  };
+
+  const handleImageClick = (image: any, index: number) => {
+    setImageIndex(index);
+    setSelectedImage(image);
+  };
+
+  const handleProfileImageUpdate = async () => {
+    if (imageIndex !== null) {
+      const updatedData = {
+        profile_img: imageIndex + 1, // Adjusting for 0-based index
+      };
+
+      try {
+        const response = await axios.put(
+          `http://127.0.0.1:5000/api/users/${userData.user_id}`,
+          updatedData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        if (response.status === 200) {
+          alert("Profile image updated successfully!");
+          // Update the user's profile image locally
+          userData.profile_img = updatedData.profile_img;
+          toggleChooseProfileOverlay();
+        } else {
+          alert("Failed to update profile image.");
+        }
+      } catch (err) {
+        console.error("Error updating profile image:", err);
+        alert("An error occurred while updating the profile image.");
+      }
+    } else {
+      alert("Please select an image before confirming.");
+    }
+  };
+
+  // State for managing password visibility
+  const [showOldPassword, setShowOldPassword] = useState(false);
+  const handleOldPasswordView = () => {
+    setShowOldPassword(!showOldPassword);
+  };
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const handleNewPasswordView = () => {
+    setShowNewPassword(!showNewPassword);
+  };
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const handleConfirmPasswordView = () => {
+    setShowConfirmPassword(!showConfirmPassword);
   };
 
   return (
@@ -150,15 +208,53 @@ function UserProfile({ userData }: UserProfileProps) {
         <div className="accountInfo">
           <div className="largeProfileIcon">
             <img className="profileImg" src={imageSrc} alt="" />
-            <img src={editProfileImg} alt="" />
+            <img
+              src={editProfileImg}
+              alt=""
+              onClick={toggleChooseProfileOverlay}
+            />
           </div>
           <div className="userDetails">
             <span className="poppins-bold">{userData.user_name}</span>
             <label className="poppins-regular">{userData.user_email}</label>
           </div>
         </div>
+        {chooseProfileOverlay && (
+          <div className="overlayBackground">
+            <div className="poppins-bold">
+              <div className="overlayBox">
+                <label className="">Choose a Profile photo</label>
+                <div className="iconsDisplay">
+                  {profileImages.map((icons, index) => {
+                    return (
+                      <img
+                        key={index}
+                        src={icons}
+                        alt=""
+                        className={
+                          icons === selectedImage ? "profile-selected" : ""
+                        }
+                        onClick={() => handleImageClick(icons, index)}
+                      />
+                    );
+                  })}
+                </div>
+                <br />
+                {/* Display the value of the selected image */}
+                {selectedImage && (
+                  <div className="selectedIconDisplay">
+                    <p>
+                      Selected Image: {selectedImage} with index {imageIndex}
+                    </p>
+                  </div>
+                )}
+                <button onClick={handleProfileImageUpdate}>Select</button>
+                <button onClick={toggleChooseProfileOverlay}>Close</button>
+              </div>
+            </div>
+          </div>
+        )}
         <br />
-        {userData.user_id}
         <form onSubmit={handleSubmit}>
           <div className="accountDetails">
             <input
@@ -184,27 +280,36 @@ function UserProfile({ userData }: UserProfileProps) {
                 updatePasswordFields ? "visible" : "hidden"
               }`}
             >
-              <input
-                className="form-group"
-                type="password"
-                value={oldPassword}
-                onChange={handleOldPasswordChange}
-                placeholder="Enter old password"
-              />
-              <input
-                className="form-group"
-                type="password"
-                value={newPassword}
-                onChange={handleNewPasswordChange}
-                placeholder="Enter new password"
-              />
-              <input
-                className="form-group"
-                type="password"
-                value={confirmPassword}
-                onChange={handleConfirmPasswordChange}
-                placeholder="Confirm new password"
-              />
+              <div className="inputBox">
+                <input
+                  className="form-group"
+                  type={showOldPassword ? "text" : "password"}
+                  value={oldPassword}
+                  onChange={handleOldPasswordChange}
+                  placeholder="Enter old password"
+                />
+                <span onClick={handleOldPasswordView}>👁️</span>
+              </div>
+              <div className="inputBox">
+                <input
+                  className="form-group"
+                  type={showNewPassword ? "text" : "password"}
+                  value={newPassword}
+                  onChange={handleNewPasswordChange}
+                  placeholder="Enter new password"
+                />
+                <span onClick={handleNewPasswordView}>👁️</span>
+              </div>
+              <div className="inputBox">
+                <input
+                  className="form-group"
+                  type={showConfirmPassword ? "text" : "password"}
+                  value={confirmPassword}
+                  onChange={handleConfirmPasswordChange}
+                  placeholder="Confirm new password"
+                />
+                <span onClick={handleConfirmPasswordView}>👁️</span>
+              </div>
             </div>
           </div>
           <div className="actionButtons">
@@ -222,9 +327,7 @@ function UserProfile({ userData }: UserProfileProps) {
                 type="button"
                 onClick={toggleUpdatePasswordFields}
               >
-                {updatePasswordFields
-                  ? "Cancel Password Change"
-                  : "Change Details"}
+                {updatePasswordFields ? "Cancel" : "Change Details"}
               </button>
             </div>
 
