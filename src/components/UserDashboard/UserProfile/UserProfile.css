@@ -44,6 +44,8 @@
   border-radius: 5px;
   padding: 5px 20px;
   font-size: 15px;
+  width: fit-content;
+  justify-self: end;
 }
 .accountDetails input {
   margin: 0;
@@ -71,14 +73,20 @@
   gap: 0px 50px;
 }
 .actionButtons {
-  display: flex;
+  display: grid;
   justify-content: space-between;
+  grid-template-columns: 1fr 1fr;
+  gap: 0px 50px;
 }
 .passwordChange {
   display: flex;
   flex-direction: column;
   overflow: hidden;
   transition: 0.3s ease;
+}
+.passwordsButton{
+  display: flex;
+  justify-content: space-between;
 }
 .hidden {
   height: 0;
