@@ -12,9 +12,10 @@ import { useNavigate } from "react-router-dom";
 
 interface UserProfileProps {
   userData: any;
+  toggleParentUseEffect: () => void;
 }
 
-function UserProfile({ userData }: UserProfileProps) {
+function UserProfile({ userData, toggleParentUseEffect }: UserProfileProps) {
   const navigate = useNavigate();
   const profileImages = [avatar1, avatar2, avatar3, avatar4, avatar5, avatar6];
   const imageSrc =
@@ -42,6 +43,8 @@ function UserProfile({ userData }: UserProfileProps) {
       setNewPassword("");
       setConfirmPassword("");
     }
+    setName(userData.user_name)
+    setEmail(userData.user_email)
   };
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -172,7 +175,8 @@ function UserProfile({ userData }: UserProfileProps) {
           }
         );
         if (response.status === 200) {
-          alert("Profile image updated successfully!");
+          console.log("Profile image updated successfully!");
+          toggleParentUseEffect();
           // Update the user's profile image locally
           userData.profile_img = updatedData.profile_img;
           toggleChooseProfileOverlay();
@@ -227,29 +231,34 @@ function UserProfile({ userData }: UserProfileProps) {
                 <div className="iconsDisplay">
                   {profileImages.map((icons, index) => {
                     return (
-                      <img
-                        key={index}
-                        src={icons}
-                        alt=""
-                        className={
-                          icons === selectedImage ? "profile-selected" : ""
-                        }
-                        onClick={() => handleImageClick(icons, index)}
-                      />
+                      <div className="iconGrid">
+                        <img
+                          key={index}
+                          src={icons}
+                          alt=""
+                          className={
+                            icons === selectedImage ? "profile-selected" : ""
+                          }
+                          onClick={() => handleImageClick(icons, index)}
+                        />
+                      </div>
                     );
                   })}
                 </div>
                 <br />
-                {/* Display the value of the selected image */}
-                {selectedImage && (
-                  <div className="selectedIconDisplay">
-                    <p>
-                      Selected Image: {selectedImage} with index {imageIndex}
-                    </p>
-                  </div>
-                )}
-                <button onClick={handleProfileImageUpdate}>Select</button>
-                <button onClick={toggleChooseProfileOverlay}>Close</button>
+
+                <button
+                  className="poppins-semibold add-button"
+                  onClick={handleProfileImageUpdate}
+                >
+                  Select
+                </button>
+                <button
+                  className="poppins-semibold cancel-button"
+                  onClick={toggleChooseProfileOverlay}
+                >
+                  Close
+                </button>
               </div>
             </div>
           </div>
@@ -280,7 +289,7 @@ function UserProfile({ userData }: UserProfileProps) {
                 updatePasswordFields ? "visible" : "hidden"
               }`}
             >
-              <div className="inputBox">
+              <div className="inputBox2">
                 <input
                   className="form-group"
                   type={showOldPassword ? "text" : "password"}
@@ -290,7 +299,7 @@ function UserProfile({ userData }: UserProfileProps) {
                 />
                 <span onClick={handleOldPasswordView}>👁️</span>
               </div>
-              <div className="inputBox">
+              <div className="inputBox2">
                 <input
                   className="form-group"
                   type={showNewPassword ? "text" : "password"}
@@ -300,7 +309,7 @@ function UserProfile({ userData }: UserProfileProps) {
                 />
                 <span onClick={handleNewPasswordView}>👁️</span>
               </div>
-              <div className="inputBox">
+              <div className="inputBox2">
                 <input
                   className="form-group"
                   type={showConfirmPassword ? "text" : "password"}
@@ -316,10 +325,10 @@ function UserProfile({ userData }: UserProfileProps) {
             <div className="passwordsButton">
               {updatePasswordFields && (
                 <button
-                  className="primary-button poppins-regular"
+                  className="secondary-button poppins-regular"
                   type="submit"
                 >
-                  {updatePasswordFields ? "Update Profile" : "Change Details"}
+                  {updatePasswordFields ? "Update Profile" : "Edit Details"}
                 </button>
               )}
               <button
@@ -327,7 +336,7 @@ function UserProfile({ userData }: UserProfileProps) {
                 type="button"
                 onClick={toggleUpdatePasswordFields}
               >
-                {updatePasswordFields ? "Cancel" : "Change Details"}
+                {updatePasswordFields ? "Cancel" : "Edit Details"}
               </button>
             </div>
 

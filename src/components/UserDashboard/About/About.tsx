@@ -39,7 +39,15 @@ function About() {
           small teams efficiently manage their projects and finances. The goal
           is to provide a user-friendly platform that simplifies project
           management and expense tracking, enabling users to focus more on their
-          work and less on administrative tasks.
+          work and less on administrative tasks. <br/><br/>Click&nbsp;
+          <a
+            href="https://github.com/Deep0902/personal-expense-tracker"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hyperlink"
+          >
+            here
+          </a> to check out the project code on GitHub
         </p>
         <br />
         <br />

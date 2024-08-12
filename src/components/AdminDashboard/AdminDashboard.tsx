@@ -79,7 +79,6 @@ function AdminDashboard() {
 
   return (
     <>
-      <TopNavbarSignedOut />
       <div className="customTopNavbar">
         <nav className="topNavbar">
           <div

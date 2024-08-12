@@ -27,6 +27,10 @@
   margin-top: 0;
   padding-left: 1em;
 }
+.footer ul li a{
+  color: #dddddd;
+  text-decoration: none;
+}
 
 /* Phone Screen CSS */
 @media (max-width: 760px) {

@@ -19,6 +19,9 @@
     font-size: 20px;
     text-align: center;
 }
+.hyperlink{
+    color: #003321;
+}
 
 
 @media (max-width: 760px) {
