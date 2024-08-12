@@ -5,7 +5,6 @@ import "../SignIn/SignIn.css";
 import logo from "/images/logo.svg";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Users } from "../../interfaces/Users";
-import TopNavbarSignedOut from "../TopNavbarSignedOut/TopNavbarSignedOut";
 import Footer from "../Footer/Footer";
 
 function AdminDashboard() {

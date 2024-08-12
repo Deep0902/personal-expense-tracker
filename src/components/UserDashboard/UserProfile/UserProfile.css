@@ -118,6 +118,19 @@
   right: 10px;
   cursor: pointer;
 }
+.overlayBox2 {
+  background-color: #e5f7f4;
+  border-radius: 10px;
+  padding: 30px 45px;
+  box-shadow: 0px 0px 10px #0000000a;
+  display: flex;
+  flex-direction: column;
+  margin: 5% 35%;
+}
+
+.overlayBox2 > label{
+  font-size: 30px;
+}
 .overlayBackground {
   position: fixed;
   top: 0;
@@ -207,8 +220,11 @@
     margin-top: 15px;
     justify-self: unset;
   }
-  .overlayBox {
-    margin: 30% 5%;
+  .overlayBox2 {
+    margin: 40% 5%;
+  }
+  .overlayBox2 > label{
+    font-size: 22px;
   }
   .iconsDisplay img {
     height: 50px;

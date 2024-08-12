@@ -226,8 +226,8 @@ function UserProfile({ userData, toggleParentUseEffect }: UserProfileProps) {
         {chooseProfileOverlay && (
           <div className="overlayBackground">
             <div className="poppins-bold">
-              <div className="overlayBox">
-                <label className="">Choose a Profile photo</label>
+              <div className="overlayBox2">
+                <label className="">Choose a Profile photo</label><br />
                 <div className="iconsDisplay">
                   {profileImages.map((icons, index) => {
                     return (
