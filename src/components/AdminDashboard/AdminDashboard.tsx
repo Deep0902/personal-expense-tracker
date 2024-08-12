@@ -6,6 +6,7 @@ import logo from "/images/logo.svg";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Users } from "../../interfaces/Users";
 import Footer from "../Footer/Footer";
+import moreIcon from "/images/more.svg";
 
 function AdminDashboard() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -98,7 +99,7 @@ function AdminDashboard() {
               Log Out
             </button>
             <button className="mobile-menu-button" onClick={toggleDropdown}>
-              ☰
+              <img src={moreIcon} alt="" />
             </button>
           </div>
           {isDropdownOpen && (

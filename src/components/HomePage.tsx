@@ -8,6 +8,10 @@ function HomePage() {
   if (goToUserLogin) {
     return <Navigate to="/UserLogin" />;
   }
+  // useEffect(() => {
+  //   navigate("/LandingPage")
+  // }, []);
+
   return (
     <>
       <div className="background-image">

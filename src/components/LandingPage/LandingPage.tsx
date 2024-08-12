@@ -144,13 +144,6 @@ function LandingPage() {
       <br />
       <br />
       <Footer />
-      <button
-        onClick={() => {
-          navigate("/personal-expense-tracker");
-        }}
-      >
-        Homepage
-      </button>
     </>
   );
 }

@@ -12,6 +12,7 @@ import DeviceDimensions from "./components/DeviceDimensions";
 import SignIn from "./components/SignIn/SignIn";
 import UserDashboard from "./components/UserDashboard/UserDashboard";
 import SignUp from "./components/SignUp/SignUp";
+import ForgotPassword from "./components/ForgotPassword/ForgotPassword";
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
         <Route path="/AdminLogin" element={<AdminLogin />} />
         <Route path="/UserDashboard" element={<UserDashboard />} />
         <Route path="/SignUp" element={<SignUp />} />
+        <Route path="/ForgotPassword" element={<ForgotPassword />} />
       </Routes>
     </Router>
   );

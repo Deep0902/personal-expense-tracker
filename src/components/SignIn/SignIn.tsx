@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import "./SignIn.css";
 import logo from "/images/logo.svg";
-import moreIcon from "/images/more.svg"
+import moreIcon from "/images/more.svg";
 import Footer from "../Footer/Footer";
 import { useState, useEffect } from "react";
 import "../TopNavbarSignedOut/TopNavbarSignedOut.css";
@@ -118,7 +118,7 @@ function SignIn() {
                 Admin Login
               </button>
               <button className="mobile-menu-button" onClick={toggleDropdown}>
-              <img src={moreIcon} alt="" />
+                <img src={moreIcon} alt="" />
               </button>
             </div>
             {isDropdownOpen && (
@@ -202,11 +202,21 @@ function SignIn() {
           <div className="bottomSection">
             <p className="poppins-regular">
               Need an account?{" "}
-              <span onClick={()=>{
-                navigate("/SignUp")
-              }} className="underlineText poppins-semibold">Create One</span>
+              <span
+                onClick={() => {
+                  navigate("/SignUp");
+                }}
+                className="underlineText poppins-semibold"
+              >
+                Create One
+              </span>
             </p>
-            <p className="underlineText poppins-semibold">Forgot Password</p>
+            <p
+              className="underlineText poppins-semibold"
+              onClick={() => navigate("/ForgotPassword")}
+            >
+              Forgot Password
+            </p>
           </div>
         </div>
       </div>
