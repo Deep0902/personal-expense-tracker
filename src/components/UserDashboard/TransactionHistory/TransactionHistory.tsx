@@ -225,42 +225,41 @@ function TransactionHistory({
   };
   return (
     <>
-      <div className="TransactionHistory">
-        {dateFilter && (
-          <div className="overlayBackground">
-            <div className="poppins-bold">
-              <div className="overlayBox">
-                <label className="">Custom Date Filter</label>
-                <br />
-                <span className="poppins-regular">From Date</span>
-                <input
-                  type="date"
-                  value={fromDate || ""}
-                  onChange={(e) => setFromDate(e.target.value)}
-                />
-                <span className="poppins-regular">To Date</span>
-                <input
-                  type="date"
-                  value={toDate || ""}
-                  onChange={(e) => setToDate(e.target.value)}
-                />
-                <button
-                  className="poppins-semibold add-button"
-                  onClick={() => toggleDateFilter(true)}
-                >
-                  Apply
-                </button>
-                <button
-                  className="poppins-semibold cancel-button"
-                  onClick={() => toggleDateFilter(false)}
-                >
-                  Close
-                </button>
-              </div>
+      {dateFilter && (
+        <div className="overlayBackground">
+          <div className="poppins-bold">
+            <div className="overlayBox">
+              <label className="">Custom Date Filter</label>
+              <br />
+              <span className="poppins-regular">From Date</span>
+              <input
+                type="date"
+                value={fromDate || ""}
+                onChange={(e) => setFromDate(e.target.value)}
+              />
+              <span className="poppins-regular">To Date</span>
+              <input
+                type="date"
+                value={toDate || ""}
+                onChange={(e) => setToDate(e.target.value)}
+              />
+              <button
+                className="poppins-semibold add-button"
+                onClick={() => toggleDateFilter(true)}
+              >
+                Apply
+              </button>
+              <button
+                className="poppins-semibold cancel-button"
+                onClick={() => toggleDateFilter(false)}
+              >
+                Close
+              </button>
             </div>
           </div>
-        )}
-
+        </div>
+      )}
+      <div className="TransactionHistory">
         <div className="Historytitle">
           <h3>Transaction History</h3>
           <div className="mobileView">

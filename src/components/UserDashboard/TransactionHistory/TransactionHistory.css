@@ -46,11 +46,11 @@
   outline: none;
   position: relative;
 }
-.buttons-alignment{
+.buttons-alignment {
   display: flex;
   justify-content: space-between;
 }
-.TransactionHistory  button {
+.TransactionHistory button {
   color: #f3f7f6;
   background-color: #019863;
   border: none;
@@ -283,9 +283,18 @@
   .categoryInfo label {
     font-size: 16px;
   }
-  .mobileViewAddTransaction{
+  .mobileViewAddTransaction {
     width: 100%;
     margin-top: 10px;
     padding: 8px 10px !important;
+  }
+  .overlayBox {
+    margin: 45% 10%;
+  }
+  .overlayBox > label {
+    font-size: 23px;
+  }
+  .overlayBox > span {
+    font-size: 17px;
   }
 }
