@@ -131,8 +131,43 @@
 .displayUsername {
   display: none;
 }
+.pieChartContainer {
+  position: relative;
+  background-color: #eaf9f6;
+  border: 1px solid #019863;
+  border-radius: 10px;
+  height: 600px;
+  justify-content: center;
+}
+.pieChartContainer > span {
+  position: absolute;
+  font-size: 25px;
+  color: #003321;
+  top: 10px;
+  left: 20px;
+}
+.webView2 {
+  display: flex;
+}
+.mobileView2 {
+  display: none;
+}
+
 /* Phone Screen CSS */
 @media (max-width: 760px) {
+  .webView2 {
+    display: none;
+  }
+  .mobileView2 {
+    display: block;
+  }
+  .pieChartContainer {
+    height: fit-content;
+    padding: 0;
+  }
+  .pieChartContainer > span{
+    font-size: 13px;
+  }
   .monthExpenses {
     font-size: 16px;
   }

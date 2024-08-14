@@ -4,6 +4,9 @@ import addTransaction from "/images/add-transaction.svg";
 import transactionHistory from "/images/transaction-history-dashboard.svg";
 import expand from "/images/expand.svg";
 import { useState, useEffect } from "react";
+import { Doughnut } from "react-chartjs-2";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 interface DashboardDetailsProps {
   userExpenses: Expense[];
@@ -96,7 +99,87 @@ function DashboardDetails({
   //Handle Expand click
   const handleHistoryClick = (category: string) => {
     onHistoryClick("History", category);
-  };  
+  };
+  // Data for the Pie chart
+  const data = {
+    labels: Object.keys(categoryTotals).map(toSentenceCase), // Category names
+    datasets: [
+      {
+        data: Object.values(categoryTotals), // Amounts spent in each category
+        backgroundColor: [
+          "#FF6384",
+          "#36A2EB",
+          "#FFCE56",
+          "#FF9F40",
+          "#4BC0C0",
+          "#9966FF",
+        ], // Add more colors if there are more categories
+        hoverBackgroundColor: [
+          "#FF6384",
+          "#36A2EB",
+          "#FFCE56",
+          "#FF9F40",
+          "#4BC0C0",
+          "#9966FF",
+        ],
+        borderWidth: 5,
+        borderColor: "#eaf9f6",
+        borderRadius: 10,
+      },
+    ],
+  };
+
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "right" as const,
+        labels: {
+          font: {
+            size: 20,
+            family: "Poppins",
+          },
+        },
+      },
+      tooltip: {
+        callbacks: {
+          label: (tooltipItem: any) => {
+            const dataset = tooltipItem.dataset;
+            const currentValue = dataset.data[tooltipItem.dataIndex];
+            const total = dataset.data.reduce((acc: any, value: any) => acc + value, 0);
+            const percentage = ((currentValue / total) * 100).toFixed(2);
+            return ` ₹ ${currentValue.toLocaleString()} (${percentage}%)`;
+          },
+        },
+      },
+    },
+  };
+  
+  const options2 = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "bottom" as const,
+        labels: {
+          font: {
+            size: 16,
+            family: "Poppins",
+          },
+        },
+      },
+      tooltip: {
+        callbacks: {
+          label: (tooltipItem: any) => {
+            const dataset = tooltipItem.dataset;
+            const currentValue = dataset.data[tooltipItem.dataIndex];
+            const total = dataset.data.reduce((acc: any, value: any) => acc + value, 0);
+            const percentage = ((currentValue / total) * 100).toFixed(2);
+            return ` ₹ ${currentValue.toLocaleString()} (${percentage}%)`;
+          },
+        },
+      },
+    },
+  };
 
   return (
     <>
@@ -117,7 +200,10 @@ function DashboardDetails({
               <img src={addTransaction} alt="" />
               <span className="poppins-regular">Add a Transaction</span>
             </div>
-            <div className="customLeftBorder" onClick={() => onHistoryClick("History", "")}>
+            <div
+              className="customLeftBorder"
+              onClick={() => onHistoryClick("History", "")}
+            >
               <img src={transactionHistory} alt="" />
               <span className="poppins-regular">Transaction History</span>
             </div>
@@ -138,18 +224,17 @@ function DashboardDetails({
           <br />
           <div className="categoryCards">
             {Object.keys(categoryTotals).map((category) => (
-              <div key={category} className="cards" onClick={() => handleHistoryClick(category)}>
-                <div >
+              <div
+                key={category}
+                className="cards"
+                onClick={() => handleHistoryClick(category)}
+              >
+                <div>
                   <span className="poppins-semibold">
                     {categoryEmojis[toSentenceCase(category)] || "📝"}{" "}
                     {toSentenceCase(category)}
                   </span>
-                  <img
-                    className="expandIcon"
-                    src={expand}
-                    alt="expand"
-                   
-                  />
+                  <img className="expandIcon" src={expand} alt="expand" />
                 </div>
                 <label className="inter-extra-bold">
                   ₹ {categoryTotals[category].toLocaleString()}
@@ -158,6 +243,27 @@ function DashboardDetails({
             ))}
           </div>
         </div>
+      </div>
+      <br />
+      <div className="dashboardDetails">
+        <div className="breakdown">
+          <span className="poppins-semibold">Visualize your breakdown</span><br />
+
+        </div>
+        {/* Add the Pie Chart here */}
+        <br />
+        <div className="pieChartContainer webView2">
+          <span className="poppins-semibold">Click on categories to show/hide them</span>
+          <Doughnut data={data} options={options} />
+        </div>
+        <div className="pieChartContainer mobileView2">
+          <span className="poppins-semibold">Click on categories to show/hide them</span>
+          <br />
+          <br />
+          <Doughnut data={data} options={options2} />
+        </div>
+
+        <br />
       </div>
     </>
   );

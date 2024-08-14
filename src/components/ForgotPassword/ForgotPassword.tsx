@@ -3,6 +3,7 @@ import Footer from "../Footer/Footer";
 import TopNavbarSignedOut from "../TopNavbarSignedOut/TopNavbarSignedOut";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import "./ForgotPassword.css"
 import { Users } from "../../interfaces/Users";
 
 function ForgotPassword() {
