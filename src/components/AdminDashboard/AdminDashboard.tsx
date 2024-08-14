@@ -6,19 +6,36 @@ import logo from "/images/logo.svg";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Users } from "../../interfaces/Users";
 import Footer from "../Footer/Footer";
-import moreIcon from "/images/more.svg";
+import moreIcon from "/images/more-dots.svg";
+import moreIconNav from "/images/more.svg";
+import avatar1 from "/images/avatars/avatar-male-1.svg";
+import avatar2 from "/images/avatars/avatar-male-2.svg";
+import avatar3 from "/images/avatars/avatar-male-3.svg";
+import avatar4 from "/images/avatars/avatar-girl-1.svg";
+import avatar5 from "/images/avatars/avatar-girl-2.svg";
+import avatar6 from "/images/avatars/avatar-girl-3.svg";
 
 function AdminDashboard() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
-  };
+  const [searchQuery, setSearchQuery] = useState(""); // State for search query
+  const [users, setUsers] = useState<Users[]>([]);
+  const [filteredUsers, setFilteredUsers] = useState<Users[]>([]); // State for filtered users
+  const [overlay, setOverlay] = useState(false);
+  const [visibleDropdownIndex, setVisibleDropdownIndex] = useState<
+    number | null
+  >(null);
+  const profileImages = [avatar1, avatar2, avatar3, avatar4, avatar5, avatar6];
   const navigate = useNavigate();
   const token = "my_secure_token";
-  const [users, setUsers] = useState<Users[]>([]);
-
   const location = useLocation();
   const { admin_id, admin_pass } = location.state || {};
+  const [currentUser, setCurrentUser] = useState<Users | null>(null);
+  const [editedUserName, setEditedUserName] = useState("");
+  const [editedUserEmail, setEditedUserEmail] = useState("");
+
+  const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
+  const toggleOverlay = () => setOverlay(!overlay);
+
   useEffect(() => {
     if (!sessionStorage.admin_id || !sessionStorage.admin_pass) {
       navigate("/personal-expense-tracker");
@@ -40,7 +57,6 @@ function AdminDashboard() {
           }
         );
         const isValidAdmin = res.data.valid;
-        console.log(isValidAdmin);
         if (!isValidAdmin) {
           navigate("/personal-expense-tracker");
         } else {
@@ -53,7 +69,6 @@ function AdminDashboard() {
     };
 
     verifyAdmin();
-    // Replace the current history state to prevent back navigation
     window.history.replaceState(null, "", window.location.pathname);
   }, [admin_id, admin_pass, navigate]);
 
@@ -64,7 +79,11 @@ function AdminDashboard() {
           Authorization: `Bearer ${token}`,
         },
       });
-      setUsers(res.data);
+      const sortedUsers = res.data.sort(
+        (a: Users, b: Users) => a.user_name.localeCompare(b.user_name) // Sort by user_name in ascending order
+      );
+      setUsers(sortedUsers);
+      setFilteredUsers(sortedUsers); // Initialize filteredUsers with sorted data
     } catch (err) {
       console.log(err);
     }
@@ -77,8 +96,160 @@ function AdminDashboard() {
     window.history.pushState(null, "", "/AdminLogin");
   };
 
+  // Search input change handler
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const query = e.target.value.toLowerCase();
+    setSearchQuery(query);
+
+    // Filter users based on search query
+    const filtered = users.filter(
+      (user) =>
+        user.user_name.toLowerCase().includes(query) ||
+        user.user_email.toLowerCase().includes(query)
+    );
+    setFilteredUsers(filtered);
+  };
+
+  const handleMouseEnter = (index: number) => {
+    if (window.innerWidth > 768) {
+      setVisibleDropdownIndex(index);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (window.innerWidth > 768) {
+      setVisibleDropdownIndex(null);
+    }
+  };
+
+  const handleClick = (index: number) => {
+    if (window.innerWidth <= 768) {
+      setVisibleDropdownIndex(visibleDropdownIndex === index ? null : index);
+    }
+  };
+  const handleDelete = async (userId: number, userName: string) => {
+    const confirmDelete = window.confirm(
+      `Are you sure you want to delete the user ${userName}`
+    );
+
+    if (!confirmDelete) {
+      return;
+    }
+
+    try {
+      await axios.delete(`http://127.0.0.1:5000/api/users/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      // Remove the deleted user from the state
+      setUsers(users.filter((user) => user.user_id !== userId));
+      setFilteredUsers(filteredUsers.filter((user) => user.user_id !== userId));
+    } catch (err) {
+      console.error("Failed to delete user", err);
+    }
+  };
+  const handleEdit = (user: Users) => {
+    setCurrentUser(user);
+    setEditedUserName(user.user_name);
+    setEditedUserEmail(user.user_email);
+    setOverlay(true);
+  };
+  const handleUpdate = async () => {
+    if (!currentUser) return;
+
+    try {
+      await axios.put(
+        `http://127.0.0.1:5000/api/users/${currentUser.user_id}`,
+        {
+          user_name: editedUserName,
+          user_email: editedUserEmail,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      // Update the user in state
+      setUsers(
+        users.map((user) =>
+          user.user_id === currentUser.user_id
+            ? {
+                ...user,
+                user_name: editedUserName,
+                user_email: editedUserEmail,
+              }
+            : user
+        )
+      );
+      setFilteredUsers(
+        filteredUsers.map((user) =>
+          user.user_id === currentUser.user_id
+            ? {
+                ...user,
+                user_name: editedUserName,
+                user_email: editedUserEmail,
+              }
+            : user
+        )
+      );
+
+      // Close the overlay
+      setOverlay(false);
+      setCurrentUser(null);
+    } catch (err) {
+      console.error("Failed to update user", err);
+    }
+  };
+
   return (
     <>
+      {overlay && (
+        <div className="overlayBackground">
+          <div className="poppins-bold">
+            <div className="overlayBox">
+              <label className="">Edit User</label>
+              <span className="poppins-reglar description">
+                Enter user details
+              </span>
+              <br />
+              <span className="poppins-regular">User Name</span>
+              <input
+                className="poppins-regular"
+                type="text"
+                value={editedUserName}
+                placeholder="Name"
+                onChange={(e) => setEditedUserName(e.target.value)}
+              />
+              <span className="poppins-regular">Email</span>
+              <input
+                className="poppins-regular"
+                type="email"
+                value={editedUserEmail}
+                onChange={(e) => setEditedUserEmail(e.target.value)}
+                placeholder="Email"
+              />
+              <button
+                className="poppins-semibold add-button"
+                onClick={handleUpdate}
+              >
+                Update
+              </button>
+              <button
+                className="poppins-semibold cancel-button"
+                onClick={() => {
+                  toggleOverlay();
+                  setCurrentUser(null);
+                }}
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       <div className="customTopNavbar">
         <nav className="topNavbar">
           <div
@@ -99,7 +270,7 @@ function AdminDashboard() {
               Log Out
             </button>
             <button className="mobile-menu-button" onClick={toggleDropdown}>
-              <img src={moreIcon} alt="" />
+              <img src={moreIconNav} alt="" />
             </button>
           </div>
           {isDropdownOpen && (
@@ -112,33 +283,71 @@ function AdminDashboard() {
         </nav>
       </div>
       <br />
-      <br />
-      <div className="adminDashboard">
-        <h3>Hello {sessionStorage.admin_id}</h3>
-        <div className="dashboard-container">
-          <h2>Admin Dashboard</h2>
-          {admin_id && <p>Hi, {admin_id}</p>}
-          <table>
-            <thead>
-              <tr>
-                <th>User ID</th>
-                <th>User Name</th>
-                <th>User Email</th>
-              </tr>
-            </thead>
-            <tbody>
-              {users.map((user) => (
-                <tr key={user.user_id}>
-                  <td>{user.user_id}</td>
-                  <td>{user.user_name}</td>
-                  <td>{user.user_email}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
 
+      <div className="mainContentAdminDashboard">
+        <div className="headers">
+          <h3>Hello, {sessionStorage.admin_id}!</h3>
+          <input
+            className="poppins-regular"
+            type="text"
+            placeholder="Search User/Email"
+            value={searchQuery}
+            onChange={handleSearchChange}
+          />
+        </div>
+        <br />
+        <span className="poppins-regular adminDescription">Manage Users</span>
+        <br />
+        <br />
+        {filteredUsers.length === 0 ? (
+          <p className="poppins-semibold no-users-message">
+            User does not exist! ☹️
+          </p>
+        ) : (
+          filteredUsers.map((user, index) => (
+            <div key={index} className="userCard">
+              <div className="userImage">
+                <img
+                  className="profileImage"
+                  src={profileImages[user.profile_img - 1]}
+                  alt=""
+                />
+              </div>
+              <div className="userDetails2">
+                <span className="poppins-bold">{user.user_name}</span>
+                <label className="poppins-regular">{user.user_email}</label>
+              </div>
+              <div
+                className="more"
+                onMouseEnter={() => handleMouseEnter(index)}
+                onMouseLeave={handleMouseLeave}
+                onClick={() => handleClick(index)}
+              >
+                <img src={moreIcon} alt="" />
+                {visibleDropdownIndex === index && (
+                  <div className="moreDropdown">
+                    <p
+                      onClick={() => {
+                        handleEdit(user);
+                        toggleOverlay();
+                      }}
+                    >
+                      Edit
+                    </p>
+                    <p
+                      onClick={() => handleDelete(user.user_id, user.user_name)}
+                    >
+                      Delete
+                    </p>
+                  </div>
+                )}
+              </div>
+            </div>
+          ))
+        )}
+      </div>
+      <br />
+      <br />
       <Footer />
     </>
   );
