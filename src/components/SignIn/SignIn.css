@@ -12,7 +12,6 @@
 }
 .credentialsCard > label {
   color: #003321;
-  font-size: 5vh;
   margin-bottom: 5px;
 }
 .credentialsCard > span {
@@ -21,7 +20,6 @@
 
 .subtext {
   color: #003321;
-  font-size: 2vh;
 }
 .inputBox {
   margin-bottom: 12px;

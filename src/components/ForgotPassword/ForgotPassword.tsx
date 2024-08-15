@@ -3,8 +3,9 @@ import Footer from "../Footer/Footer";
 import TopNavbarSignedOut from "../TopNavbarSignedOut/TopNavbarSignedOut";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import "./ForgotPassword.css"
+import "./ForgotPassword.css";
 import { Users } from "../../interfaces/Users";
+import PopupWarning from "../PopupWarning/PopupWarning";
 
 function ForgotPassword() {
   const token = "my_secure_token"; // Token for authorization
@@ -76,7 +77,8 @@ function ForgotPassword() {
       generateOtp();
       nextState();
     } else {
-      alert("Email not found!");
+      setAlertMessage("Email not Found!");
+      toggleAlertPopup();
     }
   };
 
@@ -100,7 +102,8 @@ function ForgotPassword() {
     if (otp === generatedOtp) {
       nextState();
     } else {
-      alert("Invalid OTP. Please try again.");
+      setAlertMessage("Invalid OTP. Please try again.");
+      toggleAlertPopup();
     }
   };
 
@@ -143,6 +146,13 @@ function ForgotPassword() {
     setShowNewPassword(!showNewPassword);
   };
 
+  //Logic for Alert
+  const [isPopVisible, setIsPopVisible] = useState(false);
+  const toggleAlertPopup = () => {
+    setIsPopVisible(!isPopVisible);
+  };
+  const [alertMessage, setAlertMessage] = useState("");
+
   return (
     <>
       <div>
@@ -151,6 +161,12 @@ function ForgotPassword() {
           <br />
           <br />
           <br />
+          {isPopVisible && (
+            <PopupWarning
+              message={alertMessage}
+              onButtonClickded={toggleAlertPopup}
+            />
+          )}
           {/* <button onClick={prevState}>Previous</button>&nbsp;{phases}&nbsp;
           <button onClick={nextState}>Next</button> */}
           <div className="credentialsCard2">

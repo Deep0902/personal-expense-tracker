@@ -178,7 +178,7 @@ function TransactionHistory({
     Entertainment: "🍿",
     Fuel: "⛽",
     Groceries: "🛒",
-    Subscription: "💳",
+    Subscriptions: "💳",
   };
 
   // Group transactions by date

@@ -28,7 +28,7 @@ function DashboardDetails({
     Entertainment: "🍿",
     Fuel: "⛽",
     Groceries: "🛒",
-    Subscription: "💳",
+    Subscriptions: "💳",
   };
 
   // Helper function to convert string to sentence case
