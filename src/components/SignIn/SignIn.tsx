@@ -6,6 +6,7 @@ import Footer from "../Footer/Footer";
 import { useState, useEffect } from "react";
 import "../TopNavbarSignedOut/TopNavbarSignedOut.css";
 import axios from "axios";
+import PopupWarning from "../PopupWarning/PopupWarning";
 
 function SignIn() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -31,8 +32,6 @@ function SignIn() {
     user_email: "",
     user_pass: "",
   });
-
-  const [error, setError] = useState<string>(""); // Explicitly setting the type to string
 
   const token = "my_secure_token";
 
@@ -86,16 +85,29 @@ function SignIn() {
           },
         });
       } else {
-        setError("Invalid credentials");
+        setAlertMessage("Invalid credentials");
+        toggleAlertPopup();
       }
     } catch (err) {
-      setError("Invalid Credentials");
+      setAlertMessage("Invalid credentials");
+      toggleAlertPopup();
     }
   };
-
+  //Logic for Alert
+  const [isPopVisible, setIsPopVisible] = useState(false);
+  const toggleAlertPopup = () => {
+    setIsPopVisible(!isPopVisible);
+  };
+  const [alertMessage, setAlertMessage] = useState("");
   return (
     <>
       <div className="">
+        {isPopVisible && (
+          <PopupWarning
+            message={alertMessage}
+            onButtonClickded={toggleAlertPopup}
+          />
+        )}
         <div className="customTopNavbar">
           <nav className="topNavbar">
             <div
@@ -191,7 +203,6 @@ function SignIn() {
             <button type="submit" className="poppins-semibold">
               Sign In
             </button>
-            {error && <p className="error-message poppins-bold">{error}</p>}
           </form>
 
           <div className="or-section">

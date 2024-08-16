@@ -85,7 +85,8 @@ function ForgotPassword() {
   const generateOtp = () => {
     const randomOtp = Math.floor(1000 + Math.random() * 9000).toString();
     setGeneratedOtp(randomOtp);
-    alert(`Your OTP is ${randomOtp}`);
+    setAlertMessage(`Your OTP is ${randomOtp}`);
+    toggleAlertPopup();
     setCountdown(10);
     const countdownInterval = setInterval(() => {
       setCountdown((prev) => {
@@ -115,7 +116,8 @@ function ForgotPassword() {
 
   const handleUpdatePassword = async () => {
     if (password !== confirmPassword) {
-      alert("Passwords do not match!");
+      setAlertMessage("Passwords do not match!");
+      toggleAlertPopup();
       return;
     }
     try {
@@ -128,11 +130,15 @@ function ForgotPassword() {
           },
         }
       );
-      alert("Password updated successfully!");
-      navigate("/SignIn");
+      setAlertMessage("Password Updated successfully!");
+      toggleAlertPopup();
+      setTimeout(() => {
+        navigate("/SignIn");
+      }, 5000);
     } catch (err) {
       console.log(err);
-      alert("Failed to update password.");
+      setAlertMessage("Failed to update password.");
+      toggleAlertPopup();
       setPhases(1);
       resetFields();
     }

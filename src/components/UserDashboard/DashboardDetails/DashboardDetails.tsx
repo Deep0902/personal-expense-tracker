@@ -146,7 +146,10 @@ function DashboardDetails({
           label: (tooltipItem: any) => {
             const dataset = tooltipItem.dataset;
             const currentValue = dataset.data[tooltipItem.dataIndex];
-            const total = dataset.data.reduce((acc: any, value: any) => acc + value, 0);
+            const total = dataset.data.reduce(
+              (acc: any, value: any) => acc + value,
+              0
+            );
             const percentage = ((currentValue / total) * 100).toFixed(2);
             return ` ₹ ${currentValue.toLocaleString()} (${percentage}%)`;
           },
@@ -154,7 +157,7 @@ function DashboardDetails({
       },
     },
   };
-  
+
   const options2 = {
     responsive: true,
     plugins: {
@@ -172,7 +175,10 @@ function DashboardDetails({
           label: (tooltipItem: any) => {
             const dataset = tooltipItem.dataset;
             const currentValue = dataset.data[tooltipItem.dataIndex];
-            const total = dataset.data.reduce((acc: any, value: any) => acc + value, 0);
+            const total = dataset.data.reduce(
+              (acc: any, value: any) => acc + value,
+              0
+            );
             const percentage = ((currentValue / total) * 100).toFixed(2);
             return ` ₹ ${currentValue.toLocaleString()} (${percentage}%)`;
           },
@@ -247,23 +253,35 @@ function DashboardDetails({
       <br />
       <div className="dashboardDetails">
         <div className="breakdown">
-          <span className="poppins-semibold">Visualize your breakdown</span><br />
-
+          <span className="poppins-semibold">Visualize your breakdown</span>
+          <br />
         </div>
         {/* Add the Pie Chart here */}
         <br />
-        <div className="pieChartContainer webView2">
-          <span className="poppins-semibold">Click on categories to show/hide them</span>
-          <Doughnut data={data} options={options} />
-        </div>
-        <div className="pieChartContainer mobileView2">
-          <span className="poppins-semibold">Click on categories to show/hide them</span>
-          <br />
-          <br />
-          <Doughnut data={data} options={options2} />
-        </div>
-
-        <br />
+        {Object.keys(categoryTotals).length > 0 ? (
+          <>
+            <div className="pieChartContainer webView2">
+              <span className="poppins-semibold">
+                Click on categories to show/hide them
+              </span>
+              <Doughnut data={data} options={options} />
+            </div>
+            <div className="pieChartContainer mobileView2">
+              <span className="poppins-semibold">
+                Click on categories to show/hide them
+              </span>
+              <br />
+              <br />
+              <Doughnut data={data} options={options2} />
+            </div>
+          </>
+        ) : (
+          <div className="pieChartContainerEmpty">
+            <p className="poppins-semibold ">
+              There is nothing to display here! 😲
+            </p>
+          </div>
+        )}
       </div>
     </>
   );

@@ -9,6 +9,7 @@ import editProfileImg from "/images/avatars/edit-profile-img.svg";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import PopupWarning from "../../PopupWarning/PopupWarning";
 
 interface UserProfileProps {
   userData: any;
@@ -43,8 +44,8 @@ function UserProfile({ userData, toggleParentUseEffect }: UserProfileProps) {
       setNewPassword("");
       setConfirmPassword("");
     }
-    setName(userData.user_name)
-    setEmail(userData.user_email)
+    setName(userData.user_name);
+    setEmail(userData.user_email);
   };
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -75,11 +76,13 @@ function UserProfile({ userData, toggleParentUseEffect }: UserProfileProps) {
     // Validate password fields if the user is changing the password
     if (updatePasswordFields) {
       if (oldPassword !== userData.user_pass) {
-        alert("Old password is incorrect.");
+        setAlertMessage("Old password is incorrect.");
+        toggleAlertPopup();
         return;
       }
       if (newPassword !== confirmPassword) {
-        alert("New password and confirm password do not match.");
+        setAlertMessage("New password and confirm password do not match.");
+        toggleAlertPopup();
         return;
       }
     }
@@ -102,7 +105,8 @@ function UserProfile({ userData, toggleParentUseEffect }: UserProfileProps) {
         }
       );
       if (response.status === 200) {
-        alert("Profile updated successfully!");
+        setAlertMessage("Profile updated successfully!");
+        toggleAlertPopup();
         if (updatePasswordFields) {
           sessionStorage.setItem("user_pass", newPassword);
           localStorage.setItem("user_pass", newPassword);
@@ -113,11 +117,13 @@ function UserProfile({ userData, toggleParentUseEffect }: UserProfileProps) {
         toggleUpdatePasswordFields();
         // You may want to update the userData state here if it's passed from parent component
       } else {
-        alert("Failed to update profile.");
+        setAlertMessage("Failed to update profile.");
+        toggleAlertPopup();
       }
     } catch (err) {
       console.error("Error updating profile:", err);
-      alert("An error occurred while updating the profile.");
+      setAlertMessage("An error occurred while updating the profile.");
+      toggleAlertPopup();
     }
   };
 
@@ -136,15 +142,21 @@ function UserProfile({ userData, toggleParentUseEffect }: UserProfileProps) {
             },
           }
         );
-        alert("User deleted successfully");
-        navigate("/SignIn");
+
+        setAlertMessage("User deleted successfully");
+        toggleAlertPopup();
+        setTimeout(() => {
+          navigate("/SignIn");
+        }, 5000);
         console.log(response.data.message);
       } catch (error) {
         console.error("Error deleting user:", error);
-        alert("An error occurred while trying to delete the user.");
+        setAlertMessage("An error occurred while trying to delete the user.");
+        toggleAlertPopup();
       }
     } else {
-      alert("User deletion cancelled.");
+      setAlertMessage("User deletion cancelled.");
+      toggleAlertPopup();
     }
   };
 
@@ -181,14 +193,17 @@ function UserProfile({ userData, toggleParentUseEffect }: UserProfileProps) {
           userData.profile_img = updatedData.profile_img;
           toggleChooseProfileOverlay();
         } else {
-          alert("Failed to update profile image.");
+          setAlertMessage("Failed to update profile image.");
+          toggleAlertPopup();
         }
       } catch (err) {
         console.error("Error updating profile image:", err);
-        alert("An error occurred while updating the profile image.");
+        setAlertMessage("An error occurred while updating the profile image.");
+        toggleAlertPopup();
       }
     } else {
-      alert("Please select an image before confirming.");
+      setAlertMessage("Please select an image before confirming.");
+      toggleAlertPopup();
     }
   };
 
@@ -205,9 +220,21 @@ function UserProfile({ userData, toggleParentUseEffect }: UserProfileProps) {
   const handleConfirmPasswordView = () => {
     setShowConfirmPassword(!showConfirmPassword);
   };
+  //Logic for Alert
+  const [isPopVisible, setIsPopVisible] = useState(false);
+  const toggleAlertPopup = () => {
+    setIsPopVisible(!isPopVisible);
+  };
+  const [alertMessage, setAlertMessage] = useState("");
 
   return (
     <>
+      {isPopVisible && (
+        <PopupWarning
+          message={alertMessage}
+          onButtonClickded={toggleAlertPopup}
+        />
+      )}
       <div className="userProfileContainer">
         <div className="accountInfo">
           <div className="largeProfileIcon">
@@ -227,7 +254,8 @@ function UserProfile({ userData, toggleParentUseEffect }: UserProfileProps) {
           <div className="overlayBackground">
             <div className="poppins-bold">
               <div className="overlayBox2">
-                <label className="">Choose a Profile photo</label><br />
+                <label className="">Choose a Profile photo</label>
+                <br />
                 <div className="iconsDisplay">
                   {profileImages.map((icons, index) => {
                     return (

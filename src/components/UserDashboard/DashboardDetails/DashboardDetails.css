@@ -139,6 +139,18 @@
   height: 600px;
   justify-content: center;
 }
+.pieChartContainerEmpty {
+  position: relative;
+  background-color: #eaf9f6;
+  border: 1px solid #019863;
+  border-radius: 10px;
+  justify-content: center;
+}
+.pieChartContainerEmpty > p{
+  font-size: 20px;
+  color: #003321;
+  text-align: center;
+}
 .pieChartContainer > span {
   position: absolute;
   font-size: 25px;
@@ -165,7 +177,7 @@
     height: fit-content;
     padding: 0;
   }
-  .pieChartContainer > span{
+  .pieChartContainer > span {
     font-size: 13px;
   }
   .monthExpenses {

@@ -6,6 +6,7 @@ import filter from "/images/filter.svg";
 import moreIcon from "/images/more-dots.svg";
 import { downloadCSV } from "../../utils/csvUtils";
 import csvExport from "/images/csv-export.svg";
+import PopupWarning from "../../PopupWarning/PopupWarning";
 
 interface HistoryDetailsProps {
   userExpenses: Expense[];
@@ -63,7 +64,8 @@ function TransactionHistory({
       );
 
       if (!transaction) {
-        alert("Transaction not found.");
+        setAlertMessage("Transaction not found.");
+        toggleAlertPopup();
         return;
       }
 
@@ -125,12 +127,15 @@ function TransactionHistory({
             (expense) => expense.transaction_no !== transaction_no
           )
         );
-        alert("Transaction deleted and wallet updated successfully.");
+        setAlertMessage("Transaction deleted and wallet updated successfully.");
+        toggleAlertPopup();
       } else {
-        alert("Failed to delete transaction or update wallet.");
+        setAlertMessage("Failed to delete transaction or update wallet.");
+        toggleAlertPopup();
       }
     } catch (err) {
-      alert("Error occurred while deleting expense or updating wallet.");
+      setAlertMessage("Error occurred while deleting expense or updating wallet.");
+      toggleAlertPopup();
       console.error(err);
     }
   };
@@ -223,8 +228,20 @@ function TransactionHistory({
 
     downloadCSV(data, `${userData.user_name}'s Expenses`);
   };
+  //Logic for Alert
+  const [isPopVisible, setIsPopVisible] = useState(false);
+  const toggleAlertPopup = () => {
+    setIsPopVisible(!isPopVisible);
+  };
+  const [alertMessage, setAlertMessage] = useState("");
   return (
     <>
+      {isPopVisible && (
+        <PopupWarning
+          message={alertMessage}
+          onButtonClickded={toggleAlertPopup}
+        />
+      )}
       {dateFilter && (
         <div className="overlayBackground">
           <div className="poppins-bold">

@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { Expense } from "../../../interfaces/Expense";
 import "../NewTransacrion/NewTransacrion.css";
+import PopupWarning from "../../PopupWarning/PopupWarning";
 
 interface EditTransactionProps {
   onEditTransaction: () => void;
@@ -34,7 +35,8 @@ function EditTransaction({
 
   // Function to display alerts
   function alertDisplay(message: string) {
-    alert(message);
+    setAlertMessage(message);
+    toggleAlertPopup();
   }
 
   // Handle form submission
@@ -152,8 +154,20 @@ function EditTransaction({
     }
   };
 
+  //Logic for Alert
+  const [isPopVisible, setIsPopVisible] = useState(false);
+  const toggleAlertPopup = () => {
+    setIsPopVisible(!isPopVisible);
+  };
+  const [alertMessage, setAlertMessage] = useState("");
   return (
     <>
+      {isPopVisible && (
+        <PopupWarning
+          message={alertMessage}
+          onButtonClickded={toggleAlertPopup}
+        />
+      )}
       <div className="modal">
         <div className="overlay">
           <div className="overlayContent">

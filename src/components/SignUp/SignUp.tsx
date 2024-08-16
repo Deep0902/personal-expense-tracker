@@ -5,6 +5,7 @@ import "../SignIn/SignIn.css";
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import PopupWarning from "../PopupWarning/PopupWarning";
 
 function SignUp() {
   const navigate = useNavigate();
@@ -39,7 +40,8 @@ function SignUp() {
     e.preventDefault();
 
     if (userDetails.user_pass !== userDetails.confirm_pass) {
-      alert("Passwords don't match!");
+      setAlertMessage("Passwords don't match!");
+      toggleAlertPopup();
       setUserDetails({
         user_pass: "",
         confirm_pass: "",
@@ -57,13 +59,18 @@ function SignUp() {
       })
       .then((res) => {
         console.log("User added successfully:", res.data);
-        alert("User added successfully");
-        navigate("/SignIn");
+
+        setAlertMessage("User added successfully");
+        toggleAlertPopup();
+        setTimeout(() => {
+          navigate("/SignIn");
+        }, 2000);
       })
       .catch((err) => {
         console.error("Error adding user:", err);
         if (err.response && err.response.data && err.response.data.message) {
-          alert(err.response.data.message);
+          setAlertMessage(err.response.data.message);
+          toggleAlertPopup();
           setUserDetails({
             user_pass: "",
             confirm_pass: "",
@@ -71,7 +78,8 @@ function SignUp() {
             user_name: "",
           });
         } else {
-          alert("An error occurred while adding the user");
+          setAlertMessage("An error occurred while adding the user");
+          toggleAlertPopup();
           setUserDetails({
             user_pass: "",
             confirm_pass: "",
@@ -82,10 +90,23 @@ function SignUp() {
       });
   };
 
+  //Logic for Alert
+  const [isPopVisible, setIsPopVisible] = useState(false);
+  const toggleAlertPopup = () => {
+    setIsPopVisible(!isPopVisible);
+  };
+  const [alertMessage, setAlertMessage] = useState("");
+
   return (
     <>
       <TopNavbarSignedOut />
       <br />
+      {isPopVisible && (
+        <PopupWarning
+          message={alertMessage}
+          onButtonClickded={toggleAlertPopup}
+        />
+      )}
       <div className="mainContainer">
         <div className="credentialsCard">
           <label className="poppins-bold">Sign Up</label>

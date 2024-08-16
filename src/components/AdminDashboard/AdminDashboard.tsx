@@ -14,6 +14,7 @@ import avatar3 from "/images/avatars/avatar-male-3.svg";
 import avatar4 from "/images/avatars/avatar-girl-1.svg";
 import avatar5 from "/images/avatars/avatar-girl-2.svg";
 import avatar6 from "/images/avatars/avatar-girl-3.svg";
+import PopupWarning from "../PopupWarning/PopupWarning";
 
 function AdminDashboard() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -142,11 +143,15 @@ function AdminDashboard() {
           Authorization: `Bearer ${token}`,
         },
       });
+      setAlertMessage("User Deleted Successfully!");
+      toggleAlertPopup();
       // Remove the deleted user from the state
       setUsers(users.filter((user) => user.user_id !== userId));
       setFilteredUsers(filteredUsers.filter((user) => user.user_id !== userId));
     } catch (err) {
-      console.error("Failed to delete user", err);
+      setAlertMessage("Failed to delete user");
+      toggleAlertPopup();
+      console.error("", err);
     }
   };
   const handleEdit = (user: Users) => {
@@ -200,9 +205,17 @@ function AdminDashboard() {
       setOverlay(false);
       setCurrentUser(null);
     } catch (err) {
-      console.error("Failed to update user", err);
+      setAlertMessage("Failed to update user");
+      toggleAlertPopup();
+      console.error("", err);
     }
   };
+   //Logic for Alert
+   const [isPopVisible, setIsPopVisible] = useState(false);
+   const toggleAlertPopup = () => {
+     setIsPopVisible(!isPopVisible);
+   };
+   const [alertMessage, setAlertMessage] = useState("");
 
   return (
     <>
@@ -250,6 +263,12 @@ function AdminDashboard() {
           </div>
         </div>
       )}
+      {isPopVisible && (
+            <PopupWarning
+              message={alertMessage}
+              onButtonClickded={toggleAlertPopup}
+            />
+          )}
       <div className="customTopNavbar">
         <nav className="topNavbar">
           <div

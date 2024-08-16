@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import "./NewTransacrion.css";
+import PopupWarning from "../../PopupWarning/PopupWarning";
 
 interface NewTransactionProps {
   userData: any;
@@ -17,7 +18,9 @@ function NewTransaction({ userData, onNewTransaction }: NewTransactionProps) {
   const token = "my_secure_token"; // Token for authorization
 
   function alertDisplay(message: string) {
-    alert(message);
+    setAlertMessage(message);
+    toggleAlertPopup();
+    // alert(message)
   }
 
   // Handle form submission
@@ -104,19 +107,37 @@ function NewTransaction({ userData, onNewTransaction }: NewTransactionProps) {
 
       // Notify user based on the result of the wallet update
       if (updateUserResponse.status === 200) {
-        alert("Transaction added successfully and wallet updated!");
-        onNewTransaction(); // Refresh the transaction list
+        alertDisplay("Transaction added successfully and wallet updated!");
+        setTimeout(() => {
+          onNewTransaction(); // Refresh the transaction list
+        }, 4000);
       } else {
-        alert("Transaction added, but failed to update wallet.");
+        setTimeout(() => {
+          alertDisplay("Transaction added, but failed to update wallet.");
+        }, 5000);
       }
     } catch (error) {
       console.error("Error adding transaction or updating wallet", error);
-      alert("An error occurred while processing your transaction.");
+      setTimeout(() => {
+        alertDisplay("An error occurred while processing your transaction.");
+      }, 5000);
     }
   };
+  //Logic for Alert
+  const [isPopVisible, setIsPopVisible] = useState(false);
+  const toggleAlertPopup = () => {
+    setIsPopVisible(!isPopVisible);
+  };
+  const [alertMessage, setAlertMessage] = useState("");
 
   return (
     <>
+      {isPopVisible && (
+        <PopupWarning
+          message={alertMessage}
+          onButtonClickded={toggleAlertPopup}
+        />
+      )}
       <div className="modal">
         <div className="overlay">
           <div className="overlayContent">
