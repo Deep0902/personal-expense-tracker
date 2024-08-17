@@ -283,6 +283,7 @@ function DashboardDetails({
           </div>
         )}
       </div>
+      <br />
     </>
   );
 }

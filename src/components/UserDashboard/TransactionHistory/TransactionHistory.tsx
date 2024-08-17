@@ -7,6 +7,7 @@ import moreIcon from "/images/more-dots.svg";
 import { downloadCSV } from "../../utils/csvUtils";
 import csvExport from "/images/csv-export.svg";
 import PopupWarning from "../../PopupWarning/PopupWarning";
+import PopupConfirmation from "../../PopupConfirmation/PopupConfirmation";
 
 interface HistoryDetailsProps {
   userExpenses: Expense[];
@@ -58,7 +59,6 @@ function TransactionHistory({
   const token = "my_secure_token"; // Token for authorization
   const deleteExpense = async (transaction_no: string) => {
     try {
-      // Find the transaction to be deleted to access its details
       const transaction = expenses.find(
         (expense) => expense.transaction_no === transaction_no
       );
@@ -69,27 +69,11 @@ function TransactionHistory({
         return;
       }
 
-      // Alert the user with the transaction details before deletion
-      const confirmDelete = window.confirm(
-        `Are you sure you want to delete this transaction?\n\n` +
-          `Title: ${transaction.title}\n` +
-          `Date: ${new Date(transaction.date).toLocaleDateString()}\n` +
-          `Amount: ₹${transaction.amount.toLocaleString()}\n` +
-          `Category: ${transaction.category}\n` +
-          `Type: ${transaction.transaction_type}`
-      );
-
-      if (!confirmDelete) {
-        return; // If user cancels, do not proceed with deletion
-      }
-
-      // Calculate the new wallet balance based on the transaction type
       const updatedWallet =
         transaction.transaction_type === "debit"
           ? userData.wallet + transaction.amount
           : userData.wallet - transaction.amount;
 
-      // Make the DELETE request to remove the transaction
       const deleteTransactionPromise = axios.delete(
         `http://127.0.0.1:5000/api/expenses/${userExpenses[0].user_id}/${transaction_no}`,
         {
@@ -99,7 +83,6 @@ function TransactionHistory({
         }
       );
 
-      // Make the PUT request to update the user's wallet
       const updateUserPromise = axios.put(
         `http://127.0.0.1:5000/api/users/${userExpenses[0].user_id}`,
         {
@@ -112,12 +95,10 @@ function TransactionHistory({
         }
       );
 
-      // Wait for both API calls to complete
       const [deleteTransactionResponse, updateUserResponse] = await Promise.all(
         [deleteTransactionPromise, updateUserPromise]
       );
 
-      // If both requests succeed, update the UI
       if (
         deleteTransactionResponse.status === 200 &&
         updateUserResponse.status === 200
@@ -134,11 +115,14 @@ function TransactionHistory({
         toggleAlertPopup();
       }
     } catch (err) {
-      setAlertMessage("Error occurred while deleting expense or updating wallet.");
+      setAlertMessage(
+        "Error occurred while deleting expense or updating wallet."
+      );
       toggleAlertPopup();
       console.error(err);
     }
   };
+
 
   // Dropdown Logic
   const handleMouseEnter = (index: number) => {
@@ -234,12 +218,34 @@ function TransactionHistory({
     setIsPopVisible(!isPopVisible);
   };
   const [alertMessage, setAlertMessage] = useState("");
+
+  //Logic for confirmation Alert
+  const [showConfirmationPopup, setShowConfirmationPopup] = useState(false);
+  const [confirmationTransactionNo, setConfirmationTransactionNo] = useState<string | null>(null);
+  const handleConfirmShowConfirmationPopup = (transaction_no: string) => {
+    setConfirmationTransactionNo(transaction_no);
+    setShowConfirmationPopup(true);
+  };
+
+  const handleConfirmation = async (confirmation: boolean) => {
+    if (confirmation && confirmationTransactionNo) {
+      await deleteExpense(confirmationTransactionNo);
+    }
+    setShowConfirmationPopup(false);
+    setConfirmationTransactionNo(null); // Clear the transaction number after handling confirmation
+  };
   return (
     <>
       {isPopVisible && (
         <PopupWarning
           message={alertMessage}
           onButtonClickded={toggleAlertPopup}
+        />
+      )}
+      {showConfirmationPopup && (
+        <PopupConfirmation
+          message="Are you sure you want to delete your account?"
+          onButtonClicked={handleConfirmation}
         />
       )}
       {dateFilter && (
@@ -391,9 +397,7 @@ function TransactionHistory({
                       {visibleDropdownIndex === index && (
                         <div className="historyDropdown">
                           <p
-                            onClick={() => {
-                              deleteExpense(transaction.transaction_no);
-                            }}
+                            onClick={() => handleConfirmShowConfirmationPopup(transaction.transaction_no)}
                           >
                             Delete
                           </p>

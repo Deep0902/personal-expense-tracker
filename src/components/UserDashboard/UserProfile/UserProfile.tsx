@@ -10,6 +10,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import PopupWarning from "../../PopupWarning/PopupWarning";
+import PopupConfirmation from "../../PopupConfirmation/PopupConfirmation";
 
 interface UserProfileProps {
   userData: any;
@@ -128,34 +129,25 @@ function UserProfile({ userData, toggleParentUseEffect }: UserProfileProps) {
   };
 
   const deleteUser = async () => {
-    const confirmed = window.confirm(
-      "Are you sure you want to delete this user? This action cannot be undone."
-    );
+    try {
+      const response = await axios.delete(
+        `http://127.0.0.1:5000/api/users/${userData.user_id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
-    if (confirmed) {
-      try {
-        const response = await axios.delete(
-          `http://127.0.0.1:5000/api/users/${userData.user_id}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-
-        setAlertMessage("User deleted successfully");
-        toggleAlertPopup();
-        setTimeout(() => {
-          navigate("/SignIn");
-        }, 5000);
-        console.log(response.data.message);
-      } catch (error) {
-        console.error("Error deleting user:", error);
-        setAlertMessage("An error occurred while trying to delete the user.");
-        toggleAlertPopup();
-      }
-    } else {
-      setAlertMessage("User deletion cancelled.");
+      setAlertMessage("User deleted successfully");
+      toggleAlertPopup();
+      setTimeout(() => {
+        navigate("/SignIn");
+      }, 5000);
+      console.log(response.data.message);
+    } catch (error) {
+      console.error("Error deleting user:", error);
+      setAlertMessage("An error occurred while trying to delete the user.");
       toggleAlertPopup();
     }
   };
@@ -227,12 +219,34 @@ function UserProfile({ userData, toggleParentUseEffect }: UserProfileProps) {
   };
   const [alertMessage, setAlertMessage] = useState("");
 
+  //Logic for confirmation Alert
+  const [showConfirmationPopup, setShowConfirmationPopup] = useState(false);
+  const handleConfirmShowConfirmationPopup = () => {
+    setShowConfirmationPopup(true);
+  };
+  const handleConfirmation = async (confirmation: boolean) => {
+    if (confirmation) {
+      await deleteUser();
+    }
+    else{
+      setAlertMessage("User deletion cancelled.");
+      toggleAlertPopup();
+    }
+    setShowConfirmationPopup(false);
+  };
+
   return (
     <>
       {isPopVisible && (
         <PopupWarning
           message={alertMessage}
           onButtonClickded={toggleAlertPopup}
+        />
+      )}
+      {showConfirmationPopup && (
+        <PopupConfirmation
+          message="Are you sure you want to delete your account? This cannot be undone"
+          onButtonClicked={handleConfirmation}
         />
       )}
       <div className="userProfileContainer">
@@ -371,7 +385,7 @@ function UserProfile({ userData, toggleParentUseEffect }: UserProfileProps) {
             <button
               className="warning-button poppins-regular"
               type="button"
-              onClick={deleteUser}
+              onClick={handleConfirmShowConfirmationPopup}
             >
               Delete my Account
             </button>

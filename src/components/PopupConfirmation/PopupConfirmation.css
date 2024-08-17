@@ -1,0 +1,69 @@
+.overlayBackgroundAlert {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #011b1185;
+  z-index: 4;
+}
+.overlayBoxAlert {
+  background-color: #e5f7f4;
+  border-radius: 10px;
+  padding: 25px 30px;
+  box-shadow: 0px 0px 10px #0000000a;
+  display: flex;
+  flex-direction: column;
+  margin: 14% 35%;
+}
+.alertTitle {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.alertTitle > img {
+  height: 30px;
+}
+.alertTitle > span {
+  font-size: 30px;
+  margin-left: 10px;
+  color: #003321;
+}
+.overlayBoxAlert button:nth-child(2) {
+  color: #f3f7f6;
+  background-color: #019863;
+  border: none;
+  border-radius: 5px;
+  padding: 7px 20px;
+  font-size: 14px;
+  width: fit-content;
+  margin-top: 10px;
+}
+.overlayBoxAlert button:nth-child(1) {
+  color: #f3f7f6;
+  background-color: #e74c3c;
+  border: none;
+  border-radius: 5px;
+  padding: 7px 20px;
+  font-size: 14px;
+  width: fit-content;
+  margin-top: 10px;
+  margin-right: 15px;
+}
+.overlayBoxAlert > span {
+  color: #277761;
+  font-size: 20px;
+  margin-top: 8px;
+}
+
+.AlertButtons {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Phone Screen CSS */
+@media (max-width: 760px) {
+  .overlayBoxAlert {
+    margin: 60% 7%;
+  }
+}

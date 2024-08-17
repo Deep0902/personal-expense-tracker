@@ -232,13 +232,7 @@ function SignIn() {
         </div>
       </div>
       <Footer />
-      <button
-        onClick={() => {
-          navigate("/LandingPage");
-        }}
-      >
-        Homepage
-      </button>
+      
     </>
   );
 }
