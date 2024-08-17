@@ -15,6 +15,7 @@ import avatar4 from "/images/avatars/avatar-girl-1.svg";
 import avatar5 from "/images/avatars/avatar-girl-2.svg";
 import avatar6 from "/images/avatars/avatar-girl-3.svg";
 import PopupWarning from "../PopupWarning/PopupWarning";
+import PopupConfirmation from "../PopupConfirmation/PopupConfirmation";
 
 function AdminDashboard() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -128,15 +129,7 @@ function AdminDashboard() {
       setVisibleDropdownIndex(visibleDropdownIndex === index ? null : index);
     }
   };
-  const handleDelete = async (userId: number, userName: string) => {
-    const confirmDelete = window.confirm(
-      `Are you sure you want to delete the user ${userName}`
-    );
-
-    if (!confirmDelete) {
-      return;
-    }
-
+  const handleDelete = async (userId: number) => {
     try {
       await axios.delete(`http://127.0.0.1:5000/api/users/${userId}`, {
         headers: {
@@ -210,12 +203,32 @@ function AdminDashboard() {
       console.error("", err);
     }
   };
-   //Logic for Alert
-   const [isPopVisible, setIsPopVisible] = useState(false);
-   const toggleAlertPopup = () => {
-     setIsPopVisible(!isPopVisible);
-   };
-   const [alertMessage, setAlertMessage] = useState("");
+  //Logic for Alert
+  const [isPopVisible, setIsPopVisible] = useState(false);
+  const toggleAlertPopup = () => {
+    setIsPopVisible(!isPopVisible);
+  };
+  const [alertMessage, setAlertMessage] = useState("");
+
+  //Logic for confirmation Alert
+  const [showConfirmationPopup, setShowConfirmationPopup] = useState(false);
+  const [confirmationUserId, setConfirmationUserId] = useState<number | null>(
+    null
+  );
+  const handleConfirmShowConfirmationPopup = (userId: number) => {
+    setConfirmationUserId(userId);
+    setShowConfirmationPopup(true);
+  };
+  const handleConfirmation = async (confirmation: boolean) => {
+    if (confirmation) {
+      if (confirmationUserId !== null) {
+        await handleDelete(confirmationUserId);
+      }
+    }
+    setShowConfirmationPopup(false);
+    setConfirmationUserId(null);
+  };
+  const [deletingUserName, setdeletingUserName] = useState("");
 
   return (
     <>
@@ -264,11 +277,18 @@ function AdminDashboard() {
         </div>
       )}
       {isPopVisible && (
-            <PopupWarning
-              message={alertMessage}
-              onButtonClickded={toggleAlertPopup}
-            />
-          )}
+        <PopupWarning
+          message={alertMessage}
+          onButtonClickded={toggleAlertPopup}
+        />
+      )}
+      {showConfirmationPopup && (
+        <PopupConfirmation
+          message={`Are you sure you want to the user ${deletingUserName}?`}
+          onButtonClicked={handleConfirmation}
+        />
+      )}
+
       <div className="customTopNavbar">
         <nav className="topNavbar">
           <div
@@ -354,7 +374,10 @@ function AdminDashboard() {
                       Edit
                     </p>
                     <p
-                      onClick={() => handleDelete(user.user_id, user.user_name)}
+                      onClick={() => {
+                        setdeletingUserName(user.user_name);
+                        handleConfirmShowConfirmationPopup(user.user_id);
+                      }}
                     >
                       Delete
                     </p>
