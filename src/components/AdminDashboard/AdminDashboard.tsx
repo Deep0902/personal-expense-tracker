@@ -37,6 +37,7 @@ function AdminDashboard() {
 
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
   const toggleOverlay = () => setOverlay(!overlay);
+  
 
   useEffect(() => {
     if (!sessionStorage.admin_id || !sessionStorage.admin_pass) {
@@ -193,7 +194,8 @@ function AdminDashboard() {
             : user
         )
       );
-
+      setAlertMessage("User Updated Sucessfully");
+      toggleAlertPopup();
       // Close the overlay
       setOverlay(false);
       setCurrentUser(null);
@@ -230,6 +232,7 @@ function AdminDashboard() {
   };
   const [deletingUserName, setdeletingUserName] = useState("");
 
+  
   return (
     <>
       {overlay && (
