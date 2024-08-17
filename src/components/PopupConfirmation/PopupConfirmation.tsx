@@ -4,7 +4,10 @@ interface PopupConfirmationProps {
   message: string;
   onButtonClicked: (confirmation: boolean) => void;
 }
-function PopupConfirmation({ message, onButtonClicked }: PopupConfirmationProps) {
+function PopupConfirmation({
+  message,
+  onButtonClicked,
+}: PopupConfirmationProps) {
   return (
     <>
       <div className="overlayBackgroundAlert">
@@ -16,10 +19,16 @@ function PopupConfirmation({ message, onButtonClicked }: PopupConfirmationProps)
             </div>
             <span className="poppins-regular">{message}</span>
             <div className="AlertButtons">
-              <button className="poppins-medium" onClick={() =>onButtonClicked(false)}>
+              <button
+                className="poppins-medium"
+                onClick={() => onButtonClicked(false)}
+              >
                 No
               </button>
-              <button className="poppins-medium" onClick={ ()=> onButtonClicked(true)}>
+              <button
+                className="poppins-medium"
+                onClick={() => onButtonClicked(true)}
+              >
                 Yes
               </button>
             </div>

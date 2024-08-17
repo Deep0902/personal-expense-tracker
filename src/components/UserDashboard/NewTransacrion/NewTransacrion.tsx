@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import "./NewTransacrion.css";
 import PopupWarning from "../../PopupWarning/PopupWarning";
+import LoadingComponent from "../../LoadingComponent/LoadingComponent";
 
 interface NewTransactionProps {
   userData: any;
@@ -108,19 +109,20 @@ function NewTransaction({ userData, onNewTransaction }: NewTransactionProps) {
       // Notify user based on the result of the wallet update
       if (updateUserResponse.status === 200) {
         alertDisplay("Transaction added successfully and wallet updated!");
+        toggleLoading();
         setTimeout(() => {
           onNewTransaction(); // Refresh the transaction list
         }, 4000);
       } else {
-        setTimeout(() => {
-          alertDisplay("Transaction added, but failed to update wallet.");
-        }, 5000);
+        alertDisplay("Transaction added, but failed to update wallet.");
+        toggleLoading();
+        setTimeout(() => {}, 5000);
       }
     } catch (error) {
       console.error("Error adding transaction or updating wallet", error);
-      setTimeout(() => {
-        alertDisplay("An error occurred while processing your transaction.");
-      }, 5000);
+      alertDisplay("An error occurred while processing your transaction.");
+      toggleLoading();
+      setTimeout(() => {}, 5000);
     }
   };
   //Logic for Alert
@@ -130,6 +132,15 @@ function NewTransaction({ userData, onNewTransaction }: NewTransactionProps) {
   };
   const [alertMessage, setAlertMessage] = useState("");
 
+  //Logic for Loading screen
+  const [isLoadingVisible, setIsLoadingVisible] = useState(false);
+  const toggleLoading = () => {
+    setIsLoadingVisible(!isLoadingVisible);
+  };
+  useEffect(() => {
+    // Scroll to the top of the page when the component mounts
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
   return (
     <>
       {isPopVisible && (
@@ -138,6 +149,7 @@ function NewTransaction({ userData, onNewTransaction }: NewTransactionProps) {
           onButtonClickded={toggleAlertPopup}
         />
       )}
+      {isLoadingVisible && <LoadingComponent />}
       <div className="modal">
         <div className="overlay">
           <div className="overlayContent">

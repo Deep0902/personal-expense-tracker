@@ -79,6 +79,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
+  margin: 0px 110px;
 }
 .card {
   margin: 60px;
@@ -156,7 +157,6 @@
   font-size: 18px;
 }
 
-
 /* Phone Screen CSS */
 @media (max-width: 760px) {
   .span {
@@ -226,6 +226,9 @@
     font-size: 20px;
   }
   .title {
+    margin: 0;
+  }
+  .cards-section{
     margin: 0;
   }
 }

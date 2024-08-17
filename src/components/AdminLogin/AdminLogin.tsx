@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import Footer from "../Footer/Footer";
 import "./AdminLogin.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TopNavbarSignedOut from "../TopNavbarSignedOut/TopNavbarSignedOut";
 import axios from "axios";
 
@@ -62,7 +62,10 @@ function AdminLogin() {
       setError("Invalid Credentials");
     }
   };
-
+  useEffect(() => {
+    // Scroll to the top of the page when the component mounts
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
   return (
     <>
       <div className="mainConatiner">

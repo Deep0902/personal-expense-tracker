@@ -6,10 +6,14 @@ import exportExcel from "/images/export-icon.png";
 import sofaChill from "/images/sofa-chill.png";
 import TopNavbarSignedOut from "../TopNavbarSignedOut/TopNavbarSignedOut";
 import Footer from "../Footer/Footer";
+import { useEffect } from "react";
 
 function LandingPage() {
   const navigate = useNavigate();
-
+  useEffect(() => {
+    // Scroll to the top of the page when the component mounts
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
   return (
     <>
       <div className="mainContainer">

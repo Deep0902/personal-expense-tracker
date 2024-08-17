@@ -37,7 +37,6 @@ function AdminDashboard() {
 
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
   const toggleOverlay = () => setOverlay(!overlay);
-  
 
   useEffect(() => {
     if (!sessionStorage.admin_id || !sessionStorage.admin_pass) {
@@ -231,8 +230,10 @@ function AdminDashboard() {
     setConfirmationUserId(null);
   };
   const [deletingUserName, setdeletingUserName] = useState("");
-
-  
+  useEffect(() => {
+    // Scroll to the top of the page when the component mounts
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
   return (
     <>
       {overlay && (

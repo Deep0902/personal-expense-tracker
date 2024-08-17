@@ -186,7 +186,10 @@ function DashboardDetails({
       },
     },
   };
-
+  useEffect(() => {
+    // Scroll to the top of the page when the component mounts
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
   return (
     <>
       <div className="dashboardDetails">

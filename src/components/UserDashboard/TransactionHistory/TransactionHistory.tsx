@@ -123,7 +123,6 @@ function TransactionHistory({
     }
   };
 
-
   // Dropdown Logic
   const handleMouseEnter = (index: number) => {
     if (window.innerWidth > 768) {
@@ -221,7 +220,9 @@ function TransactionHistory({
 
   //Logic for confirmation Alert
   const [showConfirmationPopup, setShowConfirmationPopup] = useState(false);
-  const [confirmationTransactionNo, setConfirmationTransactionNo] = useState<string | null>(null);
+  const [confirmationTransactionNo, setConfirmationTransactionNo] = useState<
+    string | null
+  >(null);
   const handleConfirmShowConfirmationPopup = (transaction_no: string) => {
     setConfirmationTransactionNo(transaction_no);
     setShowConfirmationPopup(true);
@@ -234,6 +235,11 @@ function TransactionHistory({
     setShowConfirmationPopup(false);
     setConfirmationTransactionNo(null); // Clear the transaction number after handling confirmation
   };
+
+  useEffect(() => {
+    // Scroll to the top of the page when the component mounts
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [isPopVisible, showConfirmationPopup, dateFilter]);
   return (
     <>
       {isPopVisible && (
@@ -397,7 +403,11 @@ function TransactionHistory({
                       {visibleDropdownIndex === index && (
                         <div className="historyDropdown">
                           <p
-                            onClick={() => handleConfirmShowConfirmationPopup(transaction.transaction_no)}
+                            onClick={() =>
+                              handleConfirmShowConfirmationPopup(
+                                transaction.transaction_no
+                              )
+                            }
                           >
                             Delete
                           </p>

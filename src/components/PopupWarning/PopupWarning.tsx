@@ -16,7 +16,10 @@ function PopupWarning({ message, onButtonClickded }: PopupWarningProps) {
             </div>
             <span className="poppins-regular">{message}</span>
             <div className="AlertButtons">
-              <button className="poppins-medium" onClick={onButtonClickded}>
+              <button
+                className="poppins-medium okayButton"
+                onClick={onButtonClickded}
+              >
                 Okay
               </button>
             </div>

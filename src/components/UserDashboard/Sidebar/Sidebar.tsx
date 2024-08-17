@@ -11,7 +11,12 @@ interface SidebarProps {
   activeTab: string;
   resetSearchQuery: () => void;
 }
-function Sidebar({ Username, sendDataToParent, activeTab, resetSearchQuery }: SidebarProps) {
+function Sidebar({
+  Username,
+  sendDataToParent,
+  activeTab,
+  resetSearchQuery,
+}: SidebarProps) {
   const [isExpanded, setIsExpanded] = useState(true); // State to track if the div is expanded
   const resizableDivRef = useRef<HTMLDivElement>(null);
   const toggleDivSize = () => {

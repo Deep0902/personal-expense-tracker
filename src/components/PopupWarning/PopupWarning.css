@@ -29,9 +29,9 @@
   margin-left: 10px;
   color: #003321;
 }
-.overlayBoxAlert button {
+.okayButton {
   color: #f3f7f6;
-  background-color: #019863;
+  background-color: #019863 !important;
   border: none;
   border-radius: 5px;
   padding: 7px 15px;

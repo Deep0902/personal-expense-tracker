@@ -99,6 +99,11 @@ function SignIn() {
     setIsPopVisible(!isPopVisible);
   };
   const [alertMessage, setAlertMessage] = useState("");
+  const [toggleScrollTop, setToggleScrollTop] = useState(false);
+  useEffect(() => {
+    // Scroll to the top of the page when the component mounts
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [toggleScrollTop]);
   return (
     <>
       <div className="">
@@ -113,6 +118,7 @@ function SignIn() {
             <div
               className="title"
               onClick={() => {
+                setToggleScrollTop(!toggleScrollTop);
                 navigate("/LandingPage");
               }}
             >
@@ -155,6 +161,7 @@ function SignIn() {
             )}
           </nav>
         </div>
+        <br />
         <br />
         <br />
         <br />
@@ -232,7 +239,6 @@ function SignIn() {
         </div>
       </div>
       <Footer />
-      
     </>
   );
 }

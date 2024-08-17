@@ -10,7 +10,7 @@
   top: 0;
   left: 0;
   background: #ffffff52;
-  backdrop-filter: blur(10px)
+  backdrop-filter: blur(10px);
 }
 .navbar-right {
   margin-right: 3%;
@@ -49,7 +49,7 @@
   overflow: hidden;
   z-index: 1;
 }
-.mobile-menu-button{
+.mobile-menu-button {
   display: none;
 }
 .dropdown-link {

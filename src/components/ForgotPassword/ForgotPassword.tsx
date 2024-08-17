@@ -6,6 +6,7 @@ import axios from "axios";
 import "./ForgotPassword.css";
 import { Users } from "../../interfaces/Users";
 import PopupWarning from "../PopupWarning/PopupWarning";
+import LoadingComponent from "../LoadingComponent/LoadingComponent";
 
 function ForgotPassword() {
   const token = "my_secure_token"; // Token for authorization
@@ -132,6 +133,7 @@ function ForgotPassword() {
       );
       setAlertMessage("Password Updated successfully!");
       toggleAlertPopup();
+      toggleLoading();
       setTimeout(() => {
         navigate("/SignIn");
       }, 5000);
@@ -159,9 +161,19 @@ function ForgotPassword() {
   };
   const [alertMessage, setAlertMessage] = useState("");
 
+  //Logic for Loading screen
+  const [isLoadingVisible, setIsLoadingVisible] = useState(false);
+  const toggleLoading = () => {
+    setIsLoadingVisible(!isLoadingVisible);
+  };
+  useEffect(() => {
+    // Scroll to the top of the page when the component mounts
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
   return (
     <>
       <div>
+        {isLoadingVisible && <LoadingComponent />}
         <TopNavbarSignedOut />
         <div className="">
           <br />

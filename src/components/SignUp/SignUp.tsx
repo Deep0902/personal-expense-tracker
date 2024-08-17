@@ -3,9 +3,10 @@ import TopNavbarSignedOut from "../TopNavbarSignedOut/TopNavbarSignedOut";
 import "./SignUp.css";
 import "../SignIn/SignIn.css";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PopupWarning from "../PopupWarning/PopupWarning";
+import LoadingComponent from "../LoadingComponent/LoadingComponent";
 
 function SignUp() {
   const navigate = useNavigate();
@@ -62,6 +63,7 @@ function SignUp() {
 
         setAlertMessage("User added successfully");
         toggleAlertPopup();
+        toggleLoading();
         setTimeout(() => {
           navigate("/SignIn");
         }, 2000);
@@ -96,7 +98,15 @@ function SignUp() {
     setIsPopVisible(!isPopVisible);
   };
   const [alertMessage, setAlertMessage] = useState("");
-
+  //Logic for Loading screen
+  const [isLoadingVisible, setIsLoadingVisible] = useState(false);
+  const toggleLoading = () => {
+    setIsLoadingVisible(!isLoadingVisible);
+  };
+  useEffect(() => {
+    // Scroll to the top of the page when the component mounts
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
   return (
     <>
       <TopNavbarSignedOut />
@@ -107,6 +117,7 @@ function SignUp() {
           onButtonClickded={toggleAlertPopup}
         />
       )}
+      {isLoadingVisible && <LoadingComponent />}
       <div className="mainContainer">
         <div className="credentialsCard">
           <label className="poppins-bold">Sign Up</label>

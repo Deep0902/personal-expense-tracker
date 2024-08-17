@@ -1,5 +1,10 @@
+import { useEffect } from "react";
 import "./About.css";
 function About() {
+  useEffect(() => {
+    // Scroll to the top of the page when the component mounts
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
   return (
     <>
       <div className="aboutContainer">
@@ -39,7 +44,9 @@ function About() {
           small teams efficiently manage their projects and finances. The goal
           is to provide a user-friendly platform that simplifies project
           management and expense tracking, enabling users to focus more on their
-          work and less on administrative tasks. <br/><br/>Click&nbsp;
+          work and less on administrative tasks. <br />
+          <br />
+          Click&nbsp;
           <a
             href="https://github.com/Deep0902/personal-expense-tracker"
             target="_blank"
@@ -47,7 +54,8 @@ function About() {
             className="hyperlink"
           >
             here
-          </a> to check out the project code on GitHub
+          </a>{" "}
+          to check out the project code on GitHub
         </p>
         <br />
         <br />

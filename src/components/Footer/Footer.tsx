@@ -17,9 +17,27 @@ function Footer() {
             <br />
             <span className="poppins-regular">
               <ul>
-                <li><a href="https://github.com/Deep0902" target="_blank" rel="noopener noreferrer">GitHub Profile</a></li>
-                <li><a href="https://www.linkedin.com/in/deeprakesh/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
-                <li><a href="mailto:deeptank09@gmail.com">Send me an Email</a></li>
+                <li>
+                  <a
+                    href="https://github.com/Deep0902"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    GitHub Profile
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.linkedin.com/in/deeprakesh/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    LinkedIn
+                  </a>
+                </li>
+                <li>
+                  <a href="mailto:deeptank09@gmail.com">Send me an Email</a>
+                </li>
               </ul>
             </span>
           </div>

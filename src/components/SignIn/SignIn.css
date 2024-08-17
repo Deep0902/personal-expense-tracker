@@ -14,6 +14,9 @@
   color: #003321;
   margin-bottom: 5px;
 }
+.customTopNavbar .topNavbar {
+  position: fixed;
+}
 .credentialsCard > span {
   margin-bottom: 5px;
 }

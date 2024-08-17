@@ -6,11 +6,12 @@ import avatar4 from "/images/avatars/avatar-girl-1.svg";
 import avatar5 from "/images/avatars/avatar-girl-2.svg";
 import avatar6 from "/images/avatars/avatar-girl-3.svg";
 import editProfileImg from "/images/avatars/edit-profile-img.svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import PopupWarning from "../../PopupWarning/PopupWarning";
 import PopupConfirmation from "../../PopupConfirmation/PopupConfirmation";
+import LoadingComponent from "../../LoadingComponent/LoadingComponent";
 
 interface UserProfileProps {
   userData: any;
@@ -141,6 +142,7 @@ function UserProfile({ userData, toggleParentUseEffect }: UserProfileProps) {
 
       setAlertMessage("User deleted successfully");
       toggleAlertPopup();
+      toggleLoading();
       setTimeout(() => {
         navigate("/SignIn");
       }, 5000);
@@ -227,14 +229,21 @@ function UserProfile({ userData, toggleParentUseEffect }: UserProfileProps) {
   const handleConfirmation = async (confirmation: boolean) => {
     if (confirmation) {
       await deleteUser();
-    }
-    else{
+    } else {
       setAlertMessage("User deletion cancelled.");
       toggleAlertPopup();
     }
     setShowConfirmationPopup(false);
   };
-
+  //Logic for Loading screen
+  const [isLoadingVisible, setIsLoadingVisible] = useState(false);
+  const toggleLoading = () => {
+    setIsLoadingVisible(!isLoadingVisible);
+  };
+  useEffect(() => {
+    // Scroll to the top of the page when the component mounts
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
   return (
     <>
       {isPopVisible && (
@@ -249,6 +258,7 @@ function UserProfile({ userData, toggleParentUseEffect }: UserProfileProps) {
           onButtonClicked={handleConfirmation}
         />
       )}
+      {isLoadingVisible && <LoadingComponent />}
       <div className="userProfileContainer">
         <div className="accountInfo">
           <div className="largeProfileIcon">

@@ -1,31 +1,30 @@
-.aboutContainer{
-    padding: 0 5%;
+.aboutContainer {
+  padding: 0 5%;
 }
-.aboutContainer > h3{
-    margin: 0;
-    font-size: 35px;
-    color: #019863;
-}
-
-.aboutContainer > p{
-    margin: 0;
-    font-size: 17px;
-    text-align: justify;
-    color: #003321;
+.aboutContainer > h3 {
+  margin: 0;
+  font-size: 35px;
+  color: #019863;
 }
 
-.bottomText p{
-    margin: 0;
-    font-size: 20px;
-    text-align: center;
-}
-.hyperlink{
-    color: #003321;
+.aboutContainer > p {
+  margin: 0;
+  font-size: 17px;
+  text-align: justify;
+  color: #003321;
 }
 
+.bottomText p {
+  margin: 0;
+  font-size: 20px;
+  text-align: center;
+}
+.hyperlink {
+  color: #003321;
+}
 
 @media (max-width: 760px) {
-    .aboutContainer h3:first-child{
-        margin-top: 10px;
-    }
+  .aboutContainer h3:first-child {
+    margin-top: 10px;
+  }
 }

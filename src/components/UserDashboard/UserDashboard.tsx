@@ -34,7 +34,6 @@ function UserDashboard() {
     }
   };
 
-
   //New Transaction
   const [newTransactionVisible, setNewTransactionVisible] = useState(false);
   const toggleNewTransaction = () => {
@@ -50,11 +49,11 @@ function UserDashboard() {
     setEditTransactionVisible(!EditTransactionVisible);
     setEditingTransaction(transaction || null); // Set the selected transaction or null if toggling off
   };
-    //Toggle useEffect
-    const [toggleUseEffect, setToggleUseEffect] = useState(false)
-    const changeToggleUseEffect = () => {
-      setToggleUseEffect(!toggleUseEffect)
-    }
+  //Toggle useEffect
+  const [toggleUseEffect, setToggleUseEffect] = useState(false);
+  const changeToggleUseEffect = () => {
+    setToggleUseEffect(!toggleUseEffect);
+  };
 
   // Effect to verify user and fetch user data on component mount
   useEffect(() => {
@@ -116,7 +115,13 @@ function UserDashboard() {
     if (email) {
       fetchUserData(email); // Fetch user data if email exists
     }
-  }, [navigate, tabSelected, newTransactionVisible, EditTransactionVisible, toggleUseEffect]); // Effect dependency on navigate
+  }, [
+    navigate,
+    tabSelected,
+    newTransactionVisible,
+    EditTransactionVisible,
+    toggleUseEffect,
+  ]); // Effect dependency on navigate
 
   //Effect to fetch expenses data when user_data is updated
   useEffect(() => {
@@ -149,7 +154,6 @@ function UserDashboard() {
     sessionStorage.removeItem("user_pass"); // Remove user password from session storage
     navigate("/SignIn"); // Redirect to SignIn
   };
-
 
   return (
     <>
@@ -205,11 +209,12 @@ function UserDashboard() {
                   initialSearchQuery={searchQuery} // Pass the search query
                 />
               )}
-              {tabSelected === "About" &&(
-                <About/>
-              )}
-              {tabSelected === "Settings" &&(
-                <UserProfile userData={user_data} toggleParentUseEffect={changeToggleUseEffect}/>
+              {tabSelected === "About" && <About />}
+              {tabSelected === "Settings" && (
+                <UserProfile
+                  userData={user_data}
+                  toggleParentUseEffect={changeToggleUseEffect}
+                />
               )}
             </div>
           </div>
