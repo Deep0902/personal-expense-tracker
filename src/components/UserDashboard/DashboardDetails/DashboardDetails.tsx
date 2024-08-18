@@ -29,6 +29,42 @@ function DashboardDetails({
     Fuel: "⛽",
     Groceries: "🛒",
     Subscriptions: "💳",
+    Fruits: "🍍",
+    Vegetables: "🥕",
+    Medicines: "💊",
+    Medicals: "💊",
+    Rent: "🏠",
+    Utilities: "💡",
+    Transportation: "🚌",
+    Dining: "🍽️",
+    Shopping: "🛍️",
+    Education: "📚",
+    Travel: "✈️",
+    Health: "🏥",
+    Savings: "💰",
+    Insurance: "📄",
+    Gifts: "🎁",
+    Charity: "❤️",
+    Pets: "🐾",
+    "Personal Care": "💅",
+    Clothing: "👔",
+    Electronics: "📱",
+    "Home Maintenance": "🔧",
+    Fitness: "🏋️",
+    Snacks: "🍫",
+    Coffee: "☕",
+    Hobbies: "🎨",
+    Investments: "📈",
+    Loans: "💸",
+    Taxes: "🧾",
+    Internet: "🌐",
+    Cleaning: "🧹",
+    "Work Expenses": "💼",
+    Childcare: "🍼",
+    "Vehicle Maintenance": "🚗",
+    Gardening: "🌱",
+    Cosmetics: "💄",
+    Furniture: "🛋️",
   };
 
   // Helper function to convert string to sentence case
@@ -107,20 +143,26 @@ function DashboardDetails({
       {
         data: Object.values(categoryTotals), // Amounts spent in each category
         backgroundColor: [
-          "#FF6384",
-          "#36A2EB",
-          "#FFCE56",
-          "#FF9F40",
-          "#4BC0C0",
-          "#9966FF",
-        ], // Add more colors if there are more categories
+          "#FF6384", // Red
+          "#36A2EB", // Blue
+          "#FFCE56", // Yellow
+          "#FF9F40", // Orange
+          "#4BC0C0", // Teal
+          "#9966FF", // Purple
+          "#FF665C", // Coral
+          "#4B9CE2", // Light Blue
+          "#F7C6C7", // Light Pink
+        ],
         hoverBackgroundColor: [
-          "#FF6384",
-          "#36A2EB",
-          "#FFCE56",
-          "#FF9F40",
-          "#4BC0C0",
-          "#9966FF",
+          "#FF6384", // Red
+          "#36A2EB", // Blue
+          "#FFCE56", // Yellow
+          "#FF9F40", // Orange
+          "#4BC0C0", // Teal
+          "#9966FF", // Purple
+          "#FF665C", // Coral
+          "#4B9CE2", // Light Blue
+          "#F7C6C7", // Light Pink
         ],
         borderWidth: 5,
         borderColor: "#eaf9f6",
@@ -186,6 +228,14 @@ function DashboardDetails({
       },
     },
   };
+  const capitalizeFirstLetterOfEachWord = (str: string) => {
+    return str
+      .toLowerCase()
+      .split(" ")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+  };
+
   useEffect(() => {
     // Scroll to the top of the page when the component mounts
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -240,7 +290,9 @@ function DashboardDetails({
               >
                 <div>
                   <span className="poppins-semibold">
-                    {categoryEmojis[toSentenceCase(category)] || "📝"}{" "}
+                    {categoryEmojis[
+                      capitalizeFirstLetterOfEachWord(category)
+                    ] || "📝"}{" "}
                     {toSentenceCase(category)}
                   </span>
                   <img className="expandIcon" src={expand} alt="expand" />

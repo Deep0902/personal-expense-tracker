@@ -31,7 +31,11 @@ function NewTransaction({ userData, onNewTransaction }: NewTransactionProps) {
     // Perform validations
     let hasError = false;
 
-    if (!title) {
+    // Trim the input values
+    const trimmedTitle = title.trim();
+    const trimmedCategory = category.trim();
+
+    if (!trimmedTitle) {
       alertDisplay("Title is required.");
       hasError = true;
     }
@@ -59,7 +63,7 @@ function NewTransaction({ userData, onNewTransaction }: NewTransactionProps) {
       hasError = true;
     }
 
-    if (!category) {
+    if (!trimmedCategory) {
       alertDisplay("Category is required.");
       hasError = true;
     }
@@ -74,10 +78,10 @@ function NewTransaction({ userData, onNewTransaction }: NewTransactionProps) {
         "http://127.0.0.1:5000/api/expenses",
         {
           user_id: userData.user_id,
-          title,
+          title: trimmedTitle,
           date,
           amount: Number(amount),
-          category,
+          category: trimmedCategory,
           transaction_type: transactionType,
         },
         {
@@ -166,7 +170,7 @@ function NewTransaction({ userData, onNewTransaction }: NewTransactionProps) {
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                     className="poppins-regular"
-                    placeholder="Name"
+                    placeholder="Transaction Name"
                     required
                   />
                 </div>

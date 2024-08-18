@@ -167,6 +167,42 @@ function TransactionHistory({
     Fuel: "⛽",
     Groceries: "🛒",
     Subscriptions: "💳",
+    Fruits: "🍍",
+    Vegetables: "🥕",
+    Medicines: "💊",
+    Medicals: "💊",
+    Rent: "🏠",
+    Utilities: "💡",
+    Transportation: "🚌",
+    Dining: "🍽️",
+    Shopping: "🛍️",
+    Education: "📚",
+    Travel: "✈️",
+    Health: "🏥",
+    Savings: "💰",
+    Insurance: "📄",
+    Gifts: "🎁",
+    Charity: "❤️",
+    Pets: "🐾",
+    "Personal care": "💅",
+    Clothing: "👔",
+    Electronics: "📱",
+    "Home Maintenance": "🔧",
+    Fitness: "🏋️",
+    Snacks: "🍫",
+    Coffee: "☕",
+    Hobbies: "🎨",
+    Investments: "📈",
+    Loans: "💸",
+    Taxes: "🧾",
+    Internet: "🌐",
+    Cleaning: "🧹",
+    "Work Expenses": "💼",
+    Childcare: "🍼",
+    "Vehicle Maintenance": "🚗",
+    Gardening: "🌱",
+    Cosmetics: "💄",
+    Furniture: "🛋️",
   };
 
   // Group transactions by date
@@ -250,7 +286,7 @@ function TransactionHistory({
       )}
       {showConfirmationPopup && (
         <PopupConfirmation
-          message="Are you sure you want to delete your account?"
+          message="Are you sure you want to delete this transaction?"
           onButtonClicked={handleConfirmation}
         />
       )}

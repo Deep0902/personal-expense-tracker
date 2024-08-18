@@ -44,10 +44,14 @@ function EditTransaction({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    // Trim extra spaces from title and category
+    const trimmedTitle = formState.title.trim();
+    const trimmedCategory = formState.category.trim();
+
     // Perform validations
     let hasError = false;
 
-    if (!formState.title) {
+    if (!trimmedTitle) {
       alertDisplay("Title is required.");
       hasError = true;
     }
@@ -67,7 +71,7 @@ function EditTransaction({
       hasError = true;
     }
 
-    if (!formState.category) {
+    if (!trimmedCategory) {
       alertDisplay("Category is required.");
       hasError = true;
     }
@@ -116,10 +120,10 @@ function EditTransaction({
       await axios.put(
         `http://127.0.0.1:5000/api/expenses/${userData.user_id}/${transaction.transaction_no}`,
         {
-          title: formState.title,
+          title:trimmedTitle,
           date: formState.date,
           amount: Number(formState.amount),
-          category: formState.category,
+          category: trimmedCategory,
           transaction_type: formState.transaction_type,
         },
         {
@@ -203,7 +207,7 @@ function EditTransaction({
                     value={formState.title}
                     onChange={handleInputChange}
                     className="poppins-regular"
-                    placeholder="Name"
+                    placeholder="Transaction Name"
                     required
                   />
                 </div>
