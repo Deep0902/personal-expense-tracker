@@ -9,6 +9,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 10px;
 }
 .headers h3 {
   font-size: 40px;
@@ -40,6 +41,10 @@
   border-radius: 15px;
   padding: 10px 0px;
 }
+.userCard:hover {
+  background-color: #dff7f2;
+  scale: 1.04;
+}
 .userImage {
   margin-left: 20px;
 }
@@ -60,8 +65,10 @@
 .userDetails2 > label {
   font-size: 20px;
 }
-.more {
-  position: relative;
+
+.more img:hover {
+  background-color: #0033212a;
+  border-radius: 50%;
 }
 .more > img {
   scale: 0.8;
@@ -74,13 +81,14 @@
   color: #fff;
   right: 0;
   z-index: 1;
+  top: 50px;
 }
 .moreDropdown p {
   margin: 0;
-  padding: 4px 12px;
+  padding: 8px 12px;
 }
 .moreDropdown p:hover {
-  background-color: #555;
+  background-color: #555555;
   border-radius: 4px;
 }
 .more:hover .moreDropdown {
@@ -105,6 +113,7 @@
   .headers {
     flex-direction: column;
     align-items: baseline;
+    margin-top: -14px;
   }
   .headers input {
     width: -webkit-fill-available;
@@ -122,4 +131,19 @@
   .adminDescription {
     margin-left: 4px;
   }
+}
+@keyframes initialAppear {
+  from {
+    opacity: 0;
+    scale: 0.8;
+    transform: translateY(-100px);
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+    transform: translateY(0px);
+  }
+}
+.mainContentAdminDashboard > div {
+  animation: initialAppear 0.4s ease-in-out;
 }

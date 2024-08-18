@@ -1,7 +1,7 @@
 import "./TopNavbarProfile.css";
 import logo from "/images/logo.svg";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import avatar1 from "/images/avatars/avatar-male-1.svg";
 import avatar2 from "/images/avatars/avatar-male-2.svg";
 import avatar3 from "/images/avatars/avatar-male-3.svg";
@@ -30,12 +30,18 @@ function TopNavbarProfile({
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
+  const [toggleScrollTop, setToggleScrollTop] = useState(false);
+  useEffect(() => {
+    // Scroll to the top of the page when the component mounts
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [toggleScrollTop]);
   return (
     <>
       <nav className="topNavbar">
         <div
           className="title"
           onClick={() => {
+            setToggleScrollTop(!toggleScrollTop);
             navigate("/UserDashboard");
           }}
         >

@@ -12,12 +12,12 @@ function LandingPage() {
   const navigate = useNavigate();
   useEffect(() => {
     // Scroll to the top of the page when the component mounts
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
   return (
     <>
+      <TopNavbarSignedOut />
       <div className="mainContainer">
-        <TopNavbarSignedOut />
         <br />
         <br />
         <br />

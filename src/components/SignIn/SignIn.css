@@ -64,6 +64,10 @@
   padding: 10px;
   font-size: 15px;
 }
+.credentialsCard button:hover {
+  scale: 1.04;
+  background-color: #01915f;
+}
 .bottomSection {
   display: flex;
   flex-direction: column;
@@ -145,4 +149,19 @@
   .bottomSection p {
     font-size: 12px;
   }
+}
+@keyframes initialAppear {
+  from {
+    opacity: 0;
+    scale: 0.3;
+    transform: translateY(-100px);
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+    transform: translateY(0px);
+  }
+}
+.credentialsCard {
+  animation: initialAppear 0.4s ease-in-out;
 }

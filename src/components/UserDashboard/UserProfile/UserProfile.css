@@ -87,6 +87,9 @@
   grid-template-columns: 1fr 1fr;
   gap: 0px 50px;
 }
+.actionButtons button:hover {
+  scale: 1.05;
+}
 .passwordChange {
   display: flex;
   flex-direction: column;
@@ -150,6 +153,10 @@
   justify-content: center;
   height: 100px;
   width: 100px;
+}
+
+.iconGrid img:hover {
+  scale: 1.1;
 }
 .iconsDisplay img {
   height: 70px;
@@ -234,4 +241,20 @@
     height: 90px;
     width: 90px;
   }
+}
+
+@keyframes initialAppear {
+  from {
+    opacity: 0;
+    scale: 0.8;
+    transform: translateY(100px);
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+    transform: translateY(0px);
+  }
+}
+.userProfileContainer div {
+  animation: initialAppear 0.5s ease-in-out;
 }

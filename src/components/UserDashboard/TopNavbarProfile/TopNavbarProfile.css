@@ -2,6 +2,9 @@
   height: 35px;
   width: 35px;
 }
+.avatarLogo:hover {
+  scale: 1.1;
+}
 .topNavbar {
   position: sticky;
 }

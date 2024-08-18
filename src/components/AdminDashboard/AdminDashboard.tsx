@@ -137,6 +137,7 @@ function AdminDashboard() {
         },
       });
       setAlertMessage("User Deleted Successfully!");
+      setToggleUseEffect(!toggleUseEffect);
       toggleAlertPopup();
       // Remove the deleted user from the state
       setUsers(users.filter((user) => user.user_id !== userId));
@@ -198,9 +199,14 @@ function AdminDashboard() {
       // Close the overlay
       setOverlay(false);
       setCurrentUser(null);
-    } catch (err) {
-      setAlertMessage("Failed to update user");
-      toggleAlertPopup();
+    } catch (err: any) {
+      if (err.response && err.response.data && err.response.data.message) {
+        setAlertMessage(err.response.data.message);
+        toggleAlertPopup();
+      } else {
+        setAlertMessage("Failed to update user");
+        toggleAlertPopup();
+      }
       console.error("", err);
     }
   };
@@ -230,10 +236,11 @@ function AdminDashboard() {
     setConfirmationUserId(null);
   };
   const [deletingUserName, setdeletingUserName] = useState("");
+  const [toggleUseEffect, setToggleUseEffect] = useState(false);
   useEffect(() => {
     // Scroll to the top of the page when the component mounts
     window.scrollTo({ top: 0, behavior: "smooth" });
-  }, []);
+  }, [toggleUseEffect]);
   return (
     <>
       {overlay && (
@@ -288,7 +295,7 @@ function AdminDashboard() {
       )}
       {showConfirmationPopup && (
         <PopupConfirmation
-          message={`Are you sure you want to the user ${deletingUserName}?`}
+          message={`Are you sure you want to delete the user ${deletingUserName}?`}
           onButtonClicked={handleConfirmation}
         />
       )}
@@ -298,7 +305,7 @@ function AdminDashboard() {
           <div
             className="title"
             onClick={() => {
-              navigate("/LandingPage");
+              setToggleUseEffect(!toggleUseEffect);
             }}
           >
             <img src={logo} alt="" />
@@ -326,7 +333,7 @@ function AdminDashboard() {
         </nav>
       </div>
       <br />
-
+      <br />
       <div className="mainContentAdminDashboard">
         <div className="headers">
           <h3>Hello, {sessionStorage.admin_id}!</h3>

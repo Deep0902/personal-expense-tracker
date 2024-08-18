@@ -70,6 +70,10 @@
   font-size: 15px;
   width: 100%;
 }
+.item-4 button:hover {
+  scale: 1.05;
+  background-color: #01915f;
+}
 .h5-title {
   text-align: center;
   color: #2c3e50;
@@ -89,6 +93,9 @@
   box-shadow: 0px 0px 10px #01985e37;
   width: 290px;
   height: 100px;
+}
+.card:hover {
+  scale: 1.1;
 }
 .card label {
   color: #008b5a;
@@ -144,7 +151,7 @@
 }
 .endSection span {
   margin: 10px;
-  font-size: 18px;
+  font-size: 22px;
   color: #005d44;
 }
 .endSection button {
@@ -155,6 +162,11 @@
   border-radius: 5px;
   padding: 8px 35px;
   font-size: 18px;
+}
+
+.endSection button:hover {
+  scale: 1.1;
+  background-color: #01915f;
 }
 
 /* Phone Screen CSS */
@@ -228,7 +240,37 @@
   .title {
     margin: 0;
   }
-  .cards-section{
+  .cards-section {
     margin: 0;
   }
+}
+@keyframes appear {
+  from {
+    opacity: 0;
+    scale: 0.3;
+    /* transform: rotate(-180deg); */
+    transform: translateX(-100px);
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+    /* transform: rotate(0deg); */
+    transform: translateX(0px);
+  }
+}
+
+@keyframes initialAppear {
+  from {
+    opacity: 0;
+    scale: 0.3;
+    transform: translateY(-100px);
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+    transform: translateY(0px);
+  }
+}
+.mainContainer {
+  animation: initialAppear 0.4s ease-in-out;
 }

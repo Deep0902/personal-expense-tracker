@@ -28,3 +28,20 @@
     margin-top: 10px;
   }
 }
+
+@keyframes initialAppear {
+  from {
+    opacity: 0;
+    scale: 0.3;
+    transform: translateY(100px);
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+    transform: translateY(0px);
+  }
+}
+.aboutContainer h3,
+.aboutContainer p {
+  animation: initialAppear 0.5s ease-in-out;
+}

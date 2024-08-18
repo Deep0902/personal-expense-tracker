@@ -38,6 +38,11 @@
   padding: 5px 20px;
   font-size: 15px;
 }
+
+.topNavbar button:hover {
+  scale: 1.1;
+  background-color: #01915f;
+}
 /* Dropdown menu */
 .dropdown-menu {
   position: absolute;

@@ -80,7 +80,9 @@
   font-size: 15px;
   width: -webkit-fill-available;
 }
-
+.transaction-form button:hover {
+  scale: 1.02;
+}
 /* Phone Screen CSS */
 @media (max-width: 760px) {
   .popupBox {

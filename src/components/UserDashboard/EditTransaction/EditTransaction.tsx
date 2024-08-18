@@ -3,6 +3,7 @@ import axios from "axios";
 import { Expense } from "../../../interfaces/Expense";
 import "../NewTransacrion/NewTransacrion.css";
 import PopupWarning from "../../PopupWarning/PopupWarning";
+import LoadingComponent from "../../LoadingComponent/LoadingComponent";
 
 interface EditTransactionProps {
   onEditTransaction: () => void;
@@ -143,14 +144,25 @@ function EditTransaction({
 
       // Notify user based on the result of the wallet update
       if (updateUserResponse.status === 200) {
-        alert("Transaction updated successfully and wallet updated!");
-        onEditTransaction(); // Close the edit form after submission
+        alertDisplay("Transaction added successfully and wallet updated!");
+        toggleLoading();
+        setTimeout(() => {
+          onEditTransaction(); // Close the edit form after submission
+        }, 4000);
       } else {
-        alert("Transaction updated, but failed to update wallet.");
+        alertDisplay("Transaction updated, but failed to update wallet.");
+        toggleLoading();
+        setTimeout(() => {
+          onEditTransaction(); // Close the edit form after submission
+        }, 4000);
       }
     } catch (error) {
       console.error("Error updating transaction or wallet", error);
-      alert("An error occurred while processing your transaction.");
+      alertDisplay("An error occurred while processing your transaction.");
+      toggleLoading();
+      setTimeout(() => {
+        onEditTransaction(); // Close the edit form after submission
+      }, 4000);
     }
   };
 
@@ -160,6 +172,11 @@ function EditTransaction({
     setIsPopVisible(!isPopVisible);
   };
   const [alertMessage, setAlertMessage] = useState("");
+  //Logic for Loading screen
+  const [isLoadingVisible, setIsLoadingVisible] = useState(false);
+  const toggleLoading = () => {
+    setIsLoadingVisible(!isLoadingVisible);
+  };
   return (
     <>
       {isPopVisible && (
@@ -168,6 +185,7 @@ function EditTransaction({
           onButtonClickded={toggleAlertPopup}
         />
       )}
+      {isLoadingVisible && <LoadingComponent />}
       <div className="modal">
         <div className="overlay">
           <div className="overlayContent">

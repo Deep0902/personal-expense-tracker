@@ -50,6 +50,9 @@
   display: flex;
   justify-content: space-between;
 }
+.buttons-alignment button:hover {
+  scale: 1.05;
+}
 .TransactionHistory button {
   color: #f3f7f6;
   background-color: #019863;
@@ -86,6 +89,9 @@
   margin-top: 20px;
   padding: 4px;
 }
+.transactionCard:hover {
+  scale: 1.03;
+}
 .categoryInfo {
   margin-left: 10px;
   text-align: left;
@@ -111,10 +117,13 @@
   width: 35px;
   margin-right: 4px;
 }
-.moreIconContainer {
-  position: relative;
-  display: inline-block;
+.moreIcon:hover {
+  background-color: #0033212a;
+  border-radius: 50%;
 }
+/* .moreIconContainer {
+  position: relative; 
+}*/
 .mobileView {
   display: none;
 }
@@ -140,7 +149,7 @@
   color: #fff;
   right: 0;
   display: none; /* Initially hidden */
-  z-index: 1;
+  z-index: 2;
 }
 
 .moreIconContainer:hover .historyDropdown {
@@ -297,4 +306,19 @@
   .overlayBox > span {
     font-size: 17px;
   }
+}
+@keyframes initialAppear {
+  from {
+    opacity: 0;
+    scale: 0.8;
+    transform: translateY(100px);
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+    transform: translateY(0px);
+  }
+}
+.historyList > div {
+  animation: initialAppear 0.5s ease-in-out;
 }
