@@ -75,28 +75,31 @@ function UserProfile({ userData, toggleParentUseEffect }: UserProfileProps) {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Validate password fields if the user is changing the password
-    if (updatePasswordFields) {
-      if (oldPassword !== userData.user_pass) {
-        setIsAlertSuccess(false);
-        setAlertMessage("Old password is incorrect.");
-        toggleAlertPopup();
-        return;
-      }
-      if (newPassword !== confirmPassword) {
-        setIsAlertSuccess(false);
-        setAlertMessage("New password and confirm password do not match.");
-        toggleAlertPopup();
-        return;
-      }
-    }
-
-    // Prepare data for API
-    const updatedData = {
+    let updatedData: any = {
       user_name: name,
       user_email: email,
-      user_pass: updatePasswordFields ? newPassword : userData.user_pass,
     };
+
+    if (updatePasswordFields) {
+      // If password fields are not empty, validate and update
+      if (oldPassword !== "" || newPassword !== "" || confirmPassword !== "") {
+        if (oldPassword !== userData.user_pass) {
+          setIsAlertSuccess(false);
+          setAlertMessage("Old password is incorrect.");
+          toggleAlertPopup();
+          return;
+        }
+        if (newPassword !== confirmPassword) {
+          setIsAlertSuccess(false);
+          setAlertMessage("New password and confirm password do not match.");
+          toggleAlertPopup();
+          return;
+        }
+
+        // Include the new password in the update data if all validations pass
+        updatedData.user_pass = newPassword;
+      }
+    }
 
     try {
       const response = await axios.put(
@@ -108,19 +111,26 @@ function UserProfile({ userData, toggleParentUseEffect }: UserProfileProps) {
           },
         }
       );
+
       if (response.status === 200) {
+        sessionStorage.setItem("user_email", email);
+        localStorage.setItem("user_email", email);
         setIsAlertSuccess(true);
         setAlertMessage("Profile updated successfully!");
         toggleAlertPopup();
-        if (updatePasswordFields) {
+
+        // Update the userData and session/local storage if the password was changed
+        if (updatePasswordFields && newPassword) {
           sessionStorage.setItem("user_pass", newPassword);
           localStorage.setItem("user_pass", newPassword);
+          userData.user_pass = newPassword;
         }
-        userData.user_pass = newPassword;
+
         userData.user_name = updatedData.user_name;
         userData.user_email = updatedData.user_email;
+
         toggleUpdatePasswordFields();
-        // You may want to update the userData state here if it's passed from parent component
+        toggleParentUseEffect(); // If necessary to trigger a re-render in parent
       } else {
         setIsAlertSuccess(false);
         setAlertMessage("Failed to update profile.");
@@ -128,8 +138,8 @@ function UserProfile({ userData, toggleParentUseEffect }: UserProfileProps) {
       }
     } catch (err) {
       console.error("Error updating profile:", err);
-      setAlertMessage("An error occurred while updating the profile.");
       setIsAlertSuccess(false);
+      setAlertMessage("An error occurred while updating the profile.");
       toggleAlertPopup();
     }
   };
