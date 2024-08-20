@@ -41,9 +41,19 @@
   border-radius: 15px;
   padding: 10px 0px;
 }
+.userCardBlocked {
+  margin-bottom: 20px;
+  background-color: #ffbcac;
+  display: flex;
+  align-items: center;
+  border-radius: 15px;
+  padding: 10px 0px;
+}
 .userCard:hover {
   background-color: #dff7f2;
-  scale: 1.04;
+}
+.userCardBlocked:hover {
+  background-color: #ffa18a;
 }
 .userImage {
   margin-left: 20px;
@@ -65,7 +75,9 @@
 .userDetails2 > label {
   font-size: 20px;
 }
-
+.more {
+  position: relative;
+}
 .more img:hover {
   background-color: #0033212a;
   border-radius: 50%;
@@ -80,8 +92,9 @@
   border-radius: 4px;
   color: #fff;
   right: 0;
-  z-index: 1;
+  z-index: 2;
   top: 50px;
+  width: fit-content;
 }
 .moreDropdown p {
   margin: 0;

@@ -236,11 +236,6 @@ function DashboardDetails({
       .join(" ");
   };
 
-  useEffect(() => {
-    // Scroll to the top of the page when the component mounts
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, []);
-
   return (
     <>
       <div className="dashboardDetails">
@@ -265,12 +260,16 @@ function DashboardDetails({
               onClick={() => onNewTransaction("debit")}
             >
               <img src={debitTransactionImg} alt="" />
-              <span className="poppins-regular debitTransactiontext">Add Debit Transaction</span>
+              <span className="poppins-regular debitTransactiontext">
+                Add Debit Transaction
+              </span>
             </div>
           </div>
           <div className="wallet">
             <p className="poppins-bold">My Wallet 🪙</p>
-            <p className="inter-extra-bold">₹ {wallet.toLocaleString()}</p>
+            <span className="inter-extra-bold">
+              ₹ {wallet.toLocaleString()}
+            </span>
           </div>
         </div>
         <br />

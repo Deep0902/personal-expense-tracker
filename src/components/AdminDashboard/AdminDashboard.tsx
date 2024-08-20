@@ -216,6 +216,59 @@ function AdminDashboard() {
       console.error("", err);
     }
   };
+  const handleToggleBlock = async (userId: number, isBlocked: boolean) => {
+    try {
+      await axios.put(
+        `http://127.0.0.1:5000/api/users/${userId}`,
+        {
+          is_user_blocked: !isBlocked,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      // Update the user's block status in the state
+      setUsers(
+        users.map((user) =>
+          user.user_id === userId
+            ? {
+                ...user,
+                is_user_blocked: !isBlocked,
+              }
+            : user
+        )
+      );
+      setFilteredUsers(
+        filteredUsers.map((user) =>
+          user.user_id === userId
+            ? {
+                ...user,
+                is_user_blocked: !isBlocked,
+              }
+            : user
+        )
+      );
+
+      // Display an alert depending on the new block status
+      if (!isBlocked) {
+        setIsAlertSuccess(true);
+        setAlertMessage("User has been blocked successfully!");
+      } else {
+        setIsAlertSuccess(true);
+        setAlertMessage("User has been unblocked successfully!");
+      }
+      toggleAlertPopup();
+    } catch (err) {
+      console.error("Failed to update user block status", err);
+      setIsAlertSuccess(false);
+      setAlertMessage("Failed to update user block status");
+      toggleAlertPopup();
+    }
+  };
+
   //Logic for Alert
   const [isAlertSuccess, setIsAlertSuccess] = useState(false);
   const [isPopVisible, setIsPopVisible] = useState(false);
@@ -364,7 +417,12 @@ function AdminDashboard() {
           </p>
         ) : (
           filteredUsers.map((user, index) => (
-            <div key={index} className="userCard">
+            <div
+              key={index}
+              className={
+                user.is_user_blocked == false ? "userCard" : "userCardBlocked"
+              }
+            >
               <div className="userImage">
                 <img
                   className="profileImage"
@@ -400,6 +458,13 @@ function AdminDashboard() {
                       }}
                     >
                       Delete
+                    </p>
+                    <p
+                      onClick={() =>
+                        handleToggleBlock(user.user_id, user.is_user_blocked)
+                      }
+                    >
+                      {user.is_user_blocked ? "Unblock" : "Block"}
                     </p>
                   </div>
                 )}

@@ -5,4 +5,5 @@ export interface Users {
   user_pass: string;
   profile_img: number;
   wallet: number;
+  is_user_blocked: boolean;
 }

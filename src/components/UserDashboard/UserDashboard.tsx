@@ -14,6 +14,7 @@ import EditTransaction from "./EditTransaction/EditTransaction";
 import About from "./About/About";
 import UserProfile from "./UserProfile/UserProfile";
 import ScrollTop from "../ScrollTop/ScrollTop";
+import PopupWarning from "../PopupWarning/PopupWarning";
 
 function UserDashboard() {
   const navigate = useNavigate(); // Hook for navigation
@@ -159,10 +160,19 @@ function UserDashboard() {
     sessionStorage.removeItem("user_pass"); // Remove user password from session storage
     navigate("/SignIn"); // Redirect to SignIn
   };
-
+  //If the user is blocked
+  const isUserBlocked = user_data?.is_user_blocked;
+  const blockedMessage =
+    "This user has been blocked. Contact your admin to enable this user. You will be logged out now.";
   return (
     <>
       <ScrollTop />
+      {isUserBlocked && (
+        <PopupWarning
+          message={blockedMessage}
+          onButtonClickded={handleLogout}
+        />
+      )}
       <div className="pageSectionHorizontal">
         {newTransactionVisible && (
           <NewTransacrion
