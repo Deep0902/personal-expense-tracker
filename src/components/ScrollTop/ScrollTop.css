@@ -1,0 +1,17 @@
+.ScrollTop {
+  position: fixed;
+  bottom: 8%;
+  right: 3%;
+  z-index: 3;
+  opacity: 0;
+}
+.ScrollTop.visible {
+  opacity: 1;
+  pointer-events: auto; /* Enable clicks when visible */
+  cursor: pointer;
+}
+.ScrollTop img {
+  height: 40px;
+  /* box-shadow: 0px 0px 6px #f3f7f6; */
+  border-radius: 50%;
+}

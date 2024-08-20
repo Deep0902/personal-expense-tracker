@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PopupWarning from "../PopupWarning/PopupWarning";
 import LoadingComponent from "../LoadingComponent/LoadingComponent";
+import ScrollTop from "../ScrollTop/ScrollTop";
 
 function SignUp() {
   const navigate = useNavigate();
@@ -41,6 +42,7 @@ function SignUp() {
     e.preventDefault();
 
     if (userDetails.user_pass !== userDetails.confirm_pass) {
+      setIsAlertSuccess(false);
       setAlertMessage("Passwords don't match!");
       toggleAlertPopup();
       setUserDetails({
@@ -60,17 +62,18 @@ function SignUp() {
       })
       .then((res) => {
         console.log("User added successfully:", res.data);
-
         setAlertMessage("User added successfully");
+        setIsAlertSuccess(true);
         toggleAlertPopup();
         toggleLoading();
         setTimeout(() => {
           navigate("/SignIn");
-        }, 2000);
+        }, 3000);
       })
       .catch((err) => {
         console.error("Error adding user:", err);
         if (err.response && err.response.data && err.response.data.message) {
+          setIsAlertSuccess(false);
           setAlertMessage(err.response.data.message);
           toggleAlertPopup();
           setUserDetails({
@@ -80,6 +83,7 @@ function SignUp() {
             user_name: "",
           });
         } else {
+          setIsAlertSuccess(false);
           setAlertMessage("An error occurred while adding the user");
           toggleAlertPopup();
           setUserDetails({
@@ -93,6 +97,7 @@ function SignUp() {
   };
 
   //Logic for Alert
+  const [isAlertSuccess, setIsAlertSuccess] = useState(false);
   const [isPopVisible, setIsPopVisible] = useState(false);
   const toggleAlertPopup = () => {
     setIsPopVisible(!isPopVisible);
@@ -109,12 +114,14 @@ function SignUp() {
   }, []);
   return (
     <>
+      <ScrollTop />
       <TopNavbarSignedOut />
       <br />
       {isPopVisible && (
         <PopupWarning
           message={alertMessage}
           onButtonClickded={toggleAlertPopup}
+          successAlert={isAlertSuccess}
         />
       )}
       {isLoadingVisible && <LoadingComponent />}

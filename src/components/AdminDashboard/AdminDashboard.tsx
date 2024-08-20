@@ -16,6 +16,7 @@ import avatar5 from "/images/avatars/avatar-girl-2.svg";
 import avatar6 from "/images/avatars/avatar-girl-3.svg";
 import PopupWarning from "../PopupWarning/PopupWarning";
 import PopupConfirmation from "../PopupConfirmation/PopupConfirmation";
+import ScrollTop from "../ScrollTop/ScrollTop";
 
 function AdminDashboard() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -136,6 +137,7 @@ function AdminDashboard() {
           Authorization: `Bearer ${token}`,
         },
       });
+      setIsAlertSuccess(true);
       setAlertMessage("User Deleted Successfully!");
       setToggleUseEffect(!toggleUseEffect);
       toggleAlertPopup();
@@ -143,6 +145,7 @@ function AdminDashboard() {
       setUsers(users.filter((user) => user.user_id !== userId));
       setFilteredUsers(filteredUsers.filter((user) => user.user_id !== userId));
     } catch (err) {
+      setIsAlertSuccess(false);
       setAlertMessage("Failed to delete user");
       toggleAlertPopup();
       console.error("", err);
@@ -194,6 +197,7 @@ function AdminDashboard() {
             : user
         )
       );
+      setIsAlertSuccess(true);
       setAlertMessage("User Updated Sucessfully");
       toggleAlertPopup();
       // Close the overlay
@@ -201,9 +205,11 @@ function AdminDashboard() {
       setCurrentUser(null);
     } catch (err: any) {
       if (err.response && err.response.data && err.response.data.message) {
+        setIsAlertSuccess(false);
         setAlertMessage(err.response.data.message);
         toggleAlertPopup();
       } else {
+        setIsAlertSuccess(false);
         setAlertMessage("Failed to update user");
         toggleAlertPopup();
       }
@@ -211,6 +217,7 @@ function AdminDashboard() {
     }
   };
   //Logic for Alert
+  const [isAlertSuccess, setIsAlertSuccess] = useState(false);
   const [isPopVisible, setIsPopVisible] = useState(false);
   const toggleAlertPopup = () => {
     setIsPopVisible(!isPopVisible);
@@ -243,6 +250,7 @@ function AdminDashboard() {
   }, [toggleUseEffect]);
   return (
     <>
+      <ScrollTop />
       {overlay && (
         <div className="overlayBackground">
           <div className="poppins-bold">
@@ -291,6 +299,7 @@ function AdminDashboard() {
         <PopupWarning
           message={alertMessage}
           onButtonClickded={toggleAlertPopup}
+          successAlert={isAlertSuccess}
         />
       )}
       {showConfirmationPopup && (

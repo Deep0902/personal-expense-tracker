@@ -7,15 +7,16 @@ import LoadingComponent from "../../LoadingComponent/LoadingComponent";
 interface NewTransactionProps {
   userData: any;
   onNewTransaction: () => void;
+  defaultTransactionType?: string; // Add this prop
 }
 
-function NewTransaction({ userData, onNewTransaction }: NewTransactionProps) {
+function NewTransaction({ userData, onNewTransaction, defaultTransactionType }: NewTransactionProps) {
   // State for form inputs
   const [title, setTitle] = useState("");
   const [date, setDate] = useState("");
   const [amount, setAmount] = useState<string | number>("");
   const [category, setCategory] = useState("");
-  const [transactionType, setTransactionType] = useState("debit");
+  const [transactionType, setTransactionType] = useState(defaultTransactionType || "debit");
   const token = "my_secure_token"; // Token for authorization
 
   function alertDisplay(message: string) {
@@ -36,6 +37,7 @@ function NewTransaction({ userData, onNewTransaction }: NewTransactionProps) {
     const trimmedCategory = category.trim();
 
     if (!trimmedTitle) {
+      setIsAlertSuccess(false);
       alertDisplay("Title is required.");
       hasError = true;
     }
@@ -43,20 +45,24 @@ function NewTransaction({ userData, onNewTransaction }: NewTransactionProps) {
     const currentDate = new Date();
     const enteredDate = new Date(date);
     if (!date) {
+      setIsAlertSuccess(false);
       alertDisplay("Date is required.");
       hasError = true;
     } else if (enteredDate > currentDate) {
+      setIsAlertSuccess(false);
       alertDisplay("Date cannot be in the future.");
       hasError = true;
     }
 
     if (!amount || Number(amount) <= 0) {
+      setIsAlertSuccess(false);
       alertDisplay("Amount must be a positive number.");
       hasError = true;
     } else if (
       transactionType === "debit" &&
       Number(amount) > userData.wallet
     ) {
+      setIsAlertSuccess(false);
       alertDisplay(
         `Amount cannot exceed wallet balance of ${userData.wallet}.`
       );
@@ -64,6 +70,7 @@ function NewTransaction({ userData, onNewTransaction }: NewTransactionProps) {
     }
 
     if (!trimmedCategory) {
+      setIsAlertSuccess(false);
       alertDisplay("Category is required.");
       hasError = true;
     }
@@ -112,24 +119,28 @@ function NewTransaction({ userData, onNewTransaction }: NewTransactionProps) {
 
       // Notify user based on the result of the wallet update
       if (updateUserResponse.status === 200) {
+        setIsAlertSuccess(true);
         alertDisplay("Transaction added successfully and wallet updated!");
         toggleLoading();
         setTimeout(() => {
           onNewTransaction(); // Refresh the transaction list
         }, 4000);
       } else {
+        setIsAlertSuccess(false);
         alertDisplay("Transaction added, but failed to update wallet.");
         toggleLoading();
         setTimeout(() => {}, 5000);
       }
     } catch (error) {
       console.error("Error adding transaction or updating wallet", error);
+      setIsAlertSuccess(false);
       alertDisplay("An error occurred while processing your transaction.");
       toggleLoading();
       setTimeout(() => {}, 5000);
     }
   };
   //Logic for Alert
+  const [isAlertSuccess, setIsAlertSuccess] = useState(false);
   const [isPopVisible, setIsPopVisible] = useState(false);
   const toggleAlertPopup = () => {
     setIsPopVisible(!isPopVisible);
@@ -151,6 +162,7 @@ function NewTransaction({ userData, onNewTransaction }: NewTransactionProps) {
         <PopupWarning
           message={alertMessage}
           onButtonClickded={toggleAlertPopup}
+          successAlert={isAlertSuccess}
         />
       )}
       {isLoadingVisible && <LoadingComponent />}
@@ -224,7 +236,7 @@ function NewTransaction({ userData, onNewTransaction }: NewTransactionProps) {
                   </select>
                 </div>
 
-                <button type="submit" className="poppins-semibold add-button">
+                <button type="submit" className={transactionType === "debit"? "debitButtonColor poppins-semibold add-button": "poppins-semibold add-button"}>
                   Add
                 </button>
               </form>

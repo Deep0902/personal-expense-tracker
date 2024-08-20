@@ -6,14 +6,16 @@ import exportExcel from "/images/export-icon.png";
 import sofaChill from "/images/sofa-chill.png";
 import TopNavbarSignedOut from "../TopNavbarSignedOut/TopNavbarSignedOut";
 import Footer from "../Footer/Footer";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import ScrollTop from "../ScrollTop/ScrollTop";
 
 function LandingPage() {
+  const [toggleUseEffect, setToggleUseEffect] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
     // Scroll to the top of the page when the component mounts
     window.scrollTo({ top: 0, behavior: "smooth" });
-  }, []);
+  }, [toggleUseEffect]);
   return (
     <>
       <TopNavbarSignedOut />
@@ -24,6 +26,7 @@ function LandingPage() {
         <br />
 
         <div className="container">
+          <ScrollTop/>
           <div className="item item-1 poppins-semibold">
             <span>
               Smart{" "}

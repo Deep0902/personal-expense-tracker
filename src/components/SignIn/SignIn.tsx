@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import "../TopNavbarSignedOut/TopNavbarSignedOut.css";
 import axios from "axios";
 import PopupWarning from "../PopupWarning/PopupWarning";
+import ScrollTop from "../ScrollTop/ScrollTop";
 
 function SignIn() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -85,16 +86,19 @@ function SignIn() {
           },
         });
       } else {
+        setIsAlertSuccess(false);
         setAlertMessage("Invalid credentials");
         toggleAlertPopup();
       }
     } catch (err) {
+      setIsAlertSuccess(false);
       setAlertMessage("Invalid credentials");
       toggleAlertPopup();
     }
   };
   //Logic for Alert
   const [isPopVisible, setIsPopVisible] = useState(false);
+  const [isAlertSuccess, setIsAlertSuccess] = useState(false);
   const toggleAlertPopup = () => {
     setIsPopVisible(!isPopVisible);
   };
@@ -106,11 +110,13 @@ function SignIn() {
   }, [toggleScrollTop]);
   return (
     <>
+      <ScrollTop />
       <div className="">
         {isPopVisible && (
           <PopupWarning
             message={alertMessage}
             onButtonClickded={toggleAlertPopup}
+            successAlert={isAlertSuccess}
           />
         )}
         <div className="customTopNavbar">

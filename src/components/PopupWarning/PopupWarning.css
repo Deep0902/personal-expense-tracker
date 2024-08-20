@@ -56,3 +56,19 @@
     margin: 60% 7%;
   }
 }
+
+@keyframes initialAppear {
+  from {
+    opacity: 0;
+    scale: 0.3;
+    transform: translateY(-100px);
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+    transform: translateY(0px);
+  }
+}
+.overlayBoxAlert {
+  animation: initialAppear 0.4s ease-in-out;
+}

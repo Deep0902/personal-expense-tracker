@@ -37,12 +37,16 @@
     font-size: 18px;
   }
 }
+.transactionActions > div:nth-child(2):hover {
+  background-color: rgba(223, 147, 140, 0.095);
+  
+}
 .transactionActions > div {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 25px;
+  padding: 25px 5px;
   flex: 1;
   height: 100px;
 }
@@ -183,7 +187,9 @@
 .mobileView2 {
   display: none;
 }
-
+.debitTransactiontext {
+  color: #a21c0f;
+}
 /* Phone Screen CSS */
 @media (max-width: 760px) {
   .webView2 {

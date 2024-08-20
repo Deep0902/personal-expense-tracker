@@ -13,6 +13,7 @@ import NewTransacrion from "./NewTransacrion/NewTransacrion";
 import EditTransaction from "./EditTransaction/EditTransaction";
 import About from "./About/About";
 import UserProfile from "./UserProfile/UserProfile";
+import ScrollTop from "../ScrollTop/ScrollTop";
 
 function UserDashboard() {
   const navigate = useNavigate(); // Hook for navigation
@@ -36,9 +37,13 @@ function UserDashboard() {
 
   //New Transaction
   const [newTransactionVisible, setNewTransactionVisible] = useState(false);
-  const toggleNewTransaction = () => {
+  const toggleNewTransaction = (transactionType?: string) => {
+    setDefaultTransactionType(transactionType || null);
     setNewTransactionVisible(!newTransactionVisible);
   };
+  const [defaultTransactionType, setDefaultTransactionType] = useState<
+    string | null
+  >(null);
 
   //Edit Transaction
   const [editingTransaction, setEditingTransaction] = useState<Expense | null>(
@@ -157,11 +162,13 @@ function UserDashboard() {
 
   return (
     <>
+      <ScrollTop />
       <div className="pageSectionHorizontal">
         {newTransactionVisible && (
           <NewTransacrion
             onNewTransaction={toggleNewTransaction}
             userData={user_data}
+            defaultTransactionType={defaultTransactionType || ""} // Pass the default transaction type
           />
         )}
         {EditTransactionVisible &&

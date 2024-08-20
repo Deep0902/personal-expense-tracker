@@ -1,7 +1,7 @@
 import { Expense } from "../../../interfaces/Expense";
 import "./DashboardDetails.css";
 import addTransaction from "/images/add-transaction.svg";
-import transactionHistory from "/images/transaction-history-dashboard.svg";
+import debitTransactionImg from "/images/debit-transaction.svg";
 import expand from "/images/expand.svg";
 import { useState, useEffect } from "react";
 import { Doughnut } from "react-chartjs-2";
@@ -13,7 +13,7 @@ interface DashboardDetailsProps {
   wallet: number;
   username: any;
   onHistoryClick: (tab: string, category: string) => void; // Updated
-  onNewTransaction: () => void;
+  onNewTransaction: (arg: string) => void;
 }
 
 function DashboardDetails({
@@ -240,6 +240,7 @@ function DashboardDetails({
     // Scroll to the top of the page when the component mounts
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
+
   return (
     <>
       <div className="dashboardDetails">
@@ -255,16 +256,16 @@ function DashboardDetails({
         <br />
         <div className="overview">
           <div className="transactionActions">
-            <div onClick={onNewTransaction}>
+            <div onClick={() => onNewTransaction("credit")}>
               <img src={addTransaction} alt="" />
-              <span className="poppins-regular">Add a Transaction</span>
+              <span className="poppins-regular">Add Credit Transaction</span>
             </div>
             <div
               className="customLeftBorder"
-              onClick={() => onHistoryClick("History", "")}
+              onClick={() => onNewTransaction("debit")}
             >
-              <img src={transactionHistory} alt="" />
-              <span className="poppins-regular">Transaction History</span>
+              <img src={debitTransactionImg} alt="" />
+              <span className="poppins-regular debitTransactiontext">Add Debit Transaction</span>
             </div>
           </div>
           <div className="wallet">

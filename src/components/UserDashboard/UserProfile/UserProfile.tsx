@@ -78,11 +78,13 @@ function UserProfile({ userData, toggleParentUseEffect }: UserProfileProps) {
     // Validate password fields if the user is changing the password
     if (updatePasswordFields) {
       if (oldPassword !== userData.user_pass) {
+        setIsAlertSuccess(false);
         setAlertMessage("Old password is incorrect.");
         toggleAlertPopup();
         return;
       }
       if (newPassword !== confirmPassword) {
+        setIsAlertSuccess(false);
         setAlertMessage("New password and confirm password do not match.");
         toggleAlertPopup();
         return;
@@ -107,6 +109,7 @@ function UserProfile({ userData, toggleParentUseEffect }: UserProfileProps) {
         }
       );
       if (response.status === 200) {
+        setIsAlertSuccess(true);
         setAlertMessage("Profile updated successfully!");
         toggleAlertPopup();
         if (updatePasswordFields) {
@@ -119,12 +122,14 @@ function UserProfile({ userData, toggleParentUseEffect }: UserProfileProps) {
         toggleUpdatePasswordFields();
         // You may want to update the userData state here if it's passed from parent component
       } else {
+        setIsAlertSuccess(false);
         setAlertMessage("Failed to update profile.");
         toggleAlertPopup();
       }
     } catch (err) {
       console.error("Error updating profile:", err);
       setAlertMessage("An error occurred while updating the profile.");
+      setIsAlertSuccess(false);
       toggleAlertPopup();
     }
   };
@@ -139,7 +144,7 @@ function UserProfile({ userData, toggleParentUseEffect }: UserProfileProps) {
           },
         }
       );
-
+      setIsAlertSuccess(true);
       setAlertMessage("User deleted successfully");
       toggleAlertPopup();
       toggleLoading();
@@ -149,6 +154,7 @@ function UserProfile({ userData, toggleParentUseEffect }: UserProfileProps) {
       console.log(response.data.message);
     } catch (error) {
       console.error("Error deleting user:", error);
+      setIsAlertSuccess(false);
       setAlertMessage("An error occurred while trying to delete the user.");
       toggleAlertPopup();
     }
@@ -187,15 +193,18 @@ function UserProfile({ userData, toggleParentUseEffect }: UserProfileProps) {
           userData.profile_img = updatedData.profile_img;
           toggleChooseProfileOverlay();
         } else {
+          setIsAlertSuccess(false);
           setAlertMessage("Failed to update profile image.");
           toggleAlertPopup();
         }
       } catch (err) {
         console.error("Error updating profile image:", err);
+        setIsAlertSuccess(false);
         setAlertMessage("An error occurred while updating the profile image.");
         toggleAlertPopup();
       }
     } else {
+      setIsAlertSuccess(false);
       setAlertMessage("Please select an image before confirming.");
       toggleAlertPopup();
     }
@@ -215,6 +224,7 @@ function UserProfile({ userData, toggleParentUseEffect }: UserProfileProps) {
     setShowConfirmPassword(!showConfirmPassword);
   };
   //Logic for Alert
+  const [isAlertSuccess, setIsAlertSuccess] = useState(false);
   const [isPopVisible, setIsPopVisible] = useState(false);
   const toggleAlertPopup = () => {
     setIsPopVisible(!isPopVisible);
@@ -250,6 +260,7 @@ function UserProfile({ userData, toggleParentUseEffect }: UserProfileProps) {
         <PopupWarning
           message={alertMessage}
           onButtonClickded={toggleAlertPopup}
+          successAlert={isAlertSuccess}
         />
       )}
       {showConfirmationPopup && (

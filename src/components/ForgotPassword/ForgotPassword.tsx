@@ -7,6 +7,7 @@ import "./ForgotPassword.css";
 import { Users } from "../../interfaces/Users";
 import PopupWarning from "../PopupWarning/PopupWarning";
 import LoadingComponent from "../LoadingComponent/LoadingComponent";
+import ScrollTop from "../ScrollTop/ScrollTop";
 
 function ForgotPassword() {
   const token = "my_secure_token"; // Token for authorization
@@ -78,6 +79,7 @@ function ForgotPassword() {
       generateOtp();
       nextState();
     } else {
+      setIsAlertSuccess(false);
       setAlertMessage("Email not Found!");
       toggleAlertPopup();
     }
@@ -86,6 +88,7 @@ function ForgotPassword() {
   const generateOtp = () => {
     const randomOtp = Math.floor(1000 + Math.random() * 9000).toString();
     setGeneratedOtp(randomOtp);
+    setIsAlertSuccess(true);
     setAlertMessage(`Your OTP is ${randomOtp}`);
     toggleAlertPopup();
     setCountdown(10);
@@ -104,6 +107,7 @@ function ForgotPassword() {
     if (otp === generatedOtp) {
       nextState();
     } else {
+      setIsAlertSuccess(false);
       setAlertMessage("Invalid OTP. Please try again.");
       toggleAlertPopup();
     }
@@ -117,6 +121,7 @@ function ForgotPassword() {
 
   const handleUpdatePassword = async () => {
     if (password !== confirmPassword) {
+      setIsAlertSuccess(false);
       setAlertMessage("Passwords do not match!");
       toggleAlertPopup();
       return;
@@ -139,6 +144,7 @@ function ForgotPassword() {
       }, 5000);
     } catch (err) {
       console.log(err);
+      setIsAlertSuccess(false);
       setAlertMessage("Failed to update password.");
       toggleAlertPopup();
       setPhases(1);
@@ -160,7 +166,7 @@ function ForgotPassword() {
     setIsPopVisible(!isPopVisible);
   };
   const [alertMessage, setAlertMessage] = useState("");
-
+  const [isAlertSuccess, setIsAlertSuccess] = useState(false);
   //Logic for Loading screen
   const [isLoadingVisible, setIsLoadingVisible] = useState(false);
   const toggleLoading = () => {
@@ -172,6 +178,7 @@ function ForgotPassword() {
   }, []);
   return (
     <>
+      <ScrollTop />
       <div>
         {isLoadingVisible && <LoadingComponent />}
         <TopNavbarSignedOut />
@@ -183,6 +190,7 @@ function ForgotPassword() {
             <PopupWarning
               message={alertMessage}
               onButtonClickded={toggleAlertPopup}
+              successAlert={isAlertSuccess}
             />
           )}
           {/* <button onClick={prevState}>Previous</button>&nbsp;{phases}&nbsp;

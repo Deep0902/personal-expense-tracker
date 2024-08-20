@@ -4,6 +4,8 @@ import "./AdminLogin.css";
 import { useEffect, useState } from "react";
 import TopNavbarSignedOut from "../TopNavbarSignedOut/TopNavbarSignedOut";
 import axios from "axios";
+import PopupWarning from "../PopupWarning/PopupWarning";
+import ScrollTop from "../ScrollTop/ScrollTop";
 
 function AdminLogin() {
   const [showPassword, setShowPassword] = useState(false);
@@ -17,7 +19,6 @@ function AdminLogin() {
     admin_id: "",
     admin_pass: "", // Default value to avoid warnings
   });
-  const [error, setError] = useState("");
   const navigate = useNavigate();
   const token = "my_secure_token";
 
@@ -56,23 +57,42 @@ function AdminLogin() {
           },
         });
       } else if (!isAdminValid) {
-        setError("Invalid credentials");
+        setIsAlertSuccess(false);
+        toggleAlertPopup();
+        setAlertMessage("Invalid credentials");
       }
     } catch (err) {
-      setError("Invalid Credentials");
+      setIsAlertSuccess(false);
+      toggleAlertPopup();
+      setAlertMessage("Invalid Credentials");
     }
   };
   useEffect(() => {
     // Scroll to the top of the page when the component mounts
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
+  //Logic for Alert
+  const [isAlertSuccess, setIsAlertSuccess] = useState(false);
+  const [isPopVisible, setIsPopVisible] = useState(false);
+  const toggleAlertPopup = () => {
+    setIsPopVisible(!isPopVisible);
+  };
+  const [alertMessage, setAlertMessage] = useState("");
   return (
     <>
       <div className="mainConatiner">
+        <ScrollTop />
         <TopNavbarSignedOut />
         <br />
         <br />
         <br />
+        {isPopVisible && (
+          <PopupWarning
+            message={alertMessage}
+            onButtonClickded={toggleAlertPopup}
+            successAlert={isAlertSuccess}
+          />
+        )}
         <div className="credentialsCard">
           <label className="poppins-bold">Admin Login</label>
           <span className="poppins-regular subtext">
@@ -107,7 +127,6 @@ function AdminLogin() {
             <button type="submit" className="poppins-semibold">
               Login
             </button>
-            {error && <p className="error">{error}</p>}
           </form>
         </div>
       </div>

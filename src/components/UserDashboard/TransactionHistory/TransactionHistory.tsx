@@ -11,7 +11,7 @@ import PopupConfirmation from "../../PopupConfirmation/PopupConfirmation";
 
 interface HistoryDetailsProps {
   userExpenses: Expense[];
-  onNewTransaction: () => void;
+  onNewTransaction: (arg: string) => void;
   onEditTransaction: (transaction: Expense) => void;
   userData: any;
   initialSearchQuery: string;
@@ -64,6 +64,7 @@ function TransactionHistory({
       );
 
       if (!transaction) {
+        setIsAlertSuccess(false);
         setAlertMessage("Transaction not found.");
         toggleAlertPopup();
         return;
@@ -108,13 +109,16 @@ function TransactionHistory({
             (expense) => expense.transaction_no !== transaction_no
           )
         );
+        setIsAlertSuccess(true);
         setAlertMessage("Transaction deleted and wallet updated successfully.");
         toggleAlertPopup();
       } else {
+        setIsAlertSuccess(false);
         setAlertMessage("Failed to delete transaction or update wallet.");
         toggleAlertPopup();
       }
     } catch (err) {
+      setIsAlertSuccess(false);
       setAlertMessage(
         "Error occurred while deleting expense or updating wallet."
       );
@@ -148,7 +152,8 @@ function TransactionHistory({
   const filteredTransactions = expenses.filter(
     (expense) =>
       expense.title.toLowerCase().includes(searchQuery) ||
-      expense.category.toLowerCase().includes(searchQuery)
+      expense.category.toLowerCase().includes(searchQuery) ||
+      expense.amount.toString().toLocaleLowerCase().includes(searchQuery)
   );
 
   // Sort transactions by date in descending order
@@ -248,6 +253,7 @@ function TransactionHistory({
     downloadCSV(data, `${userData.user_name}'s Expenses`);
   };
   //Logic for Alert
+  const [isAlertSuccess, setIsAlertSuccess] = useState(false);
   const [isPopVisible, setIsPopVisible] = useState(false);
   const toggleAlertPopup = () => {
     setIsPopVisible(!isPopVisible);
@@ -282,6 +288,7 @@ function TransactionHistory({
         <PopupWarning
           message={alertMessage}
           onButtonClickded={toggleAlertPopup}
+          successAlert={isAlertSuccess}
         />
       )}
       {showConfirmationPopup && (
@@ -364,13 +371,16 @@ function TransactionHistory({
           <img src={filter} alt="" onClick={() => setDateFilter(!dateFilter)} />
           <button
             className="poppins-medium mobileViewAddTransaction"
-            onClick={onNewTransaction}
+            onClick={() => onNewTransaction("debit")}
           >
             Add Transaction
           </button>
         </div>
         <div className="buttons-alignment">
-          <button className="poppins-medium webView" onClick={onNewTransaction}>
+          <button
+            className="poppins-medium webView"
+            onClick={() => onNewTransaction("debit")}
+          >
             Add Transaction
           </button>
           <button

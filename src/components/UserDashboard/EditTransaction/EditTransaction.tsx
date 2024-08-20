@@ -52,6 +52,7 @@ function EditTransaction({
     let hasError = false;
 
     if (!trimmedTitle) {
+      setIsAlertSuccess(false);
       alertDisplay("Title is required.");
       hasError = true;
     }
@@ -59,19 +60,23 @@ function EditTransaction({
     const currentDate = new Date();
     const enteredDate = new Date(formState.date);
     if (!formState.date) {
+      setIsAlertSuccess(false);
       alertDisplay("Date is required.");
       hasError = true;
     } else if (enteredDate > currentDate) {
+      setIsAlertSuccess(false);
       alertDisplay("Date cannot be in the future.");
       hasError = true;
     }
 
     if (!formState.amount || Number(formState.amount) <= 0) {
+      setIsAlertSuccess(false);
       alertDisplay("Amount must be a positive number.");
       hasError = true;
     }
 
     if (!trimmedCategory) {
+      setIsAlertSuccess(false);
       alertDisplay("Category is required.");
       hasError = true;
     }
@@ -113,6 +118,7 @@ function EditTransaction({
       const newWallet = userData.wallet + walletAdjustment;
       // Check if the new wallet balance will be negative
       if (newWallet < 0) {
+        setIsAlertSuccess(false);
         alertDisplay("Amount is exceeding the wallet");
         return;
       }
@@ -120,7 +126,7 @@ function EditTransaction({
       await axios.put(
         `http://127.0.0.1:5000/api/expenses/${userData.user_id}/${transaction.transaction_no}`,
         {
-          title:trimmedTitle,
+          title: trimmedTitle,
           date: formState.date,
           amount: Number(formState.amount),
           category: trimmedCategory,
@@ -148,12 +154,14 @@ function EditTransaction({
 
       // Notify user based on the result of the wallet update
       if (updateUserResponse.status === 200) {
+        setIsAlertSuccess(true);
         alertDisplay("Transaction added successfully and wallet updated!");
         toggleLoading();
         setTimeout(() => {
           onEditTransaction(); // Close the edit form after submission
         }, 4000);
       } else {
+        setIsAlertSuccess(false);
         alertDisplay("Transaction updated, but failed to update wallet.");
         toggleLoading();
         setTimeout(() => {
@@ -162,6 +170,7 @@ function EditTransaction({
       }
     } catch (error) {
       console.error("Error updating transaction or wallet", error);
+      setIsAlertSuccess(false);
       alertDisplay("An error occurred while processing your transaction.");
       toggleLoading();
       setTimeout(() => {
@@ -171,6 +180,7 @@ function EditTransaction({
   };
 
   //Logic for Alert
+  const [isAlertSuccess, setIsAlertSuccess] = useState(false);
   const [isPopVisible, setIsPopVisible] = useState(false);
   const toggleAlertPopup = () => {
     setIsPopVisible(!isPopVisible);
@@ -187,6 +197,7 @@ function EditTransaction({
         <PopupWarning
           message={alertMessage}
           onButtonClickded={toggleAlertPopup}
+          successAlert={isAlertSuccess}
         />
       )}
       {isLoadingVisible && <LoadingComponent />}
