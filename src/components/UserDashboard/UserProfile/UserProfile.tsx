@@ -95,6 +95,12 @@ function UserProfile({ userData, toggleParentUseEffect }: UserProfileProps) {
           toggleAlertPopup();
           return;
         }
+        if (newPassword === "" || confirmPassword === "") {
+          setIsAlertSuccess(false);
+          setAlertMessage("New password passwords cannot be empty.");
+          toggleAlertPopup();
+          return;
+        }
 
         // Include the new password in the update data if all validations pass
         updatedData.user_pass = newPassword;

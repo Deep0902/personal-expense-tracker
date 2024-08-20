@@ -243,7 +243,7 @@ function DashboardDetails({
           <span className="poppins-bold">Hello, {username}!</span>
         </div>
         <div className="monthExpenses">
-          <span className="poppins-semibold">This Month's Expenses: </span>
+          <span className="poppins-semibold">This Month's Expenses:&nbsp;</span>
           <span className="inter-bold">
             ₹ {totalMonthlyExpenses.toLocaleString()}
           </span>

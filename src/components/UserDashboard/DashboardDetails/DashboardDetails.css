@@ -246,7 +246,7 @@
     width: -webkit-fill-available;
   }
   .transactionActions span {
-    font-size: 13px;
+    font-size: 14px;
   }
   .transactionActions img {
     height: 30px;
@@ -254,7 +254,7 @@
     margin-bottom: 1vh;
   }
   .transactionActions > div {
-    padding: 0;
+    padding: 3px 0px;
   }
   .customLeftBorder::before {
     width: 1.5px; /* Border width */

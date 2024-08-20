@@ -83,8 +83,8 @@
 .transaction-form button:hover {
   scale: 1.02;
 }
-.debitButtonColor{
-  background-color: #e74c3c !important;;
+.debitButtonColor {
+  background-color: #e74c3c !important;
 }
 /* Phone Screen CSS */
 @media (max-width: 760px) {
@@ -117,4 +117,19 @@
     padding: 5px 20px;
     font-size: 13px;
   }
+}
+@keyframes initialAppear {
+  from {
+    opacity: 0;
+    scale: 0.3;
+    transform: translateY(-100px);
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+    transform: translateY(0px);
+  }
+}
+.overlayContent div {
+  animation: initialAppear 0.4s ease-in-out;
 }
