@@ -5,6 +5,7 @@ import debitTransactionImg from "/images/debit-transaction.svg";
 import expand from "/images/expand.svg";
 import { useState, useEffect } from "react";
 import { Doughnut } from "react-chartjs-2";
+import editProfileImg from "/images/avatars/edit-profile-img.svg";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -73,21 +74,27 @@ function DashboardDetails({
     return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
   };
 
+  const [selectedMonth, setSelectedMonth] = useState<number>(
+    new Date().getMonth()
+  );
+  const [selectedYear, setSelectedYear] = useState<number>(
+    new Date().getFullYear()
+  );
+
   // Segrate category wise amount based on current month
   const calculateMonthlyCategoryTotals = (
-    expenses: Expense[]
+    expenses: Expense[],
+    selectedMonth: number,
+    selectedYear: number
   ): Record<string, number> => {
     const totals: Record<string, number> = {};
-    const now = new Date();
-    const currentMonth = now.getMonth(); // Current month (0-11)
-    const currentYear = now.getFullYear(); // Current year
 
     expenses.forEach((expense: Expense) => {
       const expenseDate = new Date(expense.date);
       if (
         expense.transaction_type === "debit" &&
-        expenseDate.getMonth() === currentMonth &&
-        expenseDate.getFullYear() === currentYear
+        expenseDate.getMonth() === selectedMonth &&
+        expenseDate.getFullYear() === selectedYear
       ) {
         const category = expense.category.toLowerCase(); // Normalize category to lowercase
         const amount = expense.amount;
@@ -104,20 +111,18 @@ function DashboardDetails({
     return totals;
   };
 
-  const categoryTotals = calculateMonthlyCategoryTotals(userExpenses);
-
   // Calculate monthly expenses
-  const calculateMonthlyExpenses = (expenses: Expense[]): number => {
-    const now = new Date();
-    const currentMonth = now.getMonth(); // Current month (0-11)
-    const currentYear = now.getFullYear(); // Current year
-
+  const calculateMonthlyExpenses = (
+    expenses: Expense[],
+    selectedMonth: number,
+    selectedYear: number
+  ): number => {
     return expenses.reduce((total, expense) => {
       const expenseDate = new Date(expense.date);
       if (
         expense.transaction_type === "debit" &&
-        expenseDate.getMonth() === currentMonth &&
-        expenseDate.getFullYear() === currentYear
+        expenseDate.getMonth() === selectedMonth &&
+        expenseDate.getFullYear() === selectedYear
       ) {
         return total + expense.amount;
       }
@@ -126,11 +131,11 @@ function DashboardDetails({
   };
 
   const [totalMonthlyExpenses, setTotalMonthlyExpenses] = useState<number>(0);
-
-  useEffect(() => {
-    const total = calculateMonthlyExpenses(userExpenses);
-    setTotalMonthlyExpenses(total);
-  }, [userExpenses]);
+  const categoryTotals = calculateMonthlyCategoryTotals(
+    userExpenses,
+    selectedMonth,
+    selectedYear
+  );
 
   //Handle Expand click
   const handleHistoryClick = (category: string) => {
@@ -171,6 +176,7 @@ function DashboardDetails({
     ],
   };
 
+  //options for chart
   const options = {
     responsive: true,
     plugins: {
@@ -200,6 +206,7 @@ function DashboardDetails({
     },
   };
 
+  //options for chart
   const options2 = {
     responsive: true,
     plugins: {
@@ -236,17 +243,101 @@ function DashboardDetails({
       .join(" ");
   };
 
+  const handleMonthYearChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const [year, month] = event.target.value.split("-").map(Number);
+    setSelectedMonth(month - 1); // JavaScript months are 0-indexed
+    setSelectedYear(year);
+  };
+
+  useEffect(() => {
+    const total = calculateMonthlyExpenses(
+      userExpenses,
+      selectedMonth,
+      selectedYear
+    );
+    setTotalMonthlyExpenses(total);
+  }, [userExpenses, selectedMonth, selectedYear]);
+
+  const [chooseMonthExpenses, setChooseMonthExpenses] = useState(false);
+  const formatMonthYear = (month: number, year: number) => {
+    const monthNames = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+    return `${monthNames[month]} ${year}`;
+  };
+  const formatMonthInputValue = (month: number, year: number) => {
+    const formattedMonth = (month + 1).toString().padStart(2, "0"); // Add 1 because months are 0-indexed
+    return `${year}-${formattedMonth}`;
+  };
+  const resetToCurrentMonthYear = () => {
+    setSelectedMonth(new Date().getMonth());
+    setSelectedYear(new Date().getFullYear());
+    setChooseMonthExpenses(!chooseMonthExpenses);
+  };
+
   return (
     <>
+      {chooseMonthExpenses && (
+        <div className="overlayBackground">
+          <div className="poppins-bold">
+            <div className="overlayBox">
+              <label className="">Choose Month and year</label>
+              <br />
+              <span className="poppins-regular">
+                Select to view expenses of
+              </span>
+              <input
+                type="month"
+                onChange={handleMonthYearChange}
+                value={formatMonthInputValue(selectedMonth, selectedYear)}
+              />
+              <button
+                className="poppins-semibold add-button"
+                onClick={() => setChooseMonthExpenses(!chooseMonthExpenses)}
+              >
+                Apply
+              </button>
+              <button
+                className="poppins-semibold cancel-button"
+                onClick={resetToCurrentMonthYear}
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       <div className="dashboardDetails">
         <div className="displayUsername">
           <span className="poppins-bold">Hello, {username}!</span>
         </div>
         <div className="monthExpenses">
-          <span className="poppins-semibold">This Month's Expenses:&nbsp;</span>
+          <span className="poppins-semibold">
+            Expenses for {formatMonthYear(selectedMonth, selectedYear)}
+            :&nbsp;&nbsp;
+          </span>
           <span className="inter-bold">
             ₹ {totalMonthlyExpenses.toLocaleString()}
           </span>
+          <img
+            className="editIcon"
+            onClick={() => setChooseMonthExpenses(!chooseMonthExpenses)}
+            src={editProfileImg}
+            alt=""
+          />
         </div>
         <br />
         <div className="overview">

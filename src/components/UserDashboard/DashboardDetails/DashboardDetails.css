@@ -4,6 +4,7 @@
 }
 .monthExpenses {
   background-color: #eaf9f6;
+  position: relative;
   text-align: center;
   padding: 15px 10px;
   border-radius: 10px;
@@ -209,6 +210,12 @@
 .debitTransactiontext {
   color: #a21c0f;
 }
+.editIcon {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  cursor: pointer;
+}
 /* Phone Screen CSS */
 @media (max-width: 760px) {
   .webView2 {
@@ -227,7 +234,7 @@
   .monthExpenses {
     font-size: 16px;
   }
-  .monthExpenses{
+  .monthExpenses {
     flex-direction: column;
   }
   .monthExpenses > span:nth-child(2) {

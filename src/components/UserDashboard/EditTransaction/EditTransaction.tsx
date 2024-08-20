@@ -276,7 +276,14 @@ function EditTransaction({
                   </select>
                 </div>
 
-                <button type="submit" className="poppins-semibold add-button">
+                <button
+                  type="submit"
+                  className={
+                    formState.transaction_type === "debit"
+                      ? "debitButtonColor poppins-semibold add-button"
+                      : "poppins-semibold add-button"
+                  }
+                >
                   Update
                 </button>
               </form>
