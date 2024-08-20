@@ -22,6 +22,7 @@ export let dummyUsers: Users[] = [
     user_pass: "pass123",
     profile_img: 1,
     wallet: 0,
+    is_user_blocked: false,
   },
   {
     user_id: 2,
@@ -30,6 +31,7 @@ export let dummyUsers: Users[] = [
     user_pass: "pass456",
     profile_img: 1,
     wallet: 0,
+    is_user_blocked: false,
   },
   {
     user_id: 3,
@@ -38,6 +40,7 @@ export let dummyUsers: Users[] = [
     user_pass: "pass789",
     profile_img: 4,
     wallet: 0,
+    is_user_blocked: false,
   },
 ];
 
