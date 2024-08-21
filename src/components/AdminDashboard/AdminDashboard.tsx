@@ -158,6 +158,12 @@ function AdminDashboard() {
     setOverlay(true);
   };
   const handleUpdate = async () => {
+    if (editedUserName === "" || editedUserEmail === "") {
+      setIsAlertSuccess(false);
+      setAlertMessage("Username or email cannot be empty");
+      toggleAlertPopup();
+      return;
+    }
     if (!currentUser) return;
 
     try {
@@ -336,6 +342,7 @@ function AdminDashboard() {
                 Update
               </button>
               <button
+                type="submit"
                 className="poppins-semibold cancel-button"
                 onClick={() => {
                   toggleOverlay();

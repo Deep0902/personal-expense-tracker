@@ -66,6 +66,8 @@ function DashboardDetails({
     Gardening: "🌱",
     Cosmetics: "💄",
     Furniture: "🛋️",
+    Life: "🥳",
+    Bills: "🗒️"
   };
 
   // Helper function to convert string to sentence case

@@ -288,6 +288,7 @@ function EditTransaction({
                 </button>
               </form>
               <button
+                type="submit"
                 className="poppins-semibold cancel-button"
                 onClick={onEditTransaction}
               >
