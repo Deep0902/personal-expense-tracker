@@ -140,7 +140,7 @@ function ForgotPassword() {
       toggleAlertPopup();
       toggleLoading();
       setTimeout(() => {
-        navigate("/SignIn");
+        navigate("/personal-expense-tracker/SignIn");
       }, 5000);
     } catch (err) {
       console.log(err);
@@ -319,7 +319,7 @@ function ForgotPassword() {
                 Already have an account?{" "}
                 <span
                   onClick={() => {
-                    navigate("/SignIn");
+                    navigate("/personal-expense-tracker/SignIn");
                   }}
                   className="underlineText poppins-semibold"
                 >

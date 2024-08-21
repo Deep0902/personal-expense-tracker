@@ -67,7 +67,7 @@ function SignUp() {
         toggleAlertPopup();
         toggleLoading();
         setTimeout(() => {
-          navigate("/SignIn");
+          navigate("/personal-expense-tracker/SignIn");
         }, 3000);
       })
       .catch((err) => {
@@ -202,7 +202,7 @@ function SignUp() {
               Already have an account? &nbsp;
               <span
                 onClick={() => {
-                  navigate("/SignIn");
+                  navigate("/personal-expense-tracker/SignIn");
                 }}
                 className="underlineText poppins-semibold"
               >

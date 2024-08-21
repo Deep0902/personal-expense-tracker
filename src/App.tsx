@@ -31,18 +31,19 @@ function App() {
       </div> */}
       <Routes>
         <Route index path="/personal-expense-tracker" element={<HomePage />} />
-        <Route path="/BasicAPI" element={<BasicAPI />} />
-        <Route path="/AddExpense" element={<AddBasicAPI />} />
-        <Route path="/UserLogin" element={<UserLogin />} />
-        <Route path="/AdminDashboard" element={<AdminDashboard />} />
-        <Route path="/DummyData" element={<DummyData />} />
-        <Route path="/LandingPage" element={<LandingPage />} />
-        <Route path="/DeviceDimentions" element={<DeviceDimensions />} />
-        <Route path="/SignIn" element={<SignIn />} />
-        <Route path="/AdminLogin" element={<AdminLogin />} />
-        <Route path="/UserDashboard" element={<UserDashboard />} />
-        <Route path="/SignUp" element={<SignUp />} />
-        <Route path="/ForgotPassword" element={<ForgotPassword />} />
+        <Route path="/personal-expense-tracker/BasicAPI" element={<BasicAPI />} />
+        <Route path="/personal-expense-tracker/AddExpense" element={<AddBasicAPI />} />
+        <Route path="/personal-expense-tracker/UserLogin" element={<UserLogin />} />
+        <Route path="/personal-expense-tracker/DummyData" element={<DummyData />} />
+        <Route path="/personal-expense-tracker/DeviceDimentions" element={<DeviceDimensions />} />
+        
+        <Route path="/personal-expense-tracker/AdminDashboard" element={<AdminDashboard />} />
+        <Route path="/personal-expense-tracker/LandingPage" element={<LandingPage />} />
+        <Route path="/personal-expense-tracker/SignIn" element={<SignIn />} />
+        <Route path="/personal-expense-tracker/AdminLogin" element={<AdminLogin />} />
+        <Route path="/personal-expense-tracker/UserDashboard" element={<UserDashboard />} />
+        <Route path="/personal-expense-tracker/SignUp" element={<SignUp />} />
+        <Route path="/personal-expense-tracker/ForgotPassword" element={<ForgotPassword />} />
       </Routes>
     </Router>
   );

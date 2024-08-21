@@ -35,7 +35,7 @@ function AddBasicAPI() {
         console.error("Error adding user:", err);
       });
       alert('User added successfully')
-      navigate('/UserLogin')
+      navigate('/personal-expense-tracker/UserLogin')
   };
 
   return (

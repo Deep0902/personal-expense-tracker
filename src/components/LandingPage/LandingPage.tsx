@@ -7,9 +7,14 @@ import sofaChill from "/images/sofa-chill.png";
 import TopNavbarSignedOut from "../TopNavbarSignedOut/TopNavbarSignedOut";
 import Footer from "../Footer/Footer";
 import ScrollTop from "../ScrollTop/ScrollTop";
+import { useEffect } from "react";
 
 function LandingPage() {
   const navigate = useNavigate();
+  useEffect(() => {
+    // Scroll to the top of the page when the component mounts
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
   return (
     <>
       <TopNavbarSignedOut />
@@ -41,7 +46,7 @@ function LandingPage() {
           <div className="item item-4 poppins-medium">
             <button
               onClick={() => {
-                navigate("/SignUp");
+                navigate("/personal-expense-tracker/SignUp");
               }}
               className="poppins-medium"
             >
@@ -134,7 +139,7 @@ function LandingPage() {
           <button
             className="poppins-medium"
             onClick={() => {
-              navigate("/SignUp");
+              navigate("/personal-expense-tracker/SignUp");
             }}
           >
             Sign Up

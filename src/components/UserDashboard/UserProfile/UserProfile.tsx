@@ -165,7 +165,7 @@ function UserProfile({ userData, toggleParentUseEffect }: UserProfileProps) {
       toggleAlertPopup();
       toggleLoading();
       setTimeout(() => {
-        navigate("/SignIn");
+        navigate("/personal-expense-tracker/SignIn");
       }, 5000);
       console.log(response.data.message);
     } catch (error) {

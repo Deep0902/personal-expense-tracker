@@ -42,7 +42,7 @@ function TopNavbarProfile({
           className="title"
           onClick={() => {
             setToggleScrollTop(!toggleScrollTop);
-            navigate("/UserDashboard");
+            navigate("/personal-expense-tracker/UserDashboard");
           }}
         >
           <img src={logo} alt="" />

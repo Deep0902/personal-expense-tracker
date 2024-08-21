@@ -20,7 +20,7 @@ function HomePage() {
           <button
             className="button-highlight poppins-medium"
             onClick={() => {
-              navigate("/LandingPage");
+              navigate("/personal-expense-tracker/LandingPage");
             }}
           >
             Landing Page
@@ -37,7 +37,7 @@ function HomePage() {
         </button>
         <button
           onClick={() => {
-            navigate("/AdminLogin");
+            navigate("/personal-expense-tracker/AdminLogin");
           }}
         >
           Admin Login
@@ -46,14 +46,14 @@ function HomePage() {
         <br />
         <button
           onClick={() => {
-            navigate("/DummyData");
+            navigate("/personal-expense-tracker/DummyData");
           }}
         >
           Dummy Data Display
         </button>
         <button
           onClick={() => {
-            navigate("/DeviceDimentions");
+            navigate("/personal-expense-tracker/DeviceDimentions");
           }}
         >
           Device Dimentions

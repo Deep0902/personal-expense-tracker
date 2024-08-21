@@ -22,7 +22,7 @@ function TopNavbarSignedOut() {
           className="title"
           onClick={() => {
             setToggleScrollTop(!toggleScrollTop)
-            navigate("/LandingPage");
+            navigate("/personal-expense-tracker/LandingPage");
           }}
         >
           <img src={logo} alt="" />
@@ -32,7 +32,7 @@ function TopNavbarSignedOut() {
         <div className="navbar-right">
           <button
             onClick={() => {
-              navigate("/SignIn");
+              navigate("/personal-expense-tracker/SignIn");
             }}
             className="poppins-medium desktop-button"
           >
@@ -46,7 +46,7 @@ function TopNavbarSignedOut() {
           <div className="dropdown-menu">
             <a
               onClick={() => {
-                navigate("/SignIn");
+                navigate("/personal-expense-tracker/SignIn");
               }}
               className="dropdown-link"
             >
@@ -54,7 +54,7 @@ function TopNavbarSignedOut() {
             </a>
             <a
               onClick={() => {
-                navigate("/AdminLogin");
+                navigate("/personal-expense-tracker/AdminLogin");
               }}
               className="dropdown-link"
             >

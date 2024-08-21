@@ -70,7 +70,7 @@ function UserDashboard() {
       sessionStorage.getItem("user_pass") || localStorage.getItem("user_pass");
 
     if (!email || !pass) {
-      navigate("/SignIn"); // Redirect to SignIn if no email or password
+      navigate("/personal-expense-tracker/SignIn"); // Redirect to SignIn if no email or password
       return;
     }
 
@@ -92,11 +92,11 @@ function UserDashboard() {
         const isValidUser = res.data.valid;
 
         if (!isValidUser) {
-          navigate("/SignIn"); // Redirect to SignIn if user is not valid
+          navigate("/personal-expense-tracker/SignIn"); // Redirect to SignIn if user is not valid
         }
       } catch (err) {
         console.log(err); // Log any errors
-        navigate("/SignIn"); // Redirect to SignIn on error
+        navigate("/personal-expense-tracker/SignIn"); // Redirect to SignIn on error
       }
     };
 
@@ -158,7 +158,7 @@ function UserDashboard() {
   const handleLogout = () => {
     sessionStorage.removeItem("user_email"); // Remove user email from session storage
     sessionStorage.removeItem("user_pass"); // Remove user password from session storage
-    navigate("/SignIn"); // Redirect to SignIn
+    navigate("/personal-expense-tracker/SignIn"); // Redirect to SignIn
   };
   //If the user is blocked
   const isUserBlocked = user_data?.is_user_blocked;

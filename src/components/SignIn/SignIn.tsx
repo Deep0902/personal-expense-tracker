@@ -79,7 +79,7 @@ function SignIn() {
           localStorage.removeItem("user_email");
           localStorage.removeItem("user_pass");
         }
-        navigate("/UserDashboard", {
+        navigate("/personal-expense-tracker/UserDashboard", {
           state: {
             user_email: isUserValid.user_email,
             user_pass: credentials.user_pass,
@@ -125,7 +125,7 @@ function SignIn() {
               className="title"
               onClick={() => {
                 setToggleScrollTop(!toggleScrollTop);
-                navigate("/LandingPage");
+                navigate("/personal-expense-tracker/LandingPage");
               }}
             >
               <img src={logo} alt="Logo" />
@@ -135,7 +135,7 @@ function SignIn() {
             <div className="navbar-right">
               <button
                 onClick={() => {
-                  navigate("/AdminLogin");
+                  navigate("/personal-expense-tracker/AdminLogin");
                 }}
                 className="poppins-medium desktop-button"
               >
@@ -149,7 +149,7 @@ function SignIn() {
               <div className="dropdown-menu">
                 <a
                   onClick={() => {
-                    navigate("/SignIn");
+                    navigate("/personal-expense-tracker/SignIn");
                   }}
                   className="dropdown-link"
                 >
@@ -157,7 +157,7 @@ function SignIn() {
                 </a>
                 <a
                   onClick={() => {
-                    navigate("/AdminLogin");
+                    navigate("/personal-expense-tracker/AdminLogin");
                   }}
                   className="dropdown-link"
                 >
@@ -228,7 +228,7 @@ function SignIn() {
               Need an account?{" "}
               <span
                 onClick={() => {
-                  navigate("/SignUp");
+                  navigate("/personal-expense-tracker/SignUp");
                 }}
                 className="underlineText poppins-semibold"
               >
@@ -237,7 +237,7 @@ function SignIn() {
             </p>
             <p
               className="underlineText poppins-semibold"
-              onClick={() => navigate("/ForgotPassword")}
+              onClick={() => navigate("/personal-expense-tracker/ForgotPassword")}
             >
               Forgot Password
             </p>

@@ -95,8 +95,8 @@ function AdminDashboard() {
   const handleLogout = () => {
     sessionStorage.removeItem("admin_id");
     sessionStorage.removeItem("admin_pass");
-    navigate("/AdminLogin");
-    window.history.pushState(null, "", "/AdminLogin");
+    navigate("/personal-expense-tracker/AdminLogin");
+    window.history.pushState(null, "", "/personal-expense-tracker/AdminLogin");
   };
 
   // Search input change handler
