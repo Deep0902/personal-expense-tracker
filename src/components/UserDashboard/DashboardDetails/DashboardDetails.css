@@ -313,6 +313,9 @@
     width: 10px;
     margin-right: 4px;
   }
+  .editIcon {
+    scale: 0.7;
+  }
 }
 
 @keyframes initialAppear {

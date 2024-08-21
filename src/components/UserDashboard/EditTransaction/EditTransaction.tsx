@@ -207,7 +207,7 @@ function EditTransaction({
             <div className="popupBox">
               <span className="poppins-bold">Edit Transaction</span>
               <label className="poppins-regular">
-                Enter updated Transaction details {userData.user_id}
+                Enter updated Transaction details
               </label>
               <br />
               <form className="transaction-form" onSubmit={handleSubmit}>
