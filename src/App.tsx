@@ -33,10 +33,10 @@ function App() {
         <Route index path="/personal-expense-tracker" element={<HomePage />} />
         <Route path="/personal-expense-tracker/BasicAPI" element={<BasicAPI />} />
         <Route path="/personal-expense-tracker/AddExpense" element={<AddBasicAPI />} />
-        <Route path="/personal-expense-tracker/UserLogin" element={<UserLogin />} />
         <Route path="/personal-expense-tracker/DummyData" element={<DummyData />} />
         <Route path="/personal-expense-tracker/DeviceDimentions" element={<DeviceDimensions />} />
         
+        <Route path="/personal-expense-tracker/UserLogin" element={<UserLogin />} />
         <Route path="/personal-expense-tracker/AdminDashboard" element={<AdminDashboard />} />
         <Route path="/personal-expense-tracker/LandingPage" element={<LandingPage />} />
         <Route path="/personal-expense-tracker/SignIn" element={<SignIn />} />
