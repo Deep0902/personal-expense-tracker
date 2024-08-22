@@ -41,7 +41,8 @@ function App() {
         <Route path="/personal-expense-tracker/LandingPage" element={<LandingPage />} />
         <Route path="/personal-expense-tracker/SignIn" element={<SignIn />} />
         <Route path="/personal-expense-tracker/AdminLogin" element={<AdminLogin />} />
-        <Route path="/personal-expense-tracker/UserDashboard" element={<UserDashboard />} />
+        {/* <Route path="/personal-expense-tracker/UserDashboard" element={<UserDashboard />} /> */}
+        <Route path="/personal-expense-tracker/UserDashboard/*" element={<UserDashboard />} />
         <Route path="/personal-expense-tracker/SignUp" element={<SignUp />} />
         <Route path="/personal-expense-tracker/ForgotPassword" element={<ForgotPassword />} />
       </Routes>

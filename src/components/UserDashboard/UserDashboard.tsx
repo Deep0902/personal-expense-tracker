@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./UserDashboard.css";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Footer from "../Footer/Footer";
 import { Users } from "../../interfaces/Users";
 import TopNavbarProfile from "./TopNavbarProfile/TopNavbarProfile";
@@ -17,6 +17,7 @@ import ScrollTop from "../ScrollTop/ScrollTop";
 import PopupWarning from "../PopupWarning/PopupWarning";
 
 function UserDashboard() {
+  const location = useLocation();
   const navigate = useNavigate(); // Hook for navigation
   const token = "my_secure_token"; // Token for authorization
 
@@ -29,10 +30,25 @@ function UserDashboard() {
   //Handle search query
   const [searchQuery, setSearchQuery] = useState("");
   const [tabSelected, settabSelected] = useState("Dashboard");
-  const handleDataFromComponent = (tab: string, category?: string) => {
+  const handleDataFromComponent = (tab: string) => {
     settabSelected(tab);
-    if (category) {
-      setSearchQuery(category.toLowerCase());
+
+    switch (tab) {
+      case "Dashboard":
+        navigate("/personal-expense-tracker/UserDashboard/DashboardDetails");
+        break;
+      case "History":
+        navigate("/personal-expense-tracker/UserDashboard/TransactionHistory");
+        break;
+      case "About":
+        navigate("/personal-expense-tracker/UserDashboard/About");
+        break;
+      case "Settings":
+        navigate("/personal-expense-tracker/UserDashboard/UserProfile");
+        break;
+      default:
+        navigate("/personal-expense-tracker/UserDashboard/DashboardDetails");
+        break;
     }
   };
 
@@ -164,6 +180,30 @@ function UserDashboard() {
   const isUserBlocked = user_data?.is_user_blocked;
   const blockedMessage =
     "This user has been blocked. Contact your admin to enable this user. You will be logged out now.";
+
+  useEffect(() => {
+    const path = location.pathname.split("/").pop();
+
+    switch (path) {
+      case "DashboardDetails":
+        settabSelected("Dashboard");
+        break;
+      case "TransactionHistory":
+        settabSelected("History");
+        break;
+      case "About":
+        settabSelected("About");
+        break;
+      case "UserProfile":
+        settabSelected("Settings");
+        break;
+      default:
+        settabSelected("Dashboard");
+        navigate("/personal-expense-tracker/UserDashboard/DashboardDetails");
+        break;
+    }
+  }, [location.pathname, navigate]);
+
   return (
     <>
       <ScrollTop />
