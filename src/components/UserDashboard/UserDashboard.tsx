@@ -30,15 +30,21 @@ function UserDashboard() {
   //Handle search query
   const [searchQuery, setSearchQuery] = useState("");
   const [tabSelected, settabSelected] = useState("Dashboard");
-  const handleDataFromComponent = (tab: string) => {
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const handleDataFromComponent = (tab: string, category?: string) => {
     settabSelected(tab);
+    setSelectedCategory(category || null); // Set the category in state
 
     switch (tab) {
       case "Dashboard":
-        navigate("/personal-expense-tracker/UserDashboard/DashboardDetails");
+        navigate(
+          "/personal-expense-tracker/UserDashboard/DashboardDetails"
+        );
         break;
       case "History":
-        navigate("/personal-expense-tracker/UserDashboard/TransactionHistory");
+        navigate(
+          "/personal-expense-tracker/UserDashboard/TransactionHistory"
+        );
         break;
       case "About":
         navigate("/personal-expense-tracker/UserDashboard/About");
@@ -47,7 +53,9 @@ function UserDashboard() {
         navigate("/personal-expense-tracker/UserDashboard/UserProfile");
         break;
       default:
-        navigate("/personal-expense-tracker/UserDashboard/DashboardDetails");
+        navigate(
+          "/personal-expense-tracker/UserDashboard/DashboardDetails"
+        );
         break;
     }
   };
@@ -264,6 +272,7 @@ function UserDashboard() {
                   onEditTransaction={toggleEditTransaction}
                   userData={user_data}
                   initialSearchQuery={searchQuery} // Pass the search query
+                  selectedCategory={selectedCategory} // Pass the selected category
                 />
               )}
               {tabSelected === "About" && <About />}

@@ -15,12 +15,14 @@ interface HistoryDetailsProps {
   onEditTransaction: (transaction: Expense) => void;
   userData: any;
   initialSearchQuery: string;
+  selectedCategory: string | null; // Add this prop
 }
 
 function TransactionHistory({
   userExpenses,
   onNewTransaction,
   onEditTransaction,
+  selectedCategory,
   userData,
   initialSearchQuery = "", // New prop with default empty string
 }: HistoryDetailsProps) {
@@ -277,7 +279,11 @@ function TransactionHistory({
     setShowConfirmationPopup(false);
     setConfirmationTransactionNo(null); // Clear the transaction number after handling confirmation
   };
-
+  useEffect(() => {
+    if (selectedCategory) {
+      setSearchQuery(selectedCategory.toLowerCase());
+    }
+  }, [selectedCategory]);
   useEffect(() => {
     // Scroll to the top of the page when the component mounts
     window.scrollTo({ top: 0, behavior: "smooth" });
