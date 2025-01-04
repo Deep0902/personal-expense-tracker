@@ -168,8 +168,9 @@
 
 .categoryCards {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Creates 3 equal columns */
-  gap: 30px 90px; /* Adjust the gap between cards as needed */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px 90px;
+  justify-content: center;
 }
 .displayUsername {
   display: none;
