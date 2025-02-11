@@ -305,7 +305,7 @@
   .cards {
     min-width: unset;
     min-height: unset;
-    width: 130px;
+    width: 100%;
     padding: 6px;
     margin-bottom: 20px;
   }
